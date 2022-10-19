@@ -1,6 +1,8 @@
 package pkg
 
 import (
+	"context"
+	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
@@ -13,7 +15,8 @@ func Routes() http.Handler {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	db, err := OpenDb("postgres://postgres:admin@localhost:5432/testApp")
+	handlers.DB = db
 	handlers.TemplateCache = templateCache
 	router := httprouter.New()
 
@@ -21,4 +24,17 @@ func Routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/signIn", handlers.SignIn)
 
 	return router
+}
+
+func OpenDb(connectionString string) (*pgxpool.Pool, error) {
+	pool, err := pgxpool.Connect(context.Background(), connectionString)
+	if err != nil {
+		return nil, err
+	}
+	err = pool.Ping(context.Background())
+	if err != nil {
+		return nil, err
+	}
+	defer pool.Close()
+	return pool, nil
 }
