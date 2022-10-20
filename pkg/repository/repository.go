@@ -2,10 +2,11 @@ package repository
 
 import (
 	"github.com/jackc/pgx/v4/pgxpool"
-	"testApp/pkg/service"
+	"testApp/pkg/models"
 )
 
 type Authorization interface {
+	CreateUser(username string, password string) (*models.UserModel, error)
 }
 
 type Repository struct {
@@ -14,6 +15,6 @@ type Repository struct {
 
 func NewRepository(db *pgxpool.Pool) *Repository {
 	return &Repository{
-		Authorization: service.NewUserService(db),
+		Authorization: NewAuthRepo(db),
 	}
 }

@@ -1,13 +1,29 @@
 package handler
 
 import (
+	"encoding/json"
+	"fmt"
 	"net/http"
+	"testApp/pkg/helpers"
 )
 
-func (h *Handler) SignUp(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
 	//username := r.PostForm.Get("username")
 	//password := r.PostForm.Get("password")
-	w.Write([]byte("ASdasd"))
+	username := "nurlan"
+	password := "admin"
+	w.Header().Set("Content-Type", "application/json")
+	up, err := h.UserService.SignUp(username, password)
+	if err != nil {
+		fmt.Println("ASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASA")
+		helpers.BadRequest(w, r, err)
+		return
+	}
+	json.NewEncoder(w).Encode(up)
+}
+
+func (h *Handler) SignUp(w http.ResponseWriter, r *http.Request) {
+	h.render(w, "signIn.tmpl", r)
 }
 
 func (h *Handler) SignIn(w http.ResponseWriter, r *http.Request) {
