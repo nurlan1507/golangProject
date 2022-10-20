@@ -13,7 +13,7 @@ type Config struct {
 }
 
 func OpenDb(cfg *Config) (*pgxpool.Pool, error) {
-	connectionString := fmt.Sprintf("postgres://postgres:%v@localhost:5432/%v", cfg.Password, cfg.DbName)
+	connectionString := fmt.Sprintf("postgres://postgres:%+v@localhost:5432/%+v", cfg.Password, cfg.DbName)
 	pool, err := pgxpool.Connect(context.Background(), connectionString)
 	if err != nil {
 		return nil, err
@@ -22,6 +22,5 @@ func OpenDb(cfg *Config) (*pgxpool.Pool, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer pool.Close()
 	return pool, nil
 }

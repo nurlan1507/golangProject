@@ -10,6 +10,7 @@ type UserService interface {
 	SignUp(username string, password string) (*models.UserModel, error)
 	HashPassword(password string) ([]byte, error)
 	CheckPassword(password string, hashedPassword string) (bool, error)
+	GetUsers() []models.UserModel
 }
 
 type Service struct {

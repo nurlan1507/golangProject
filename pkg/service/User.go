@@ -45,3 +45,8 @@ func (u *User) CheckPassword(password string, hashedPassword string) (bool, erro
 	}
 	return true, nil
 }
+
+func (u *User) GetUsers() []models.UserModel {
+	arr := u.repo.GetUsers()
+	return arr
+}

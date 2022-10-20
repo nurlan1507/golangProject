@@ -13,12 +13,8 @@ type Handler struct {
 	TemplateCache map[string]*template.Template
 }
 
-func InitilalizeHandler() *Handler {
-	db, err := repository.OpenDb(&repository.Config{DbName: "testApp", User: "postgres", Password: "admin"})
-	if err != nil {
-		return nil
-	}
-	repos := repository.NewRepository(db)
+func InitilalizeHandler(repos *repository.Repository) *Handler {
+
 	templateCache, _ := NewTemplateCache()
 	return &Handler{UserService: service.NewService(repos).UserService, TemplateCache: templateCache}
 }
