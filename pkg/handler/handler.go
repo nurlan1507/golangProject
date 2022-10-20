@@ -1,16 +1,16 @@
 package handler
 
 import (
-	"github.com/jackc/pgx/v4/pgxpool"
 	"html/template"
 	"net/http"
+	"testApp/pkg/service"
 )
 
 type itemRep interface {
 	saveItem()
 }
 type Handler struct {
-	DB            *pgxpool.Pool
+	UserService   service.UserService
 	TemplateCache map[string]*template.Template
 }
 

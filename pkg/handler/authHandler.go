@@ -5,6 +5,8 @@ import (
 )
 
 func (h *Handler) SignUp(w http.ResponseWriter, r *http.Request) {
+	//username := r.PostForm.Get("username")
+	//password := r.PostForm.Get("password")
 	w.Write([]byte("ASdasd"))
 }
 

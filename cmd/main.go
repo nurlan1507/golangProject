@@ -4,6 +4,7 @@ import (
 	"log"
 	"testApp"
 	"testApp/pkg"
+	"testApp/pkg/repository"
 )
 
 type Application struct {
@@ -13,5 +14,13 @@ type Application struct {
 
 func main() {
 	server := &testApp.Server{}
-	server.RunServer(":4000", pkg.Routes())
+	db, err := repository.OpenDb(&repository.Config{DbName: "testApp", User: "postgres", Password: "admin"})
+	if err != nil {
+		return
+	}
+	repository.NewRepository(db)
+	err = server.RunServer(":4000", pkg.Routes())
+	if err != nil {
+		return
+	}
 }
