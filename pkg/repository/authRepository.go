@@ -15,7 +15,7 @@ type Auth struct {
 
 func (a *Auth) CreateUser(username string, password string) (*models.UserModel, error) {
 	fmt.Println("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOl")
-	stmt := `INSERT INTO people(username, password) VALUES ($1, $2) RETURNING *`
+	stmt := `INSERT INTO users(username, password, refreshToken) VALUES ($1, $2, '') RETURNING *`
 	result := a.Db.QueryRow(context.Background(), stmt, username, password)
 	newUser := &models.UserModel{}
 	err := result.Scan(&newUser.Id, &newUser.Username, &newUser.Password)
@@ -41,6 +41,15 @@ func (a *Auth) GetUsers() []models.UserModel {
 		arr = append(arr, *user)
 	}
 	return arr
+}
+
+func (a *Auth) UpdateRefreshToken(userId int, refreshToken string) error {
+	stmt := `UPDATE users SET refreshToken = $1, WHERE id = $2`
+	_, err := a.Db.Exec(context.Background(), stmt, refreshToken, userId)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func NewAuthRepo(db *pgxpool.Pool) *Auth {

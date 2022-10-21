@@ -11,7 +11,7 @@ type JWT interface {
 	NewJWT(user *models.UserModel, ttl time.Duration) (string, error)
 	VerifyToken(accessToken string) (jwt.MapClaims, error)
 	Parse(accessToken string) (string, error)
-	NewRefreshToken() (string, error)
+	NewRefreshToken(model models.UserModel) (string, error)
 }
 
 type Manager struct {
@@ -62,6 +62,14 @@ func (m *Manager) Parse(accessToken string) (string, error) {
 	return "", nil
 }
 
-func (m *Manager) NewRefreshToken() (string, error) {
-	return "", nil
+func (m *Manager) NewRefreshToken(user models.UserModel) (string, error) {
+	token := jwt.New(jwt.SigningMethodES256)
+	claims := token.Claims.(jwt.MapClaims)
+	claims["exp"] = time.Now().Add(30).Unix()
+	claims["id"] = user.Id
+	tokenString, err := token.SignedString(m.signKey)
+	if err != nil {
+		return "", err
+	}
+	return tokenString, nil
 }

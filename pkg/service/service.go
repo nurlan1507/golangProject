@@ -13,6 +13,9 @@ type UserService interface {
 	GetUsers() []models.UserModel
 }
 
+type TokenService interface {
+}
+
 type Service struct {
 	UserService
 }

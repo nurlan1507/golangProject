@@ -8,10 +8,8 @@ import (
 )
 
 func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
-	//username := r.PostForm.Get("username")
-	//password := r.PostForm.Get("password")
-	username := "nurlan"
-	password := "admin"
+	username := r.PostForm.Get("username")
+	password := r.PostForm.Get("password")
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Println("ASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASA")
 	up, err := h.UserService.SignUp(username, password)

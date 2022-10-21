@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"golang.org/x/crypto/bcrypt"
 	"testApp/pkg/models"
 	"testApp/pkg/repository"
@@ -13,7 +14,7 @@ type User struct {
 }
 
 func NewUserService(repo repository.Authorization) *User {
-	return &User{repo: repo}
+	return &User{repo: repo, JWT: NewJWTManager()}
 }
 
 func (u *User) SignIn(username string, password string) (string, error) {
@@ -26,7 +27,21 @@ func (u *User) SignUp(username string, password string) (*models.UserModel, erro
 	if err != nil {
 		return nil, err
 	}
+
 	newUser, err := u.repo.CreateUser(username, string(hashedPassword))
+	jwt, err := u.JWT.NewJWT(newUser, 1)
+	fmt.Println(jwt)
+	if err != nil {
+		return nil, err
+	}
+	token, err := u.JWT.NewRefreshToken(*newUser)
+	if err != nil {
+		return nil, err
+	}
+	err = u.repo.UpdateRefreshToken(newUser.Id, token)
+	if err != nil {
+		return nil, err
+	}
 	return newUser, nil
 }
 

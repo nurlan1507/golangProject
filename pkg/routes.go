@@ -10,7 +10,7 @@ import (
 func Routes() http.Handler {
 	db, _ := repository.OpenDb(&repository.Config{DbName: "testApp", User: "postgres", Password: "admin"})
 	repos := repository.NewRepository(db)
-	handler.InitilalizeHandler(repos)
+
 	handlers := handler.InitilalizeHandler(repos)
 	router := httprouter.New()
 
