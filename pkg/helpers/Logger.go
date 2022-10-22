@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -20,6 +21,7 @@ func BadRequest(w http.ResponseWriter, r *http.Request, err error) {
 type Loggers struct {
 	ErrorLogger *log.Logger
 	InfoLogger  *log.Logger
+	out         io.Closer
 }
 
 func InitLoggers() *Loggers {
@@ -35,6 +37,13 @@ func InitLoggers() *Loggers {
 	newHelpers := &Loggers{
 		ErrorLogger: ErrorLogger,
 		InfoLogger:  InfoLogger,
+		out:         file,
 	}
+
 	return newHelpers
+}
+
+func (l *Loggers) CloseFile(file os.File) error {
+	l.out.Close()
+	return nil
 }

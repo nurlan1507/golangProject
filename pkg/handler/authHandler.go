@@ -7,16 +7,34 @@ import (
 	"testApp/pkg/helpers"
 )
 
+type AuthForm struct {
+	Email     string
+	Username  string
+	Password  string
+	Validator *helpers.Validation
+}
+
 func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		h.Loggers.ErrorLogger.Println(err)
 		log.Fatal(err)
 	}
-	username := r.PostForm.Get("username")
-	password := r.PostForm.Get("password")
+	AuthForm := &AuthForm{
+		Email:     r.PostForm.Get("email"),
+		Username:  r.PostForm.Get("username"),
+		Password:  r.PostForm.Get("password"),
+		Validator: helpers.NewValidation(),
+	}
+
+	AuthForm.Validator.Check(helpers.IsValidEmail(AuthForm.Email), "email", "email is not valid")
+	AuthForm.Validator.Check(helpers.IsValidUsername(AuthForm.Username), "username", "username should not contain [.!?\\-] and be less than 5 symbols")
+	AuthForm.Validator.Check(helpers.IsValidPassword(AuthForm.Password), "password", "Password rules: at least 7 letters \n at least 1 number \n at least 1 upper case \n at least 1 special character")
+	if AuthForm.Validator.IsValid() == false {
+		json.NewEncoder(w).Encode(AuthForm.Validator.Errors)
+	}
 	w.Header().Set("Content-Type", "application/json")
-	up, err := h.UserService.SignUp(username, password)
+	up, err := h.UserService.SignUp(AuthForm.Email, AuthForm.Username, AuthForm.Password)
 	if err != nil {
 		h.Loggers.ErrorLogger.Println(err)
 		helpers.BadRequest(w, r, err)
@@ -30,7 +48,7 @@ func (h *Handler) GetUsers(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(up)
 }
 func (h *Handler) SignUp(w http.ResponseWriter, r *http.Request) {
-	h.render(w, "signIn.tmpl", r)
+	h.render(w, "signUp.tmpl", r)
 }
 
 func (h *Handler) SignIn(w http.ResponseWriter, r *http.Request) {

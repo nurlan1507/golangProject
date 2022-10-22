@@ -12,7 +12,8 @@ func Routes() http.Handler {
 	repos := repository.NewRepository(db)
 	handlers := handler.InitilalizeHandler(repos)
 	router := httprouter.New()
-
+	fileServer := http.FileServer(http.Dir("./ui/static/"))
+	router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static", fileServer))
 	router.HandlerFunc(http.MethodGet, "/signUp", handlers.SignUp)
 	router.HandlerFunc(http.MethodGet, "/signIn", handlers.SignIn)
 	router.HandlerFunc(http.MethodPost, "/signUp", handlers.SignUpPost)

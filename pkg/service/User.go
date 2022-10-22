@@ -19,18 +19,18 @@ func NewUserService(repo repository.Authorization) *User {
 	return &User{repo: repo, JWT: NewJWTManager(), loggers: helpers.InitLoggers()}
 }
 
-func (u *User) SignIn(username string, password string) (string, error) {
+func (u *User) SignIn(email string, username string, password string) (string, error) {
 
 	return "", nil
 }
 
-func (u *User) SignUp(username string, password string) (*models.UserModel, error) {
+func (u *User) SignUp(email string, username string, password string) (*models.UserModel, error) {
 	u.loggers.InfoLogger.Println(username + "- " + password)
 	hashedPassword, err := u.HashPassword(password)
 	if err != nil {
 		return nil, err
 	}
-	newUser, err := u.repo.CreateUser(username, string(hashedPassword))
+	newUser, err := u.repo.CreateUser(email, username, string(hashedPassword))
 	jwt, err := u.JWT.NewJWT(newUser, 1)
 	fmt.Println(jwt)
 	if err != nil {

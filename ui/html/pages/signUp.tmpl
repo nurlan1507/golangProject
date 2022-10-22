@@ -1,0 +1,28 @@
+{{define "main"}}
+<head>
+    <link rel="stylesheet" href="/static/css/registration.css">
+</head>
+<div class="signup-container">
+    <h2 class="signup-container-title">Sign up</h2>
+    <form class="input-icons" action="/signUp">
+        <div class="input-field-holder" >
+            <i class="fa fa-envelope icon"></i>
+            <input class="input-field" type="text" placeholder="Email...">
+        </div>
+        <div class="input-field-holder">
+            <i class="fa fa-user icon"></i>
+            <input class="input-field" type="text" placeholder="Username...">
+        </div>
+        <div class="input-field-holder">
+            <i class="fa fa-key icon" aria-hidden="true"></i>
+            <input class="input-field" type="password" placeholder="Password...">
+        </div>
+        <div class="input-field-holder">
+            <i class="fa fa-key icon" aria-hidden="true"></i>
+            <input class="input-field" type="password" placeholder="Repeat password...">
+        </div>
+        <button type="submit" class="signup-btn">Sign Up</button>
+    </form>
+</div>
+{{end}}
+

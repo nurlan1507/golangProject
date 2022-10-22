@@ -13,11 +13,11 @@ type Auth struct {
 	Db *pgxpool.Pool
 }
 
-func (a *Auth) CreateUser(username string, password string) (*models.UserModel, error) {
-	stmt := `INSERT INTO users(username, password, refreshToken) VALUES ($1, $2, '') RETURNING id,username,password`
-	result := a.Db.QueryRow(context.Background(), stmt, username, password)
+func (a *Auth) CreateUser(email string, username string, password string) (*models.UserModel, error) {
+	stmt := `INSERT INTO users(email,username, password, refreshToken) VALUES ($1, $2, $3, '') RETURNING id, email,username,password`
+	result := a.Db.QueryRow(context.Background(), stmt, email, username, password)
 	newUser := &models.UserModel{}
-	err := result.Scan(&newUser.Id, &newUser.Username, &newUser.Password)
+	err := result.Scan(&newUser.Id, &newUser.Email, &newUser.Username, &newUser.Password)
 	if err != nil {
 		fmt.Println(err)
 		if errors.Is(err, sql.ErrNoRows) {

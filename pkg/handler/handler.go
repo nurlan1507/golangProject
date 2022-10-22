@@ -16,7 +16,6 @@ type Handler struct {
 }
 
 func InitilalizeHandler(repos *repository.Repository) *Handler {
-
 	templateCache, _ := NewTemplateCache()
 	return &Handler{UserService: service.NewService(repos).UserService, TemplateCache: templateCache, Loggers: helpers.InitLoggers()}
 }
