@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
+	"testApp/pkg/helpers"
 	"testApp/pkg/repository"
 	"testApp/pkg/service"
 )
@@ -11,12 +12,13 @@ import (
 type Handler struct {
 	UserService   service.UserService
 	TemplateCache map[string]*template.Template
+	Loggers       *helpers.Loggers
 }
 
 func InitilalizeHandler(repos *repository.Repository) *Handler {
 
 	templateCache, _ := NewTemplateCache()
-	return &Handler{UserService: service.NewService(repos).UserService, TemplateCache: templateCache}
+	return &Handler{UserService: service.NewService(repos).UserService, TemplateCache: templateCache, Loggers: helpers.InitLoggers()}
 }
 
 func (h *Handler) render(w http.ResponseWriter, name string, r *http.Request) {

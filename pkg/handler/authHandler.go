@@ -2,19 +2,23 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
+	"log"
 	"net/http"
 	"testApp/pkg/helpers"
 )
 
 func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		h.Loggers.ErrorLogger.Println(err)
+		log.Fatal(err)
+	}
 	username := r.PostForm.Get("username")
 	password := r.PostForm.Get("password")
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Println("ASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASA")
 	up, err := h.UserService.SignUp(username, password)
 	if err != nil {
-		fmt.Println("ASDASDASDASDASDASDASDASDASDASDASDASDASDASDASDASA")
+		h.Loggers.ErrorLogger.Println(err)
 		helpers.BadRequest(w, r, err)
 		return
 	}
@@ -30,6 +34,5 @@ func (h *Handler) SignUp(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) SignIn(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasda")
 	h.render(w, "signIn.tmpl", r)
 }

@@ -1,8 +1,11 @@
 package service
 
 import (
+	"encoding/json"
 	"errors"
 	"github.com/golang-jwt/jwt/v4"
+	"strconv"
+	"testApp/pkg/helpers"
 	"testApp/pkg/models"
 	"time"
 )
@@ -15,23 +18,28 @@ type JWT interface {
 }
 
 type Manager struct {
-	signKey string
+	Loggers *helpers.Loggers
+	SignKey string
 }
 
 func NewJWTManager() *Manager {
-	manager := new(Manager)
-	manager.signKey = "signkey"
+	manager := &Manager{
+		SignKey: "key",
+		Loggers: helpers.InitLoggers(),
+	}
 	return manager
 }
 
 func (m *Manager) NewJWT(user *models.UserModel, ttl time.Duration) (string, error) {
-	token := jwt.New(jwt.SigningMethodES256)
-	claims := token.Claims.(jwt.MapClaims)
-	claims["exp"] = time.Now().Add(ttl).Unix()
-	claims["username"] = user.Username
-	claims["id"] = user.Id
-	tokenString, err := token.SignedString(m.signKey)
+	m.Loggers.InfoLogger.Println(m.SignKey)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"exp":      time.Now().Add(ttl).Unix(),
+		"username": user.Username,
+		"id":       user.Id,
+	})
+	tokenString, err := token.SignedString([]byte(m.SignKey))
 	if err != nil {
+		m.Loggers.ErrorLogger.Println(err)
 		return "", err
 	}
 	return tokenString, nil
@@ -44,10 +52,11 @@ func (m *Manager) VerifyToken(accessToken string) (jwt.MapClaims, error) {
 		if !ok {
 			return nil, errors.New("invalid token")
 		}
-		return []byte(m.signKey), nil
+		return m.SignKey, nil
 	}
 	token, err := jwt.ParseWithClaims(accessToken, claims, keyFunc)
 	if err != nil {
+		m.Loggers.ErrorLogger.Println(err)
 		return nil, err
 	}
 	if token.Valid {
@@ -63,12 +72,12 @@ func (m *Manager) Parse(accessToken string) (string, error) {
 }
 
 func (m *Manager) NewRefreshToken(user models.UserModel) (string, error) {
-	token := jwt.New(jwt.SigningMethodES256)
-	claims := token.Claims.(jwt.MapClaims)
-	claims["exp"] = time.Now().Add(30).Unix()
-	claims["id"] = user.Id
-	tokenString, err := token.SignedString(m.signKey)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"exp": json.Number(strconv.FormatInt(time.Now().Add(30).Unix(), 10)),
+	})
+	tokenString, err := token.SignedString([]byte(m.SignKey))
 	if err != nil {
+		m.Loggers.ErrorLogger.Println(err)
 		return "", err
 	}
 	return tokenString, nil

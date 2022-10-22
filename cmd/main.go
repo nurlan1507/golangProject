@@ -1,21 +1,17 @@
 package main
 
 import (
-	"log"
 	"testApp"
 	"testApp/pkg"
 )
 
-type Application struct {
-	InfoLog  *log.Logger
-	ErrorLog *log.Logger
+func init() {
+
 }
-
 func main() {
-
 	server := &testApp.Server{}
-
 	err := server.RunServer(":4000", pkg.Routes())
+
 	if err != nil {
 		return
 	}
