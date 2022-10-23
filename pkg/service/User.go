@@ -44,6 +44,7 @@ func (u *User) SignUp(email string, username string, password string) (*models.U
 	if err != nil {
 		return nil, err
 	}
+	newUser.AccessToken = jwt
 	return newUser, nil
 }
 

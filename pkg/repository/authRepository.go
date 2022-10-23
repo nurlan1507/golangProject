@@ -21,7 +21,7 @@ func (a *Auth) CreateUser(email string, username string, password string) (*mode
 	if err != nil {
 		fmt.Println(err)
 		if errors.Is(err, sql.ErrNoRows) {
-			return newUser, errors.New("POSHEL NAXUI")
+			return newUser, ErrNoRecord
 		}
 	}
 	return newUser, nil

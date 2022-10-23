@@ -17,9 +17,11 @@
     margin-top: 10px;
 }
 .input-field {
-    width: 100%;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 99%;
     text-align: center;
+    padding: 10px 0;
     border-radius: 7px;
     border-color: #929292
 }
@@ -44,4 +46,10 @@
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
+}
+
+.input-error{
+    padding: 5px 0;
+    font-size: 14px;
+    color: red;
 }

@@ -53,3 +53,10 @@ func IsValidUsername(username string) bool {
 	}
 	return true
 }
+
+func ArePasswordsEqual(pass1 string, pass2 string) bool {
+	if pass1 != pass2 {
+		return false
+	}
+	return true
+}
