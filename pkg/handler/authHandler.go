@@ -17,7 +17,6 @@ type AuthForm struct {
 }
 
 func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
-
 	err := r.ParseForm()
 	if err != nil {
 		h.Loggers.ErrorLogger.Println(err)
@@ -69,14 +68,7 @@ func (h *Handler) SignUp(w http.ResponseWriter, r *http.Request) {
 		Password:  r.PostForm.Get("password"),
 		Validator: helpers.NewValidation(),
 	}
-	newUser := &models.UserModel{
-		Username:    "n",
-		Email:       "SD",
-		Password:    "SDS",
-		AccessToken: "SSDA",
-	}
-
-	h.render(w, "signUp.tmpl", templateData.NewTemplateData(newUser, AuthForm))
+	h.render(w, "signUp.tmpl", templateData.NewTemplateData(nil, AuthForm))
 }
 
 func (h *Handler) SignIn(w http.ResponseWriter, r *http.Request) {

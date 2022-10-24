@@ -12,6 +12,7 @@ import (
 
 type Handler struct {
 	UserService   service.UserService
+	TokenService  service.JWT
 	TemplateCache map[string]*template.Template
 	Loggers       *helpers.Loggers
 }
@@ -21,7 +22,13 @@ func InitilalizeHandler(repos *repository.Repository) (*Handler, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Handler{UserService: service.NewService(repos).UserService, TemplateCache: templateCache, Loggers: helpers.InitLoggers()}, nil
+	var services = service.NewService(repos)
+	return &Handler{
+		UserService:   services.UserService,
+		TemplateCache: templateCache,
+		Loggers:       helpers.InitLoggers(),
+		TokenService:  services.JWT,
+	}, nil
 }
 
 func (h *Handler) render(w http.ResponseWriter, name string, data *templateData.TemplateData) {

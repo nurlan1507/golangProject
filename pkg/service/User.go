@@ -15,7 +15,7 @@ type User struct {
 }
 
 func NewUserService(repo repository.Authorization) *User {
-	return &User{repo: repo, JWT: NewJWTManager(), loggers: helpers.InitLoggers()}
+	return &User{repo: repo, JWT: NewJWTManager(repo), loggers: helpers.InitLoggers()}
 }
 
 func (u *User) SignIn(email string, username string, password string) (string, error) {
@@ -34,11 +34,11 @@ func (u *User) SignUp(email string, username string, password string) (*models.U
 	if err != nil {
 		return nil, err
 	}
-	token, err := u.JWT.NewRefreshToken(*newUser)
+	refreshToken, err := u.JWT.NewRefreshToken(*newUser)
 	if err != nil {
 		return nil, err
 	}
-	err = u.repo.UpdateRefreshToken(newUser.Id, token)
+	err = u.repo.CreateRefreshToken(newUser.Id, refreshToken)
 	if err != nil {
 		return nil, err
 	}

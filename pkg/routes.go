@@ -5,14 +5,13 @@ import (
 	"log"
 	"net/http"
 	"testApp/pkg/handler"
-	"testApp/pkg/middlewares"
 	"testApp/pkg/repository"
 )
 
 func Routes() http.Handler {
-	db, _ := repository.OpenDb(&repository.Config{DbName: "testApp", User: "postgres", Password: "admin"})
-	repos := repository.NewRepository(db)
-	handlers, err := handler.InitilalizeHandler(repos)
+	var db, _ = repository.OpenDb(&repository.Config{DbName: "testApp", User: "postgres", Password: "admin"})
+	var Repos = repository.NewRepository(db)
+	handlers, err := handler.InitilalizeHandler(Repos)
 	if err != nil {
 		log.Fatal(err)
 		return nil
@@ -28,7 +27,7 @@ func Routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/getUsers", handlers.GetUsers)
 
 	//homepage
-	router.Handle(http.MethodGet, "/home", middlewares.AuthMiddleware(lol))
+	router.Handle(http.MethodGet, "/home", handlers.AuthMiddleware(lol))
 	return router
 }
 

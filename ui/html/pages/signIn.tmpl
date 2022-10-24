@@ -1,20 +1,44 @@
-
 {{define "main"}}
-<div class="sign_in_container">
-    <form action="/signIn">
-        <div>
-            <label>Username</label>
-            <input type="text" name="username">
+<div class="signup-container">
+    <h2 class="signup-container-title">Sign up</h2>
+    <form class="input-icons" action="/signUp" method="post">
+        <div class="input-field-holder">
+            {{with .Form.Validator.Errors.email}}
+            <label class="input-error" >{{.}}</label>
+            {{end}}
+            <div>
+                <i class="fa fa-envelope icon"></i>
+                <input class="input-field" name="email" type="text" placeholder="Email..." value='{{.Form.Email}}'>
+            </div>
         </div>
-        <div>
-            <label>Password</label>
-            <input type="password" name="password">
+        <div class="input-field-holder">
+            {{with .Form.Validator.Errors.username}}
+            <label class="input-error">{{.}}</label>
+            {{end}}
+            <div>
+                <i class="fa fa-user icon"></i>
+                <input class="input-field" name="username" type="text" placeholder="Username..." value='{{.Form.Username}}'>
+            </div>
         </div>
-        <div>
-            <label>Repeat Password</label>
-            <input type="password" name="repeatPassword">
+        <div class="input-field-holder">
+            {{with .Form.Validator.Errors.password}}
+            <label class="input-error">{{.}}</label>
+            {{end}}
+            <div>
+                <i class="fa fa-key icon" aria-hidden="true"></i>
+                <input class="input-field" name="password" type="password" placeholder="Password...">
+            </div>
         </div>
-        <button type="submit">Sign In</button>
+        <div class="input-field-holder">
+            {{with .Form.Validator.Errors.repeatPassword}}
+            <label class="input-error">{{.}}</label>
+            {{end}}
+            <div>
+                <i class="fa fa-key icon" aria-hidden="true"></i>
+                <input class="input-field" name="repeatPassword" type="password" placeholder="Repeat password...">
+            </div>
+        </div>
+        <button type="submit" class="signup-btn" >Sign Up</button>
     </form>
 </div>
         {{end}}

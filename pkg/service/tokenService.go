@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 	"github.com/golang-jwt/jwt/v4"
-	"strconv"
 	"testApp/pkg/helpers"
 	"testApp/pkg/models"
+	"testApp/pkg/repository"
 	"time"
 )
 
@@ -15,14 +15,11 @@ var NoToken = errors.New("No token")
 var InvalidToken = errors.New("Token is invalid")
 var TokenError = errors.New("Server Error")
 var ExpiredToken = errors.New("Token is expired")
+var ExpiredRefreshToken = errors.New("RefreshToken is expired")
 
 type ErrorHandlerJwt struct {
 	Payload jwt.MapClaims
 	Err     error
-}
-
-func (e ErrorHandlerJwt) Error() string {
-	panic("implement me")
 }
 
 func HandleJWTError(payload jwt.MapClaims, err error) *ErrorHandlerJwt {
@@ -32,13 +29,6 @@ func HandleJWTError(payload jwt.MapClaims, err error) *ErrorHandlerJwt {
 	}
 }
 
-type JWT interface {
-	NewJWT(user *models.UserModel, ttl time.Duration) (string, error)
-	VerifyToken(accessToken string) (jwt.MapClaims, *ErrorHandlerJwt)
-	Parse(accessToken string) (string, error)
-	NewRefreshToken(model models.UserModel) (string, error)
-	RefreshAccessToken(claims jwt.MapClaims) (string, error)
-}
 type Claims struct {
 	Username string
 	Id       int
@@ -48,12 +38,14 @@ type Claims struct {
 type Manager struct {
 	Loggers *helpers.Loggers
 	SignKey string
+	repo    repository.Authorization
 }
 
-func NewJWTManager() *Manager {
+func NewJWTManager(repo repository.Authorization) *Manager {
 	manager := &Manager{
 		SignKey: "key",
 		Loggers: helpers.InitLoggers(),
+		repo:    repo,
 	}
 	return manager
 }
@@ -99,10 +91,14 @@ func (m *Manager) Parse(accessToken string) (string, error) {
 }
 
 func (m *Manager) NewRefreshToken(user models.UserModel) (string, error) {
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"exp":  strconv.FormatInt(time.Now().Add(30).Unix(), 10),
-		"user": user.Id,
-	})
+	claims := &Claims{
+		Username: user.Username,
+		Id:       user.Id,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(30).Unix(),
+		},
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString([]byte(m.SignKey))
 	if err != nil {
 		m.Loggers.ErrorLogger.Println(err)
@@ -122,6 +118,20 @@ func (m *Manager) RefreshAccessToken(payload jwt.MapClaims) (string, error) {
 	token, err := m.NewJWT(newUserModel, 1)
 	if err != nil {
 		return "", err
+	}
+	return token, nil
+}
+
+func (m *Manager) GetRefreshToken(userId int) (*models.RefreshToken, error) {
+	token, err := m.repo.GetRefreshToken(userId)
+	if err != nil {
+		if errors.Is(err, repository.ErrNoRecord) {
+			return nil, repository.ErrNoRecord
+		}
+		return nil, err
+	}
+	if time.Now().UTC().Hour() > token.Expires.Hour() {
+		return nil, ExpiredRefreshToken
 	}
 	return token, nil
 }

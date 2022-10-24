@@ -1,8 +1,10 @@
 package service
 
 import (
+	"github.com/golang-jwt/jwt/v4"
 	"testApp/pkg/models"
 	"testApp/pkg/repository"
+	"time"
 )
 
 type UserService interface {
@@ -13,15 +15,23 @@ type UserService interface {
 	GetUsers() []models.UserModel
 }
 
-type TokenService interface {
+type JWT interface {
+	NewJWT(user *models.UserModel, ttl time.Duration) (string, error)
+	VerifyToken(accessToken string) (jwt.MapClaims, *ErrorHandlerJwt)
+	Parse(accessToken string) (string, error)
+	NewRefreshToken(model models.UserModel) (string, error)
+	RefreshAccessToken(claims jwt.MapClaims) (string, error)
+	GetRefreshToken(userId int) (*models.RefreshToken, error)
 }
 
 type Service struct {
 	UserService
+	JWT
 }
 
 func NewService(reps *repository.Repository) *Service {
 	return &Service{
 		UserService: NewUserService(reps.Authorization),
+		JWT:         NewJWTManager(reps.Authorization),
 	}
 }
