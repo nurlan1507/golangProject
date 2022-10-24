@@ -1,8 +1,8 @@
 package service
 
 import (
-	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/golang-jwt/jwt/v4"
 	"strconv"
 	"testApp/pkg/helpers"
@@ -10,11 +10,39 @@ import (
 	"time"
 )
 
+var NotAuthorized = errors.New("You are not authorized")
+var NoToken = errors.New("No token")
+var InvalidToken = errors.New("Token is invalid")
+var TokenError = errors.New("Server Error")
+var ExpiredToken = errors.New("Token is expired")
+
+type ErrorHandlerJwt struct {
+	Payload jwt.MapClaims
+	Err     error
+}
+
+func (e ErrorHandlerJwt) Error() string {
+	panic("implement me")
+}
+
+func HandleJWTError(payload jwt.MapClaims, err error) *ErrorHandlerJwt {
+	return &ErrorHandlerJwt{
+		Err:     err,
+		Payload: payload,
+	}
+}
+
 type JWT interface {
 	NewJWT(user *models.UserModel, ttl time.Duration) (string, error)
-	VerifyToken(accessToken string) (jwt.MapClaims, error)
+	VerifyToken(accessToken string) (jwt.MapClaims, *ErrorHandlerJwt)
 	Parse(accessToken string) (string, error)
 	NewRefreshToken(model models.UserModel) (string, error)
+	RefreshAccessToken(claims jwt.MapClaims) (string, error)
+}
+type Claims struct {
+	Username string
+	Id       int
+	jwt.StandardClaims
 }
 
 type Manager struct {
@@ -32,11 +60,14 @@ func NewJWTManager() *Manager {
 
 func (m *Manager) NewJWT(user *models.UserModel, ttl time.Duration) (string, error) {
 	m.Loggers.InfoLogger.Println(m.SignKey)
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"exp":      time.Now().Add(ttl).Unix(),
-		"username": user.Username,
-		"id":       user.Id,
-	})
+	claims := &Claims{
+		Username: user.Username,
+		Id:       user.Id,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(ttl * time.Minute).Unix(),
+		},
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString([]byte(m.SignKey))
 	if err != nil {
 		m.Loggers.ErrorLogger.Println(err)
@@ -45,24 +76,24 @@ func (m *Manager) NewJWT(user *models.UserModel, ttl time.Duration) (string, err
 	return tokenString, nil
 }
 
-func (m *Manager) VerifyToken(accessToken string) (jwt.MapClaims, error) {
-	var claims = jwt.MapClaims{}
-	keyFunc := func(token *jwt.Token) (interface{}, error) {
+func (m *Manager) VerifyToken(accessToken string) (jwt.MapClaims, *ErrorHandlerJwt) {
+	claims := jwt.MapClaims{}
+	_, err := jwt.ParseWithClaims(accessToken, claims, func(token *jwt.Token) (interface{}, error) {
 		_, ok := token.Method.(*jwt.SigningMethodHMAC)
 		if !ok {
-			return nil, errors.New("invalid token")
+			return nil, TokenError
 		}
-		return m.SignKey, nil
-	}
-	token, err := jwt.ParseWithClaims(accessToken, claims, keyFunc)
+		return []byte(m.SignKey), nil
+	})
 	if err != nil {
-		m.Loggers.ErrorLogger.Println(err)
-		return nil, err
-	}
-	if token.Valid {
-		return claims, nil
-	} else {
-		return nil, errors.New("Token is invalid")
+		if errors.Is(err, jwt.ErrTokenExpired) {
+			m := make(map[string]string)
+			m["sdsda"] = "asd"
+			m["SUka"] = "LOx"
+			fmt.Println(m)
+			return claims, HandleJWTError(claims, ExpiredToken)
+		}
+		return nil, HandleJWTError(nil, NotAuthorized)
 	}
 	return claims, nil
 }
@@ -73,7 +104,8 @@ func (m *Manager) Parse(accessToken string) (string, error) {
 
 func (m *Manager) NewRefreshToken(user models.UserModel) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"exp": json.Number(strconv.FormatInt(time.Now().Add(30).Unix(), 10)),
+		"exp":  strconv.FormatInt(time.Now().Add(30).Unix(), 10),
+		"user": user.Id,
 	})
 	tokenString, err := token.SignedString([]byte(m.SignKey))
 	if err != nil {
@@ -81,4 +113,9 @@ func (m *Manager) NewRefreshToken(user models.UserModel) (string, error) {
 		return "", err
 	}
 	return tokenString, nil
+}
+
+func (m *Manager) RefreshAccessToken(payload jwt.MapClaims) (string, error) {
+
+	return "", nil
 }

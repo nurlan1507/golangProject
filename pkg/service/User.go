@@ -2,7 +2,6 @@ package service
 
 import (
 	"errors"
-	"fmt"
 	"golang.org/x/crypto/bcrypt"
 	"testApp/pkg/helpers"
 	"testApp/pkg/models"
@@ -32,7 +31,6 @@ func (u *User) SignUp(email string, username string, password string) (*models.U
 	}
 	newUser, err := u.repo.CreateUser(email, username, string(hashedPassword))
 	jwt, err := u.JWT.NewJWT(newUser, 1)
-	fmt.Println(jwt)
 	if err != nil {
 		return nil, err
 	}

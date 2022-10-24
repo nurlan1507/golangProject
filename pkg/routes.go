@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"testApp/pkg/handler"
+	"testApp/pkg/middlewares"
 	"testApp/pkg/repository"
 )
 
@@ -27,6 +28,10 @@ func Routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/getUsers", handlers.GetUsers)
 
 	//homepage
-	router.HandlerFunc(http.MethodGet, "/home", handlers.Home)
+	router.Handle(http.MethodGet, "/home", middlewares.AuthMiddleware(lol))
 	return router
+}
+
+func lol(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	w.Write([]byte("lol"))
 }

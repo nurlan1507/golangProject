@@ -16,6 +16,7 @@ type Auth struct {
 func (a *Auth) CreateUser(email string, username string, password string) (*models.UserModel, error) {
 	stmt := `INSERT INTO users(email,username, password, refreshToken) VALUES ($1, $2, $3, '') RETURNING id, email,username,password`
 	result := a.Db.QueryRow(context.Background(), stmt, email, username, password)
+	fmt.Println(result)
 	newUser := &models.UserModel{}
 	err := result.Scan(&newUser.Id, &newUser.Email, &newUser.Username, &newUser.Password)
 	if err != nil {
