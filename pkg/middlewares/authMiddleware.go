@@ -17,7 +17,7 @@ func AuthMiddleware(next httprouter.Handle) httprouter.Handle {
 			return
 		}
 		jwt := service.NewJWTManager()
-		data, e := jwt.VerifyToken(accessToken.Value)
+		_, e := jwt.VerifyToken(accessToken.Value)
 		if e != nil {
 			if errors.Is(e.Err, service.ExpiredToken) {
 				token, err := jwt.RefreshAccessToken(e.Payload)
@@ -32,9 +32,7 @@ func AuthMiddleware(next httprouter.Handle) httprouter.Handle {
 				}
 				http.SetCookie(w, newCookie)
 			}
-			return
 		}
-		fmt.Printf("%+v", data)
 		next(w, r, ps)
 	}
 }

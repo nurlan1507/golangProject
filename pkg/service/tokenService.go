@@ -87,10 +87,6 @@ func (m *Manager) VerifyToken(accessToken string) (jwt.MapClaims, *ErrorHandlerJ
 	})
 	if err != nil {
 		if errors.Is(err, jwt.ErrTokenExpired) {
-			m := make(map[string]string)
-			m["sdsda"] = "asd"
-			m["SUka"] = "LOx"
-			fmt.Println(m)
 			return claims, HandleJWTError(claims, ExpiredToken)
 		}
 		return nil, HandleJWTError(nil, NotAuthorized)
@@ -116,6 +112,16 @@ func (m *Manager) NewRefreshToken(user models.UserModel) (string, error) {
 }
 
 func (m *Manager) RefreshAccessToken(payload jwt.MapClaims) (string, error) {
+	newUserModel := new(models.UserModel)
+	newUserModel.Username = fmt.Sprint(payload["Username"])
+	userId, ok := payload["Id"].(int)
+	if !ok {
 
-	return "", nil
+	}
+	newUserModel.Id = userId
+	token, err := m.NewJWT(newUserModel, 1)
+	if err != nil {
+		return "", err
+	}
+	return token, nil
 }
