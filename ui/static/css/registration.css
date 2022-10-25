@@ -53,3 +53,8 @@
     font-size: 14px;
     color: red;
 }
+.reference{
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+}

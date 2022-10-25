@@ -1,0 +1,29 @@
+{{define "navbar"}}
+
+<ul class="navbar">
+    <li class="navbar-item"><a><img class="avatar" src="/static/png/avatar.png"></a></li>
+    <div class="sub-menu-wrap">
+        <div class="sub-menu">
+            <div class="user-info">
+                <img class="user-img" src="static/png/avatar.png">
+                <h3>Nurlan Baitassov</h3>
+            </div>
+            <hr>
+            <div class="sub-menu-menu">
+                <a href="">My quizez</a>
+                <a href="">Finished </a>
+                <a href="">Profile</a>
+                <a href="">Logout</a>
+            </div>
+        </div>
+    </div>
+</ul>
+
+<script>
+let avatar = document.querySelector('.navbar-item')
+let submenu = document.querySelector('.sub-menu-wrap')
+avatar.addEventListener("click", ()=>{
+    submenu.classList.toggle('open')
+})
+</script>
+{{end}}

@@ -64,9 +64,6 @@ func (a *Auth) GetUser(email string, password string) (*models.UserModel, error)
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
 	if err != nil {
-		if errors.Is(err, bcrypt.ErrMismatchedHashAndPassword) {
-			return nil, helpers.PasswordIncorrect
-		}
 		return nil, helpers.PasswordIncorrect
 	}
 	return user, nil

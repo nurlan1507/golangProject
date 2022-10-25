@@ -95,7 +95,7 @@ func (h *Handler) SignInPost(w http.ResponseWriter, r *http.Request) {
 			AuthForm.Validator.Errors["PasswordNotMatch"] = err.Error()
 		}
 		data.Form = AuthForm
-		h.render(w, "signIn.tmpl", data, 200)
+		h.render(w, "signIn.tmpl", data, http.StatusBadRequest)
 		return
 	}
 	data.AuthData = res

@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="input-field-holder">
-            {{with .Form.Validator.Errors.PasswordIncorrect}}
+            {{with .Form.Validator.Errors.PasswordNotMatch}}
             <label class="input-error">{{.}}</label>
             {{end}}
             <div>
@@ -21,6 +21,7 @@
             </div>
         </div>
         <button type="submit" class="signup-btn" >Sign In</button>
+        <a class="reference" href="/signUp">Create your account</a>
     </form>
 </div>
         {{end}}

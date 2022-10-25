@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"bytes"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -32,38 +33,44 @@ func InitilalizeHandler(repos *repository.Repository) (*Handler, error) {
 }
 
 func (h *Handler) render(w http.ResponseWriter, name string, data *templateData.TemplateData, code int) {
-
 	ts, ok := h.TemplateCache[name]
 	if ok == false {
 		http.Error(w, "page does not exist", 500)
 		return
 	}
-	err := ts.ExecuteTemplate(w, "base", data)
+	buf := new(bytes.Buffer)
+
+	err := ts.ExecuteTemplate(buf, "base", data)
 	if err != nil {
+		http.Error(w, err.Error(), 500)
 		return
 	}
-
+	buf.WriteTo(w)
 }
 
 // NewTemplateCache to generate new template cache
 func NewTemplateCache() (map[string]*template.Template, error) {
 	cache := map[string]*template.Template{}
 	pages, err := filepath.Glob("./ui/html/pages/*.tmpl")
+
 	if err != nil {
 		return nil, err
 	}
-
 	for _, page := range pages {
 		name := filepath.Base(page)
 		files := []string{
 			"./ui/html/base.tmpl",
-			page,
 		}
 		ts, err := template.ParseFiles(files...)
 		if err != nil {
 			return nil, err
 		}
+		ts, err = ts.ParseGlob("./ui/html/partials/*.tmpl")
+		if err != nil {
+			return nil, err
+		}
 
+		ts, err = ts.ParseFiles(page)
 		cache[name] = ts
 	}
 	return cache, nil
