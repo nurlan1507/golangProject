@@ -8,7 +8,7 @@ import (
 )
 
 type UserService interface {
-	SignIn(email string, username string, password string) (string, error)
+	SignIn(email string, password string) (*models.UserModel, error)
 	SignUp(email string, username string, password string) (*models.UserModel, error)
 	HashPassword(password string) ([]byte, error)
 	CheckPassword(password string, hashedPassword string) (bool, error)

@@ -31,7 +31,8 @@ func InitilalizeHandler(repos *repository.Repository) (*Handler, error) {
 	}, nil
 }
 
-func (h *Handler) render(w http.ResponseWriter, name string, data *templateData.TemplateData) {
+func (h *Handler) render(w http.ResponseWriter, name string, data *templateData.TemplateData, code int) {
+
 	ts, ok := h.TemplateCache[name]
 	if ok == false {
 		http.Error(w, "page does not exist", 500)
@@ -41,6 +42,7 @@ func (h *Handler) render(w http.ResponseWriter, name string, data *templateData.
 	if err != nil {
 		return
 	}
+
 }
 
 // NewTemplateCache to generate new template cache

@@ -10,13 +10,6 @@ import (
 	"time"
 )
 
-var NotAuthorized = errors.New("You are not authorized")
-var NoToken = errors.New("No token")
-var InvalidToken = errors.New("Token is invalid")
-var TokenError = errors.New("Server Error")
-var ExpiredToken = errors.New("Token is expired")
-var ExpiredRefreshToken = errors.New("RefreshToken is expired")
-
 type ErrorHandlerJwt struct {
 	Payload jwt.MapClaims
 	Err     error
@@ -62,7 +55,7 @@ func (m *Manager) NewJWT(user *models.UserModel, ttl time.Duration) (string, err
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString([]byte(m.SignKey))
 	if err != nil {
-		m.Loggers.ErrorLogger.Println(err)
+		fmt.Println(err)
 		return "", err
 	}
 	return tokenString, nil
@@ -73,15 +66,15 @@ func (m *Manager) VerifyToken(accessToken string) (jwt.MapClaims, *ErrorHandlerJ
 	_, err := jwt.ParseWithClaims(accessToken, claims, func(token *jwt.Token) (interface{}, error) {
 		_, ok := token.Method.(*jwt.SigningMethodHMAC)
 		if !ok {
-			return nil, TokenError
+			return nil, helpers.TokenError
 		}
 		return []byte(m.SignKey), nil
 	})
 	if err != nil {
 		if errors.Is(err, jwt.ErrTokenExpired) {
-			return claims, HandleJWTError(claims, ExpiredToken)
+			return claims, HandleJWTError(claims, helpers.ExpiredToken)
 		}
-		return nil, HandleJWTError(nil, NotAuthorized)
+		return nil, HandleJWTError(nil, helpers.NotAuthorized)
 	}
 	return claims, nil
 }
@@ -101,8 +94,9 @@ func (m *Manager) NewRefreshToken(user models.UserModel) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, err := token.SignedString([]byte(m.SignKey))
 	if err != nil {
+		fmt.Println(err)
 		m.Loggers.ErrorLogger.Println(err)
-		return "", err
+		return "", helpers.TokenError
 	}
 	return tokenString, nil
 }
@@ -117,7 +111,7 @@ func (m *Manager) RefreshAccessToken(payload jwt.MapClaims) (string, error) {
 	newUserModel.Id = userId
 	token, err := m.NewJWT(newUserModel, 1)
 	if err != nil {
-		return "", err
+		return "", helpers.TokenError
 	}
 	return token, nil
 }
@@ -125,13 +119,13 @@ func (m *Manager) RefreshAccessToken(payload jwt.MapClaims) (string, error) {
 func (m *Manager) GetRefreshToken(userId int) (*models.RefreshToken, error) {
 	token, err := m.repo.GetRefreshToken(userId)
 	if err != nil {
-		if errors.Is(err, repository.ErrNoRecord) {
-			return nil, repository.ErrNoRecord
+		if errors.Is(err, helpers.ErrNoRecord) {
+			return nil, helpers.ErrNoRecord
 		}
-		return nil, err
+		return nil, helpers.TokenError
 	}
 	if time.Now().UTC().Hour() > token.Expires.Hour() {
-		return nil, ExpiredRefreshToken
+		return nil, helpers.ExpiredRefreshToken
 	}
 	return token, nil
 }

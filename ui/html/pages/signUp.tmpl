@@ -6,6 +6,9 @@
             {{with .Form.Validator.Errors.email}}
             <label class="input-error" >{{.}}</label>
             {{end}}
+            {{with .Form.Validator.Errors.duplicate}}
+            <label class="input-error" >{{.}}</label>
+            {{end}}
             <div>
             <i class="fa fa-envelope icon"></i>
             <input class="input-field" name="email" type="text" placeholder="Email..." value='{{.Form.Email}}'>

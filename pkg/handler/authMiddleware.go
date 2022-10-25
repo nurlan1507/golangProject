@@ -2,16 +2,14 @@ package handler
 
 import (
 	"errors"
-	"fmt"
 	"github.com/julienschmidt/httprouter"
 	"net/http"
-	"testApp/pkg/service"
+	"testApp/pkg/helpers"
 )
 
 func (h *Handler) AuthMiddleware(next httprouter.Handle) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		accessToken, err := r.Cookie("AccessToken")
-		fmt.Println(r.Cookies())
 		if err != nil {
 			http.Redirect(w, r, "/signUp", 303)
 			return
@@ -19,7 +17,7 @@ func (h *Handler) AuthMiddleware(next httprouter.Handle) httprouter.Handle {
 
 		_, e := h.TokenService.VerifyToken(accessToken.Value)
 		if e != nil {
-			if errors.Is(e.Err, service.ExpiredToken) {
+			if errors.Is(e.Err, helpers.ExpiredToken) {
 				userId, ok := e.Payload["Id"].(int)
 				if !ok {
 				}
@@ -27,7 +25,7 @@ func (h *Handler) AuthMiddleware(next httprouter.Handle) httprouter.Handle {
 				//else : everything is ok, we regenerate a	ccessToken and set it to cookies
 				_, err := h.TokenService.GetRefreshToken(userId)
 				if err != nil {
-					if errors.Is(err, service.ExpiredRefreshToken) {
+					if errors.Is(err, helpers.ExpiredRefreshToken) {
 						http.Redirect(w, r, "/signUp", 400)
 						return
 					}

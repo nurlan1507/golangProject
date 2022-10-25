@@ -158,3 +158,74 @@ INFO: 	2022/10/24 22:45:20 key
 INFO: 	2022/10/24 22:58:25 nurlan1407- Nurlan1407!
 INFO: 	2022/10/24 22:58:26 key
 INFO: 	2022/10/24 23:01:20 key
+INFO: 	2022/10/25 00:49:35 211369- 211369N!
+INFO: 	2022/10/25 00:49:36 key
+INFO: 	2022/10/25 00:52:05 nurlan- nurlanA1!
+INFO: 	2022/10/25 00:52:06 key
+INFO: 	2022/10/25 01:00:14 nurlan1407- nurlan1407!A
+INFO: 	2022/10/25 01:00:15 nurlan1407- nurlan1407!A
+INFO: 	2022/10/25 01:00:16 nurlan1407- nurlan1407!A
+INFO: 	2022/10/25 01:02:40 nurlan1407- nurlan1407!A
+INFO: 	2022/10/25 01:02:41 key
+INFO: 	2022/10/25 01:14:51 nurlan- nurlanN1!
+INFO: 	2022/10/25 01:14:52 key
+INFO: 	2022/10/25 01:16:17 nurlan- nurlanN1!
+INFO: 	2022/10/25 01:16:18 key
+INFO: 	2022/10/25 01:16:54 nurlan- nurlanN1!
+INFO: 	2022/10/25 01:16:55 key
+INFO: 	2022/10/25 14:07:32 nurlan- Nurlan1!
+INFO: 	2022/10/25 14:07:35 key
+INFO: 	2022/10/25 14:08:45 nurlan- Nurlan1!
+INFO: 	2022/10/25 14:08:48 key
+INFO: 	2022/10/25 14:18:12 Nurlan1507- Nurlan1507!
+INFO: 	2022/10/25 14:18:13 key
+INFO: 	2022/10/25 14:47:09 Nurlan1507- Nurlan1507!
+INFO: 	2022/10/25 14:47:12 key
+INFO: 	2022/10/25 14:51:47 Nurlan1507- Nurlan1507!
+ERROR: 	2022/10/25 14:51:49 authHandler.go:43: ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "users_email_key" (SQLSTATE 23505)
+INFO: 	2022/10/25 14:58:15 Nurlan15071- Nurlan1507!
+INFO: 	2022/10/25 14:58:17 Nurlan15071- Nurlan1507!
+INFO: 	2022/10/25 14:58:19 Nurlan15071- Nurlan1507!
+INFO: 	2022/10/25 15:00:34 Nurlan15071- Nurlan1507!
+ERROR: 	2022/10/25 15:00:36 authHandler.go:43: ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "users_email_key" (SQLSTATE 23505)
+INFO: 	2022/10/25 15:03:48 Nurlan15071- Nurlan1507!
+ERROR: 	2022/10/25 15:03:51 authHandler.go:43: ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "users_email_key" (SQLSTATE 23505)
+INFO: 	2022/10/25 15:04:42 Nurlan15071- Nurlan1507!
+ERROR: 	2022/10/25 15:04:44 authHandler.go:43: ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "users_email_key" (SQLSTATE 23505)
+INFO: 	2022/10/25 15:05:30 Nurlan15071- Nurlan1507!
+ERROR: 	2022/10/25 15:05:31 authHandler.go:43: ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "users_email_key" (SQLSTATE 23505)
+INFO: 	2022/10/25 15:06:12 Nurlan15071- Nurlan1507!
+ERROR: 	2022/10/25 15:06:13 authHandler.go:43: ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "users_email_key" (SQLSTATE 23505)
+INFO: 	2022/10/25 15:06:35 Nurlan15071- Nurlan1507!
+ERROR: 	2022/10/25 15:06:36 authHandler.go:43: ОШИБКА: повторяющееся значение ключа нарушает ограничение уникальности "users_email_key" (SQLSTATE 23505)
+INFO: 	2022/10/25 15:42:53 qweqweqwe2- qQweqweqwe2!
+ERROR: 	2022/10/25 15:42:54 authHandler.go:49: user with email already exists
+INFO: 	2022/10/25 15:44:09 qweqweqwe2- qQweqweqwe2!
+ERROR: 	2022/10/25 15:44:10 authHandler.go:49: user with email already exists
+INFO: 	2022/10/25 15:44:29 Nurlan212312- Nurlan212312!
+ERROR: 	2022/10/25 15:44:30 authHandler.go:49: user with email already exists
+INFO: 	2022/10/25 15:50:54 Nurlan212312- Nurlan212312!
+ERROR: 	2022/10/25 15:50:55 authHandler.go:49: user with email already exists
+INFO: 	2022/10/25 15:51:10 Nurlan212312- Nurlan212312!
+ERROR: 	2022/10/25 15:51:11 authHandler.go:49: user with email already exists
+INFO: 	2022/10/25 15:52:35 Nurlan212312- Nurlan212312!
+INFO: 	2022/10/25 15:52:58 nurlanjuju- Nurlan1507!
+INFO: 	2022/10/25 15:55:03 nurlanjuju- Nurlan1507!
+INFO: 	2022/10/25 15:55:36 nurlanjuju- nurlanjujuN!1
+INFO: 	2022/10/25 16:49:19 Nurlan123- Baitasnur1507!
+INFO: 	2022/10/25 16:49:22 key
+INFO: 	2022/10/25 17:07:50 nurlan1407- Nurlan1407!
+INFO: 	2022/10/25 17:08:43 nurlan1407- Nurlan1407!
+INFO: 	2022/10/25 17:08:44 key
+INFO: 	2022/10/25 17:09:04 key
+INFO: 	2022/10/25 17:30:22 key
+INFO: 	2022/10/25 17:35:37 key
+INFO: 	2022/10/25 17:48:50 key
+INFO: 	2022/10/25 17:49:09 211369- Nurlan1507!
+INFO: 	2022/10/25 17:49:10 key
+INFO: 	2022/10/25 17:49:43 key
+INFO: 	2022/10/25 17:52:00 key
+INFO: 	2022/10/25 17:52:13 key
+INFO: 	2022/10/25 17:54:55 key
+INFO: 	2022/10/25 17:57:55 key
+INFO: 	2022/10/25 18:01:20 key

@@ -1,9 +1,9 @@
 {{define "main"}}
 <div class="signup-container">
-    <h2 class="signup-container-title">Sign up</h2>
-    <form class="input-icons" action="/signUp" method="post">
+    <h2 class="signup-container-title">Sign In</h2>
+    <form class="input-icons" action="/signIn" method="post">
         <div class="input-field-holder">
-            {{with .Form.Validator.Errors.email}}
+            {{with .Form.Validator.Errors.NotFound}}
             <label class="input-error" >{{.}}</label>
             {{end}}
             <div>
@@ -12,33 +12,15 @@
             </div>
         </div>
         <div class="input-field-holder">
-            {{with .Form.Validator.Errors.username}}
-            <label class="input-error">{{.}}</label>
-            {{end}}
-            <div>
-                <i class="fa fa-user icon"></i>
-                <input class="input-field" name="username" type="text" placeholder="Username..." value='{{.Form.Username}}'>
-            </div>
-        </div>
-        <div class="input-field-holder">
-            {{with .Form.Validator.Errors.password}}
+            {{with .Form.Validator.Errors.PasswordIncorrect}}
             <label class="input-error">{{.}}</label>
             {{end}}
             <div>
                 <i class="fa fa-key icon" aria-hidden="true"></i>
-                <input class="input-field" name="password" type="password" placeholder="Password...">
+                <input class="input-field" name="password" type="password" placeholder="password...">
             </div>
         </div>
-        <div class="input-field-holder">
-            {{with .Form.Validator.Errors.repeatPassword}}
-            <label class="input-error">{{.}}</label>
-            {{end}}
-            <div>
-                <i class="fa fa-key icon" aria-hidden="true"></i>
-                <input class="input-field" name="repeatPassword" type="password" placeholder="Repeat password...">
-            </div>
-        </div>
-        <button type="submit" class="signup-btn" >Sign Up</button>
+        <button type="submit" class="signup-btn" >Sign In</button>
     </form>
 </div>
         {{end}}

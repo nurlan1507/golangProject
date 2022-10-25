@@ -2,6 +2,8 @@ package handler
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"testApp/pkg/helpers"
@@ -34,12 +36,16 @@ func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
 	AuthForm.Validator.Check(helpers.IsValidPassword(AuthForm.Password), "password", "Password rules: at least 7 letters \n at least 1 number \n at least 1 upper case \n at least 1 special character")
 	AuthForm.Validator.Check(helpers.ArePasswordsEqual(AuthForm.Password, r.PostForm.Get("repeatPassword")), "repeatPassword", "passwords do not match")
 	if AuthForm.Validator.Valid() == false {
-		h.render(w, "signUp.tmpl", templateData.NewTemplateData(&models.UserModel{}, AuthForm))
+		h.render(w, "signUp.tmpl", templateData.NewTemplateData(&models.UserModel{}, AuthForm), 400)
 		return
 	}
-	w.Header().Set("Content-Type", "application/json")
 	user, err := h.UserService.SignUp(AuthForm.Email, AuthForm.Username, AuthForm.Password)
 	if err != nil {
+		if errors.Is(err, helpers.ErrDuplicate) {
+			AuthForm.Validator.Errors["duplicate"] = err.Error()
+			h.render(w, "signUp.tmpl", templateData.NewTemplateData(&models.UserModel{}, AuthForm), 400)
+			return
+		}
 		h.Loggers.ErrorLogger.Println(err)
 		helpers.BadRequest(w, r, err)
 		return
@@ -68,9 +74,51 @@ func (h *Handler) SignUp(w http.ResponseWriter, r *http.Request) {
 		Password:  r.PostForm.Get("password"),
 		Validator: helpers.NewValidation(),
 	}
-	h.render(w, "signUp.tmpl", templateData.NewTemplateData(nil, AuthForm))
+	h.render(w, "signUp.tmpl", templateData.NewTemplateData(nil, AuthForm), 200)
+}
+
+func (h *Handler) SignInPost(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	AuthForm := &AuthForm{Email: r.PostForm.Get("email"), Password: r.PostForm.Get("password")}
+	data := templateData.NewTemplateData(nil, AuthForm)
+	res, err := h.UserService.SignIn(r.PostForm.Get("email"), r.PostForm.Get("password"))
+	if err != nil {
+		fmt.Println(err)
+		if errors.Is(err, helpers.TokenError) {
+			fmt.Println("tokenError")
+			helpers.ServerError(w, r, err)
+		}
+		if errors.Is(err, helpers.NoSuchUser) {
+			AuthForm.Validator.Errors["NotFound"] = err.Error()
+		}
+		if errors.Is(err, helpers.PasswordIncorrect) {
+			AuthForm.Validator.Errors["PasswordNotMatch"] = err.Error()
+		}
+		data.Form = AuthForm
+		h.render(w, "signIn.tmpl", data, 200)
+		return
+	}
+	data.AuthData = res
+	cookie := &http.Cookie{
+		Name:     "AccessToken",
+		Value:    res.AccessToken,
+		MaxAge:   300,
+		HttpOnly: true,
+		Secure:   true,
+	}
+	http.SetCookie(w, cookie)
+	http.Redirect(w, r, "/home", http.StatusSeeOther)
+	return
 }
 
 func (h *Handler) SignIn(w http.ResponseWriter, r *http.Request) {
-	h.render(w, "signIn.tmpl", nil)
+	AuthForm := &AuthForm{
+		Email:     r.PostForm.Get("email"),
+		Username:  r.PostForm.Get("username"),
+		Password:  r.PostForm.Get("password"),
+		Validator: helpers.NewValidation(),
+	}
+	h.render(w, "signIn.tmpl", templateData.NewTemplateData(nil, AuthForm), 200)
+
+	return
 }

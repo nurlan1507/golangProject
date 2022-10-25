@@ -23,6 +23,7 @@ func Routes() http.Handler {
 	//auth
 	router.HandlerFunc(http.MethodGet, "/signUp", handlers.SignUp)
 	router.HandlerFunc(http.MethodGet, "/signIn", handlers.SignIn)
+	router.HandlerFunc(http.MethodPost, "/signIn", handlers.SignInPost)
 	router.HandlerFunc(http.MethodPost, "/signUp", handlers.SignUpPost)
 	router.HandlerFunc(http.MethodGet, "/getUsers", handlers.GetUsers)
 

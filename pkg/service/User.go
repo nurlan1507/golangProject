@@ -18,9 +18,31 @@ func NewUserService(repo repository.Authorization) *User {
 	return &User{repo: repo, JWT: NewJWTManager(repo), loggers: helpers.InitLoggers()}
 }
 
-func (u *User) SignIn(email string, username string, password string) (string, error) {
-
-	return "", nil
+func (u *User) SignIn(email string, password string) (*models.UserModel, error) {
+	user, err := u.repo.GetUser(email, password)
+	if err != nil {
+		return nil, err
+	}
+	accessToken, err := u.JWT.NewJWT(user, 1)
+	if err != nil {
+		return nil, err
+	}
+	//_, err = u.JWT.GetRefreshToken(user.Id)
+	//if err != nil {
+	//	if errors.Is(err, helpers.ExpiredRefreshToken) {
+	//		refreshToken, err := u.JWT.NewRefreshToken(*user)
+	//		if err != nil {
+	//			return nil, err
+	//		}
+	//		err = u.repo.UpdateRefreshToken(user.Id, refreshToken)
+	//		if err != nil {
+	//			return nil, err
+	//		}
+	//	}
+	//	return nil, err
+	//}
+	user.AccessToken = accessToken
+	return user, nil
 }
 
 func (u *User) SignUp(email string, username string, password string) (*models.UserModel, error) {
@@ -30,6 +52,9 @@ func (u *User) SignUp(email string, username string, password string) (*models.U
 		return nil, err
 	}
 	newUser, err := u.repo.CreateUser(email, username, string(hashedPassword))
+	if err != nil {
+		return nil, err
+	}
 	jwt, err := u.JWT.NewJWT(newUser, 1)
 	if err != nil {
 		return nil, err
