@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"bytes"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -18,6 +17,9 @@ type Handler struct {
 	Loggers       *helpers.Loggers
 }
 
+func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	
+}
 func InitilalizeHandler(repos *repository.Repository) (*Handler, error) {
 	templateCache, err := NewTemplateCache()
 	if err != nil {
@@ -38,14 +40,14 @@ func (h *Handler) render(w http.ResponseWriter, name string, data *templateData.
 		http.Error(w, "page does not exist", 500)
 		return
 	}
-	buf := new(bytes.Buffer)
+	//buf := new(bytes.Buffer)
 
-	err := ts.ExecuteTemplate(buf, "base", data)
+	err := ts.ExecuteTemplate(w, "base", data)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
 	}
-	buf.WriteTo(w)
+
 }
 
 // NewTemplateCache to generate new template cache

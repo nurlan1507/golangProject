@@ -60,6 +60,9 @@ func (a *Auth) GetUser(email string, password string) (*models.UserModel, error)
 	err := result.Scan(&user.Id, &user.Email, &user.Username, &user.Password)
 	fmt.Println(user.Password)
 	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, helpers.NoSuchUser
+		}
 		return nil, err
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))

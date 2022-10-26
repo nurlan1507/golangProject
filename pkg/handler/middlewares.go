@@ -7,7 +7,7 @@ import (
 	"testApp/pkg/helpers"
 )
 
-func (h *Handler) AuthMiddleware(next httprouter.Handle) httprouter.Handle {
+func (h *Handler) AuthMiddleware(next http.HandlerFunc) httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		accessToken, err := r.Cookie("AccessToken")
 		if err != nil {
@@ -22,7 +22,7 @@ func (h *Handler) AuthMiddleware(next httprouter.Handle) httprouter.Handle {
 				if !ok {
 				}
 				//checking if refreshToken not expired in Db if it is expired then a user should login again
-				//else : everything is ok, we regenerate a	ccessToken and set it to cookies
+				//else : everything is ok, we regenerate a	accessToken and set it to cookies
 				_, err := h.TokenService.GetRefreshToken(userId)
 				if err != nil {
 					if errors.Is(err, helpers.ExpiredRefreshToken) {
@@ -44,7 +44,7 @@ func (h *Handler) AuthMiddleware(next httprouter.Handle) httprouter.Handle {
 				http.SetCookie(w, newCookie)
 			}
 		}
-		next(w, r, ps)
+		next(w, r)
 	}
 }
 

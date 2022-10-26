@@ -1,9 +1,11 @@
 package pkg
 
 import (
+	"fmt"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
+	"reflect"
 	"testApp/pkg/handler"
 	"testApp/pkg/repository"
 )
@@ -28,10 +30,11 @@ func Routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/getUsers", handlers.GetUsers)
 
 	//homepage
-	router.Handle(http.MethodGet, "/home", handlers.AuthMiddleware(lol))
+	fmt.Println(reflect.TypeOf(handlers.Home))
+	router.Handle(http.MethodGet, "/home", handlers.AuthMiddleware(handlers.Home))
 	return router
 }
 
-func lol(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func lol(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("lol"))
 }

@@ -79,15 +79,11 @@ func (h *Handler) SignUp(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) SignInPost(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
-	AuthForm := &AuthForm{Email: r.PostForm.Get("email"), Password: r.PostForm.Get("password")}
+	AuthForm := &AuthForm{Email: r.PostForm.Get("email"), Password: r.PostForm.Get("password"), Validator: helpers.NewValidation()}
 	data := templateData.NewTemplateData(nil, AuthForm)
 	res, err := h.UserService.SignIn(r.PostForm.Get("email"), r.PostForm.Get("password"))
 	if err != nil {
 		fmt.Println(err)
-		if errors.Is(err, helpers.TokenError) {
-			fmt.Println("tokenError")
-			helpers.ServerError(w, r, err)
-		}
 		if errors.Is(err, helpers.NoSuchUser) {
 			AuthForm.Validator.Errors["NotFound"] = err.Error()
 		}
