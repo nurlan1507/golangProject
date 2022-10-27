@@ -12,6 +12,7 @@ type Authorization interface {
 	UpdateRefreshToken(userId int, refreshToken string) error
 	CreateRefreshToken(userId int, refreshToken string) error
 	GetRefreshToken(userId int) (*models.RefreshToken, error)
+	DeletePendingUser(userId int) (*models.UserModel, error)
 }
 
 type IAdminRepository interface {

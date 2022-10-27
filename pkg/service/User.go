@@ -91,3 +91,20 @@ func (u *User) GetUsers() []models.UserModel {
 	arr := u.repo.GetUsers()
 	return arr
 }
+
+func (u *User) SignUpTeacher(id int, password string) (*models.UserModel, error) {
+	hashedPass, err := u.HashPassword(password)
+	if err != nil {
+		u.loggers.ErrorLogger.Println(err)
+		return nil, err
+	}
+	userData, err := u.repo.DeletePendingUser(id)
+	if err != nil {
+		return nil, err
+	}
+	newUser, err := u.repo.CreateUser(userData.Email, userData.Username, string(hashedPass), "Teacher")
+	if err != nil {
+		return nil, err
+	}
+	return newUser, nil
+}

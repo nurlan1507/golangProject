@@ -118,6 +118,20 @@ func (a *Auth) GetRefreshToken(userId int) (*models.RefreshToken, error) {
 	return token, nil
 }
 
+func (a *Auth) DeletePendingUser(userId int) (*models.UserModel, error) {
+	stmt := `DELETE FROM pending_users WHERE teacher_id=$1 RETURNING email,username`
+	newUser := &models.UserModel{}
+	err := a.Db.QueryRow(context.Background(), stmt, userId).Scan(&newUser.Email, &newUser.Username)
+	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, helpers.ErrNoRecord
+		}
+		a.loggers.ErrorLogger.Println(err)
+		return nil, err
+	}
+	return newUser, nil
+}
+
 func NewAuthRepo(db *pgxpool.Pool) *Auth {
 	return &Auth{Db: db, loggers: *helpers.InitLoggers()}
 }

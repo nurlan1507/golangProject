@@ -32,8 +32,8 @@ func Routes() http.Handler {
 	router.HandlerFunc(http.MethodPost, "/signIn", handlers.SignInPost)
 	router.HandlerFunc(http.MethodPost, "/signUp", handlers.SignUpPost)
 	router.HandlerFunc(http.MethodGet, "/getUsers", handlers.GetUsers)
-
-	router.HandlerFunc(http.MethodGet, "/sendEmail", handlers.SendEmail)
+	router.HandlerFunc(http.MethodGet, "/signUpTeacher", handlers.SignUpTeacher)
+	router.HandlerFunc(http.MethodPost, "/signUpTeacher", handlers.SignUpTeacherPost)
 	//homepage
 	fmt.Println(reflect.TypeOf(handlers.Home))
 

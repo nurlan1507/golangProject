@@ -1,15 +1,15 @@
 {{define "main"}}
 <div class="signup-container">
     <h2 class="signup-container-title">Sign up</h2>
-    <form class="input-icons" action="/signUpTeacher" method="post">
+    <form class="input-icons" action="/signUpTeacher?userId={{.AuthData.Id}}" method="post">
         <div class="input-field-holder">
-            <h3>Hello dear Baitassov Nurlan Olegovich, in order to create your account change password please</h3>
+            <h3>Hello dear {{.Form.Username}}, in order to create your account change password please</h3>
             {{with .Form.Validator.Errors.password}}
             <label class="input-error">{{.}}</label>
             {{end}}
             <div>
                 <i class="fa fa-key icon" aria-hidden="true"></i>
-                <input class="input-field" name="password" type="password" placeholder="Password...">
+                <input class="input-field"  name="password" type="password" placeholder="Password...">
             </div>
         </div>
         <div class="input-field-holder">

@@ -13,6 +13,7 @@ type UserService interface {
 	HashPassword(password string) ([]byte, error)
 	CheckPassword(password string, hashedPassword string) (bool, error)
 	GetUsers() []models.UserModel
+	SignUpTeacher(id int, password string) (*models.UserModel, error)
 }
 
 type JWT interface {

@@ -323,3 +323,11 @@ INFO: 	2022/10/28 02:52:16 key
 INFO: 	2022/10/28 02:52:21 key
 INFO: 	2022/10/28 02:53:26 key
 INFO: 	2022/10/28 02:53:26 key
+INFO: 	2022/10/28 04:15:08 dungeonMaster- Baitasnur1507!
+INFO: 	2022/10/28 04:15:09 key
+INFO: 	2022/10/28 04:16:27 key
+INFO: 	2022/10/28 04:16:43 key
+ERROR: 	2022/10/28 04:17:11 authRepository.go:129: ОШИБКА: UPDATE или DELETE в таблице "pending_users" нарушает ограничение внешнего ключа "invited_teacher_fk" таблицы "invited_tokens" (SQLSTATE 23503)
+ERROR: 	2022/10/28 04:26:43 authRepository.go:129: ОШИБКА: UPDATE или DELETE в таблице "pending_users" нарушает ограничение внешнего ключа "invited_teacher_fk" таблицы "invited_tokens" (SQLSTATE 23503)
+INFO: 	2022/10/28 04:32:43 key
+INFO: 	2022/10/28 04:33:09 key

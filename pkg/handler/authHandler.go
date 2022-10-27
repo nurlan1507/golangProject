@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 	"testApp/pkg/helpers"
 	"testApp/pkg/models"
 	"testApp/pkg/templateData"
@@ -119,8 +120,44 @@ func (h *Handler) SignIn(w http.ResponseWriter, r *http.Request) {
 	return
 }
 
-func (h *Handler) SendEmail(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) SignUpTeacher(w http.ResponseWriter, r *http.Request) {
+	token := r.URL.Query().Get("token")
+	claims, err := h.TokenService.GetClaims(token)
+	if err != nil {
+		return
+	}
+	AuthForm := &AuthForm{
+		Email:     fmt.Sprint(claims["Email"]),
+		Username:  fmt.Sprint(claims["Username"]),
+		Validator: helpers.NewValidation(),
+	}
+	userIdstr := fmt.Sprint(claims["Id"])
+	Id, _ := strconv.Atoi(userIdstr)
+	h.render(w, "signUpTeacher.tmpl", templateData.NewTemplateData(&models.UserModel{Id: Id}, AuthForm), 200)
+}
 
-	//sndMessage("LOLOOLOLOLO", []string{"baitassovnurlan1507@gmail.com"})
-	fmt.Println("Email sent successfully")
+func (h *Handler) SignUpTeacherPost(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("userId")
+	fmt.Println("ASDASDASDAS")
+	err := r.ParseForm()
+	if err != nil {
+		return
+	}
+	AuthForm := &AuthForm{
+		Password:  r.PostForm.Get("password"),
+		Validator: helpers.NewValidation(),
+	}
+	AuthForm.Validator.Check(helpers.IsValidPassword(AuthForm.Password), "password", "Password rules: at least 7 letters \n at least 1 number \n at least 1 upper case \n at least 1 special character")
+	AuthForm.Validator.Check(helpers.ArePasswordsEqual(AuthForm.Password, r.PostForm.Get("repeatPassword")), "repeatPassword", "passwords do not match")
+	if !AuthForm.Validator.Valid() {
+		h.render(w, "signUpTeacher.tmpl", templateData.NewTemplateData(nil, AuthForm), 200)
+		return
+	}
+	idInt, _ := strconv.Atoi(id)
+	_, err = h.UserService.SignUpTeacher(idInt, AuthForm.Password)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	http.Redirect(w, r, "/home", 303)
 }
