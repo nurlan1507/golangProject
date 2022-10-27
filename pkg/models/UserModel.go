@@ -10,6 +10,7 @@ type UserModel struct {
 	Username    string
 	Password    string
 	AccessToken string
+	Role        string
 }
 type RefreshToken struct {
 	Token   string

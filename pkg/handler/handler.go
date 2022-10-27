@@ -18,8 +18,9 @@ type Handler struct {
 }
 
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	
+
 }
+
 func InitilalizeHandler(repos *repository.Repository) (*Handler, error) {
 	templateCache, err := NewTemplateCache()
 	if err != nil {

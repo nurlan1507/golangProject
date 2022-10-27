@@ -1,7 +1,6 @@
 package helpers
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -27,7 +26,6 @@ type Loggers struct {
 func InitLoggers() *Loggers {
 	file, err := os.OpenFile("serverLogs.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
-		fmt.Println("SAS")
 		log.Fatal(err)
 	}
 

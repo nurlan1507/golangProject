@@ -2,16 +2,20 @@ package pkg
 
 import (
 	"fmt"
+	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
+	"os"
 	"reflect"
 	"testApp/pkg/handler"
 	"testApp/pkg/repository"
 )
 
 func Routes() http.Handler {
-	var db, _ = repository.OpenDb(&repository.Config{DbName: "testApp", User: "postgres", Password: "admin"})
+	err := godotenv.Load(".env")
+
+	var db, _ = repository.OpenDb(&repository.Config{DbName: os.Getenv("DbName"), User: os.Getenv("User"), Password: os.Getenv("Password")})
 	var Repos = repository.NewRepository(db)
 	handlers, err := handler.InitilalizeHandler(Repos)
 	if err != nil {
@@ -29,6 +33,7 @@ func Routes() http.Handler {
 	router.HandlerFunc(http.MethodPost, "/signUp", handlers.SignUpPost)
 	router.HandlerFunc(http.MethodGet, "/getUsers", handlers.GetUsers)
 
+	router.HandlerFunc(http.MethodGet, "/sendEmail", handlers.SendEmail)
 	//homepage
 	fmt.Println(reflect.TypeOf(handlers.Home))
 	router.Handle(http.MethodGet, "/home", handlers.AuthMiddleware(handlers.Home))
