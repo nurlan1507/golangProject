@@ -36,7 +36,7 @@ func Routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/sendEmail", handlers.SendEmail)
 	//homepage
 	fmt.Println(reflect.TypeOf(handlers.Home))
-	router.Handle(http.MethodGet, "/home", handlers.AuthMiddleware(handlers.Home))
+	router.Handle(http.MethodGet, "/", handlers.AuthMiddleware(handlers.Home))
 	return router
 }
 
