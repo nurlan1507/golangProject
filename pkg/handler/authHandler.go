@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"net/smtp"
 	"testApp/pkg/helpers"
 	"testApp/pkg/models"
 	"testApp/pkg/templateData"
@@ -122,45 +121,6 @@ func (h *Handler) SignIn(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) SendEmail(w http.ResponseWriter, r *http.Request) {
 
-	sendMessage("LOLOOLOLOLO", []string{"baitassovnurlan1507@gmail.com"})
+	//sndMessage("LOLOOLOLOLO", []string{"baitassovnurlan1507@gmail.com"})
 	fmt.Println("Email sent successfully")
-}
-
-func sendMessage(message string, to []string) error {
-	// user we are authorizing as
-	from := "211369@astanait.edu.kz"
-	// server we are authorized to send email through
-	host := "smtp.office365.com"
-	auth := LoginAuth(from, "Baitasnur1507")
-	err := smtp.SendMail(host+":587", auth, from, to, []byte(message))
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-type loginAuth struct {
-	username, password string
-}
-
-func LoginAuth(username, password string) smtp.Auth {
-	return &loginAuth{username, password}
-}
-
-func (a *loginAuth) Start(server *smtp.ServerInfo) (string, []byte, error) {
-	return "LOGIN", []byte{}, nil
-}
-
-func (a *loginAuth) Next(fromServer []byte, more bool) ([]byte, error) {
-	if more {
-		switch string(fromServer) {
-		case "Username:":
-			return []byte(a.username), nil
-		case "Password:":
-			return []byte(a.password), nil
-		default:
-			return nil, errors.New("Unkown fromServer")
-		}
-	}
-	return nil, nil
 }

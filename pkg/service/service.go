@@ -22,6 +22,7 @@ type JWT interface {
 	NewRefreshToken(model models.UserModel) (string, error)
 	RefreshAccessToken(claims jwt.MapClaims) (string, error)
 	GetRefreshToken(userId int) (*models.RefreshToken, error)
+	GetClaims(token string) (jwt.MapClaims, error)
 }
 
 type Service struct {

@@ -25,6 +25,7 @@ func HandleJWTError(payload jwt.MapClaims, err error) *ErrorHandlerJwt {
 type Claims struct {
 	Username string
 	Id       int
+	Role     string
 	jwt.StandardClaims
 }
 
@@ -48,6 +49,7 @@ func (m *Manager) NewJWT(user *models.UserModel, ttl time.Duration) (string, err
 	claims := &Claims{
 		Username: user.Username,
 		Id:       user.Id,
+		Role:     user.Role,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(ttl * time.Minute).Unix(),
 		},
@@ -87,6 +89,7 @@ func (m *Manager) NewRefreshToken(user models.UserModel) (string, error) {
 	claims := &Claims{
 		Username: user.Username,
 		Id:       user.Id,
+		Role:     user.Role,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(30).Unix(),
 		},
@@ -128,4 +131,16 @@ func (m *Manager) GetRefreshToken(userId int) (*models.RefreshToken, error) {
 		return nil, helpers.ExpiredRefreshToken
 	}
 	return token, nil
+}
+
+func (m *Manager) GetClaims(token string) (jwt.MapClaims, error) {
+	claims := jwt.MapClaims{}
+	_, _ = jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
+		_, ok := token.Method.(*jwt.SigningMethodHMAC)
+		if !ok {
+			return nil, helpers.TokenError
+		}
+		return []byte(m.SignKey), nil
+	})
+	return claims, nil
 }

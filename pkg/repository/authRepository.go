@@ -18,9 +18,9 @@ type Auth struct {
 }
 
 func (a *Auth) CreateUser(email string, username string, password string) (*models.UserModel, error) {
-	stmt := `INSERT INTO users(email,username, password) VALUES ($1, $2, $3) RETURNING id, email,username,password`
+	stmt := `INSERT INTO users(email,username, password,role) VALUES ($1, $2, $3,$4) RETURNING id, email,username,password,'student'`
 	newUser := &models.UserModel{}
-	err := a.Db.QueryRow(context.Background(), stmt, email, username, password).Scan(&newUser.Id, &newUser.Email, &newUser.Username, &newUser.Password)
+	err := a.Db.QueryRow(context.Background(), stmt, email, username, password).Scan(&newUser.Id, &newUser.Email, &newUser.Username, &newUser.Password, &newUser.Role)
 	var pgErr *pgconn.PgError
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
@@ -57,7 +57,7 @@ func (a *Auth) GetUser(email string, password string) (*models.UserModel, error)
 	result := a.Db.QueryRow(context.Background(), stmt, email)
 
 	user := &models.UserModel{}
-	err := result.Scan(&user.Id, &user.Email, &user.Username, &user.Password)
+	err := result.Scan(&user.Id, &user.Email, &user.Username, &user.Password, &user.Role)
 	fmt.Println(user.Password)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
