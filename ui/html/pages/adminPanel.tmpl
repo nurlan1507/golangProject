@@ -1,0 +1,18 @@
+{{define "main" }}
+<div class="admin-panel">
+    <div class="add-teacher-panel">
+        <form action="/addTeacher" method="post" >
+            <h3>Invite a teacher to application</h3>
+            <div>
+                <input type="email" placeholder="email" name="email">
+            </div>
+            <div>
+                <input type="text" placeholder="username" name="username">
+            </div>
+            <button type="submit" formmethod="post">Invite</button>
+        </form>
+    </div>
+</div>
+
+
+{{end}}

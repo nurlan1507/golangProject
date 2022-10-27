@@ -277,3 +277,22 @@ INFO: 	2022/10/27 21:10:06 key
 INFO: 	2022/10/27 21:11:43 key
 INFO: 	2022/10/27 21:13:14 key
 INFO: 	2022/10/27 21:16:03 key
+INFO: 	2022/10/27 21:26:59 key
+INFO: 	2022/10/27 21:27:41 key
+INFO: 	2022/10/27 21:29:02 key
+INFO: 	2022/10/27 21:30:56 key
+INFO: 	2022/10/27 23:50:36 key
+INFO: 	2022/10/27 23:51:37 key
+INFO: 	2022/10/27 23:53:19 key
+INFO: 	2022/10/27 23:55:06 key
+INFO: 	2022/10/27 23:56:07 key
+INFO: 	2022/10/27 23:58:16 key
+INFO: 	2022/10/28 00:01:28 key
+INFO: 	2022/10/28 00:03:00 key
+INFO: 	2022/10/28 00:30:34 key
+ERROR: 	2022/10/28 00:30:34 adminRepository.go:25: number of field descriptions must equal number of destinations, got 4 and 3
+INFO: 	2022/10/28 00:32:26 key
+ERROR: 	2022/10/28 00:32:26 adminRepository.go:25: ОШИБКА: в кешированном плане не должен изменяться тип результата (SQLSTATE 0A000)
+INFO: 	2022/10/28 00:33:15 key
+INFO: 	2022/10/28 00:33:31 key
+INFO: 	2022/10/28 00:33:31 key

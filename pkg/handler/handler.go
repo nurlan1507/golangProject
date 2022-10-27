@@ -13,6 +13,7 @@ import (
 type Handler struct {
 	UserService   service.UserService
 	TokenService  service.JWT
+	AdminService  service.Admin
 	TemplateCache map[string]*template.Template
 	Loggers       *helpers.Loggers
 }
@@ -26,12 +27,14 @@ func InitilalizeHandler(repos *repository.Repository) (*Handler, error) {
 	if err != nil {
 		return nil, err
 	}
-	var services = service.NewService(repos)
+	var services = service.NewService(*repos)
+	var adminServices = service.NewAdminService(*repos)
 	return &Handler{
 		UserService:   services.UserService,
 		TemplateCache: templateCache,
 		Loggers:       helpers.InitLoggers(),
 		TokenService:  services.JWT,
+		AdminService:  adminServices,
 	}, nil
 }
 

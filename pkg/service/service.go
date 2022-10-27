@@ -25,14 +25,20 @@ type JWT interface {
 	GetClaims(token string) (jwt.MapClaims, error)
 }
 
+type Admin interface {
+	InviteTeacher(email string, username string) (*models.TeacherInvite, error)
+}
+
 type Service struct {
 	UserService
 	JWT
+	AdminService Admin
 }
 
-func NewService(reps *repository.Repository) *Service {
+func NewService(reps repository.Repository) *Service {
 	return &Service{
-		UserService: NewUserService(reps.Authorization),
-		JWT:         NewJWTManager(reps.Authorization),
+		UserService:  NewUserService(reps),
+		JWT:          NewJWTManager(reps),
+		AdminService: NewAdminService(reps),
 	}
 }

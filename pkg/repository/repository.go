@@ -14,12 +14,18 @@ type Authorization interface {
 	GetRefreshToken(userId int) (*models.RefreshToken, error)
 }
 
+type IAdminRepository interface {
+	CreateTeacher(email string, username string) (*models.UserModel, error)
+	CreateTeacherInviteToken(teacherId int, token string) (*models.TeacherInvite, error)
+}
 type Repository struct {
 	Authorization
+	AdminRepository IAdminRepository
 }
 
 func NewRepository(db *pgxpool.Pool) *Repository {
 	return &Repository{
-		Authorization: NewAuthRepo(db),
+		Authorization:   NewAuthRepo(db),
+		AdminRepository: NewAdminRepository(db),
 	}
 }

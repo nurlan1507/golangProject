@@ -31,16 +31,18 @@ type Claims struct {
 }
 
 type Manager struct {
-	Loggers *helpers.Loggers
-	SignKey string
-	repo    repository.Authorization
+	Loggers   *helpers.Loggers
+	SignKey   string
+	AuthRepo  repository.Authorization
+	AdminRepo repository.IAdminRepository
 }
 
-func NewJWTManager(repo repository.Authorization) *Manager {
+func NewJWTManager(repo repository.Repository) *Manager {
 	manager := &Manager{
-		SignKey: "key",
-		Loggers: helpers.InitLoggers(),
-		repo:    repo,
+		SignKey:   "key",
+		Loggers:   helpers.InitLoggers(),
+		AuthRepo:  repo.Authorization,
+		AdminRepo: repo.AdminRepository,
 	}
 	return manager
 }
@@ -59,7 +61,7 @@ func (m *Manager) NewJWT(user *models.UserModel, ttl time.Duration) (string, err
 	tokenString, err := token.SignedString([]byte(m.SignKey))
 	if err != nil {
 		fmt.Println(err)
-		return "", err
+		return "", helpers.TokenError
 	}
 	return tokenString, nil
 }
@@ -121,7 +123,7 @@ func (m *Manager) RefreshAccessToken(payload jwt.MapClaims) (string, error) {
 }
 
 func (m *Manager) GetRefreshToken(userId int) (*models.RefreshToken, error) {
-	token, err := m.repo.GetRefreshToken(userId)
+	token, err := m.AuthRepo.GetRefreshToken(userId)
 	if err != nil {
 		if errors.Is(err, helpers.ErrNoRecord) {
 			return nil, helpers.ErrNoRecord

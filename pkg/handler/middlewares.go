@@ -8,7 +8,7 @@ import (
 )
 
 func (h *Handler) AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
 		accessToken, err := r.Cookie("AccessToken")
 		if err != nil {
 			http.Redirect(w, r, "/signUp", 303)
@@ -45,11 +45,11 @@ func (h *Handler) AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			}
 		}
 		next(w, r)
-	})
+	}
 }
 
 func (h *Handler) IsAdmin(next http.HandlerFunc) http.HandlerFunc {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
 		accessToken, err := r.Cookie("AccessToken")
 		if err != nil {
 			http.Redirect(w, r, "/signUp", 303)
@@ -64,5 +64,5 @@ func (h *Handler) IsAdmin(next http.HandlerFunc) http.HandlerFunc {
 		} else {
 			http.Redirect(w, r, "/signUp", http.StatusMethodNotAllowed)
 		}
-	})
+	}
 }

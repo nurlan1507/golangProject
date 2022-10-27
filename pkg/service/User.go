@@ -14,8 +14,8 @@ type User struct {
 	JWT
 }
 
-func NewUserService(repo repository.Authorization) *User {
-	return &User{repo: repo, JWT: NewJWTManager(repo), loggers: helpers.InitLoggers()}
+func NewUserService(repo repository.Repository) *User {
+	return &User{repo: repo.Authorization, JWT: NewJWTManager(repo), loggers: helpers.InitLoggers()}
 }
 
 func (u *User) SignIn(email string, password string) (*models.UserModel, error) {

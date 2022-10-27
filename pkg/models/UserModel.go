@@ -16,3 +16,9 @@ type RefreshToken struct {
 	Token   string
 	Expires time.Time
 }
+
+type TeacherInvite struct {
+	InvitationId int
+	TeacherId    int
+	Token        string
+}
