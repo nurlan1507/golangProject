@@ -36,11 +36,15 @@ func Routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/sendEmail", handlers.SendEmail)
 	//homepage
 	fmt.Println(reflect.TypeOf(handlers.Home))
+
 	router.HandlerFunc(http.MethodGet, "/home", handlers.AuthMiddleware(handlers.Home))
 
 	//admin route
 	router.HandlerFunc(http.MethodGet, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacher)))
 	router.HandlerFunc(http.MethodPost, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacherPost)))
+
+	router.HandlerFunc(http.MethodGet, "/", handlers.AuthMiddleware(handlers.Home))
+
 	return router
 }
 

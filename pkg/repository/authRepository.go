@@ -14,7 +14,8 @@ import (
 )
 
 type Auth struct {
-	Db *pgxpool.Pool
+	Db      *pgxpool.Pool
+	loggers helpers.Loggers
 }
 
 func (a *Auth) CreateUser(email string, username string, password string, role string) (*models.UserModel, error) {
@@ -32,6 +33,7 @@ func (a *Auth) CreateUser(email string, username string, password string, role s
 				return nil, helpers.ErrDuplicate
 			}
 		}
+		a.loggers.ErrorLogger.Println(err)
 		return nil, err
 	}
 	return newUser, nil
@@ -40,6 +42,7 @@ func (a *Auth) GetUsers() []models.UserModel {
 	stmt := `SELECT * FROM people`
 	result, err := a.Db.Query(context.Background(), stmt)
 	if err != nil {
+		a.loggers.ErrorLogger.Println(err)
 		return nil
 	}
 	var arr []models.UserModel
@@ -61,6 +64,7 @@ func (a *Auth) GetUser(email string, password string) (*models.UserModel, error)
 	fmt.Printf("%+v", *user)
 	fmt.Println(user.Password)
 	if err != nil {
+		a.loggers.ErrorLogger.Println(err)
 		if errors.Is(err, pgx.ErrNoRows) {
 			return nil, helpers.NoSuchUser
 		}
@@ -78,6 +82,7 @@ func (a *Auth) UpdateRefreshToken(userId int, refreshToken string) error {
 	res, err := a.Db.Exec(context.Background(), stmt, refreshToken, userId)
 	res.Update()
 	if err != nil {
+		a.loggers.ErrorLogger.Println(err)
 		if errors.Is(err, pgx.ErrNoRows) {
 			return helpers.ErrNoRecord
 		}
@@ -114,5 +119,5 @@ func (a *Auth) GetRefreshToken(userId int) (*models.RefreshToken, error) {
 }
 
 func NewAuthRepo(db *pgxpool.Pool) *Auth {
-	return &Auth{Db: db}
+	return &Auth{Db: db, loggers: *helpers.InitLoggers()}
 }

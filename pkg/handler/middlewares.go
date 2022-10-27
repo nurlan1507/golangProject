@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strconv"
 	"testApp/pkg/helpers"
 )
 
@@ -17,9 +18,8 @@ func (h *Handler) AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 		_, e := h.TokenService.VerifyToken(accessToken.Value)
 		if e != nil {
 			if errors.Is(e.Err, helpers.ExpiredToken) {
-				userId, ok := e.Payload["Id"].(int)
-				if !ok {
-				}
+				userId, _ := strconv.Atoi(fmt.Sprint(e.Payload["Id"]))
+				fmt.Println(userId)
 				_, err := h.TokenService.GetRefreshToken(userId)
 				if err != nil {
 					if errors.Is(err, helpers.ExpiredRefreshToken) {
@@ -55,7 +55,6 @@ func (h *Handler) IsAdmin(next http.HandlerFunc) http.HandlerFunc {
 			http.Redirect(w, r, "/signUp", 303)
 			return
 		}
-
 		claims, _ := h.TokenService.GetClaims(accessToken.Value)
 		fmt.Println(claims)
 		if claims["Role"] == "Admin" {

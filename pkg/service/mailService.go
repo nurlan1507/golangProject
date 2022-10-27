@@ -13,11 +13,12 @@ func LoginAuth(username, password string) smtp.Auth {
 	return &loginAuth{username, password}
 }
 
-func SendMessage(message string, to []string) error {
+func SendMessage(message []byte, to []string) error {
 	from := "211369@astanait.edu.kz"
 	host := "smtp.office365.com"
 	auth := LoginAuth(from, "Baitasnur1507")
-	err := smtp.SendMail(host+":587", auth, from, to, []byte(message))
+
+	err := smtp.SendMail(host+":587", auth, from, to, message)
 	if err != nil {
 		return err
 	}

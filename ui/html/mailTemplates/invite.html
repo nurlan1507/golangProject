@@ -1,0 +1,13 @@
+<!-- template.html -->
+<!DOCTYPE html>
+<html>
+<body>
+<div style="display: flex; justify-content: center; flex-direction: column; align-items: center">
+    <h3 style="font-family: 'Agency FB'; font-size:25px; text-align: center">Hello dear {{.UserName}}, you are invited to testApp, press the button below to registrate</h3>
+    <button style="background: #04AA6D;  width: 100px; height:40px ">
+        <a href="http://localhost:4000/signUpTeacher?token={{.Token}}" style="text-align: center;display: flex; align-items: center ;justify-content: center; width: 100%; height: 100%; color:white;text-decoration: none" >Sign Up</a>
+    </button>
+</div>
+
+</body>
+</html>

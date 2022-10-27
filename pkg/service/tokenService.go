@@ -27,6 +27,7 @@ type Claims struct {
 	Username string
 	Id       int
 	Role     string
+	Email    string
 	jwt.StandardClaims
 }
 
@@ -53,6 +54,7 @@ func (m *Manager) NewJWT(user *models.UserModel, ttl time.Duration) (string, err
 		Username: user.Username,
 		Id:       user.Id,
 		Role:     user.Role,
+		Email:    user.Email,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(ttl * time.Minute).Unix(),
 		},
@@ -93,6 +95,7 @@ func (m *Manager) NewRefreshToken(user models.UserModel) (string, error) {
 		Username: user.Username,
 		Id:       user.Id,
 		Role:     user.Role,
+		Email:    user.Email,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: time.Now().Add(30).Unix(),
 		},
@@ -111,6 +114,7 @@ func (m *Manager) RefreshAccessToken(payload jwt.MapClaims) (string, error) {
 	newUserModel := new(models.UserModel)
 	newUserModel.Username = fmt.Sprint(payload["Username"])
 	newUserModel.Role = fmt.Sprint(payload["Role"])
+	newUserModel.Email = fmt.Sprint(payload["Email"])
 	id := fmt.Sprint(payload["Id"])
 	fmt.Println(id)
 

@@ -58,7 +58,7 @@ func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
 		Secure:   true,
 	}
 	http.SetCookie(w, cookie)
-	http.Redirect(w, r, "/home", http.StatusSeeOther)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 	return
 	//json.NewEncoder(w).Encode(user)
 }
@@ -103,7 +103,7 @@ func (h *Handler) SignInPost(w http.ResponseWriter, r *http.Request) {
 		Secure:   true,
 	}
 	http.SetCookie(w, cookie)
-	http.Redirect(w, r, "/home", http.StatusSeeOther)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 	return
 }
 
