@@ -2,13 +2,13 @@ package handler
 
 import (
 	"errors"
-	"github.com/julienschmidt/httprouter"
+	"fmt"
 	"net/http"
 	"testApp/pkg/helpers"
 )
 
-func (h *Handler) AuthMiddleware(next http.HandlerFunc) httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (h *Handler) AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		accessToken, err := r.Cookie("AccessToken")
 		if err != nil {
 			http.Redirect(w, r, "/signUp", 303)
@@ -20,8 +20,6 @@ func (h *Handler) AuthMiddleware(next http.HandlerFunc) httprouter.Handle {
 				userId, ok := e.Payload["Id"].(int)
 				if !ok {
 				}
-				//checking if refreshToken not expired in Db if it is expired then a user should login again
-				//else : everything is ok, we regenerate a  accessToken and set it to cookies
 				_, err := h.TokenService.GetRefreshToken(userId)
 				if err != nil {
 					if errors.Is(err, helpers.ExpiredRefreshToken) {
@@ -47,21 +45,24 @@ func (h *Handler) AuthMiddleware(next http.HandlerFunc) httprouter.Handle {
 			}
 		}
 		next(w, r)
-	}
+	})
 }
 
-func (h *Handler) IsAdmin(next http.HandlerFunc) httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (h *Handler) IsAdmin(next http.HandlerFunc) http.HandlerFunc {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		accessToken, err := r.Cookie("AccessToken")
 		if err != nil {
 			http.Redirect(w, r, "/signUp", 303)
 			return
 		}
+
 		claims, _ := h.TokenService.GetClaims(accessToken.Value)
+		fmt.Println(claims)
 		if claims["Role"] == "Admin" {
+			fmt.Println("ETO ADMIN VALIM")
 			next(w, r)
 		} else {
 			http.Redirect(w, r, "/signUp", http.StatusMethodNotAllowed)
 		}
-	}
+	})
 }

@@ -6,7 +6,7 @@ import (
 )
 
 type Authorization interface {
-	CreateUser(email string, username string, password string) (*models.UserModel, error)
+	CreateUser(email string, username string, password string, role string) (*models.UserModel, error)
 	GetUsers() []models.UserModel
 	GetUser(email string, password string) (*models.UserModel, error)
 	UpdateRefreshToken(userId int, refreshToken string) error

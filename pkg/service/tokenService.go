@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/golang-jwt/jwt/v4"
+	"strconv"
 	"testApp/pkg/helpers"
 	"testApp/pkg/models"
 	"testApp/pkg/repository"
@@ -107,11 +108,11 @@ func (m *Manager) NewRefreshToken(user models.UserModel) (string, error) {
 func (m *Manager) RefreshAccessToken(payload jwt.MapClaims) (string, error) {
 	newUserModel := new(models.UserModel)
 	newUserModel.Username = fmt.Sprint(payload["Username"])
-	userId, ok := payload["Id"].(int)
-	if !ok {
+	newUserModel.Role = fmt.Sprint(payload["Role"])
+	id := fmt.Sprint(payload["Id"])
+	fmt.Println(id)
 
-	}
-	newUserModel.Id = userId
+	newUserModel.Id, _ = strconv.Atoi(id)
 	token, err := m.NewJWT(newUserModel, 1)
 	if err != nil {
 		return "", helpers.TokenError

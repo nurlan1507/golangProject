@@ -17,10 +17,10 @@ type Auth struct {
 	Db *pgxpool.Pool
 }
 
-func (a *Auth) CreateUser(email string, username string, password string) (*models.UserModel, error) {
+func (a *Auth) CreateUser(email string, username string, password string, role string) (*models.UserModel, error) {
 	stmt := `INSERT INTO users(email,username, password,role) VALUES ($1, $2, $3,$4) RETURNING id, email,username,password,'student'`
 	newUser := &models.UserModel{}
-	err := a.Db.QueryRow(context.Background(), stmt, email, username, password).Scan(&newUser.Id, &newUser.Email, &newUser.Username, &newUser.Password, &newUser.Role)
+	err := a.Db.QueryRow(context.Background(), stmt, email, username, password, role).Scan(&newUser.Id, &newUser.Email, &newUser.Username, &newUser.Password, &newUser.Role)
 	var pgErr *pgconn.PgError
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
@@ -53,11 +53,12 @@ func (a *Auth) GetUsers() []models.UserModel {
 }
 
 func (a *Auth) GetUser(email string, password string) (*models.UserModel, error) {
-	stmt := `SELECT id,email,username,password FROM users WHERE email = $1`
+	stmt := `SELECT id,email,username,password,role FROM users WHERE email = $1`
 	result := a.Db.QueryRow(context.Background(), stmt, email)
 
 	user := &models.UserModel{}
 	err := result.Scan(&user.Id, &user.Email, &user.Username, &user.Password, &user.Role)
+	fmt.Printf("%+v", *user)
 	fmt.Println(user.Password)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
