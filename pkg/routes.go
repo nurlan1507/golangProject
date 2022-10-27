@@ -37,6 +37,11 @@ func Routes() http.Handler {
 	//homepage
 	fmt.Println(reflect.TypeOf(handlers.Home))
 	router.Handle(http.MethodGet, "/home", handlers.AuthMiddleware(handlers.Home))
+
+
+
+	//admin route
+	router.Handle(http.MethodGet, "/addTeacher", handlers.AuthMiddleware(handlers.IsA)handlers.AddTeacher)
 	return router
 }
 
