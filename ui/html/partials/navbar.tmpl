@@ -6,9 +6,9 @@
         <div class="sub-menu">
             <div class="user-info">
                 <img class="user-img" src="static/png/avatar.png">
-                <h3>{{.}}</h3>
+                <h3>{{.AuthData.Username}}</h3>
             </div>
-            <hr>
+            <hr/>
             <div class="sub-menu-menu">
                 <a href="">My quizez</a>
                 <a href="">Finished </a>
@@ -25,5 +25,9 @@ let submenu = document.querySelector('.sub-menu-wrap')
 avatar.addEventListener("click", ()=>{
     submenu.classList.toggle('open')
 })
+
+
+
+
 </script>
 {{end}}
