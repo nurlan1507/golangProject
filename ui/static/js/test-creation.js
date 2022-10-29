@@ -1,41 +1,14 @@
 // import {Question} from "/static/js/Question.js";
 
-var myQuestion = [
-    {
-        type:"single",
-        description:"What is 10/2?",
-        answers: {
-            A: '3',
-            B: '5',
-            C: '115',
-            D:'2'
-        },
-        correctAnswer: 'A'
-    },
-    {
-        type:"MCQ",
-        description:"What is 10/2?",
-        answers: {
-            A: '3',
-            B: '5',
-            C: '115',
-            D:'2'
-        },
-        correctAnswer: 'B'
-    }
-]
-
-
-
 
 
 function change(eTarget){
     console.log(eTarget.id)
-    questions.questions[eTarget.id[1]].answers[eTarget.id[0]] = eTarget.textContent
+    var toChange = {...questions.questions[eTarget.id[1]]}
+    toChange.answers[eTarget.id[0]] = eTarget.textContent
+    questions.questions[eTarget.id[1]].answers = toChange
 }
-function changeTypeOfQuestion(ind,type){
-    questions.questions[ind] =  dummyQuestion(type)
-}
+
 
 let questions = new QuestionController([], document.querySelector('.question-holder'))
 document.getElementById('addNewQuestion').addEventListener("click", ()=>{
@@ -46,14 +19,15 @@ document.getElementById('addNewQuestion').addEventListener("click", ()=>{
             change(e.target)
         })
     })
+    document.querySelectorAll('.question-types').forEach((item,ind)=>{
+        item.addEventListener('change', (e)=>{
+            console.log(ind)
+            questions.changeTypeOfQuestion(ind, e.target.value)
+        })
+    })
 })
 
-// document.querySelectorAll('.question-types').forEach((item,ind)=>{
-//     item.addEventListener('change', (e)=>{
-//         console.log(e.target)
-//         changeTypeOfQuestion(ind,e.target.value)
-//     })
-// })
+
 
 
 //

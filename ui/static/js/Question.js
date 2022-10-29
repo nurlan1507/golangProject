@@ -14,16 +14,31 @@ class QuestionController {
 
     addAQuestion(){
         let newQuestion = dummyQuestion('single')
-        this.questions.push({...newQuestion})
-        this.notifyAndAddQuestion(newQuestion, this.questions.length-1)
+        this.questions.push(newQuestion)
+        this.notifyAndAddQuestion(newQuestion,this.questions.length-1)
     }
 
+    changeTypeOfQuestion(ind,type){
+        this.questions[ind] = dummyQuestion(type)
+        console.log({...this.questions[ind]})
+        this.observers.innerHTML =''
+        this.outputAll(this.observers)
+        document.querySelectorAll('.question-answers-item').forEach((item,ind)=>{
+            item.addEventListener('input',(e)=>{
+                change(e.target)
+            })
+        })
+    }
 
+    getLen(){
+        console.log(this.questions.length)
+    }
     outputAll(container){
         container.innerHTML=''
+        this.getLen()
         for (let i = 0 ; i < this.questions.length; i++){
-           container.innerHTML+=this.questions[i].draw()
-            }
+           container.innerHTML+=this.questions[i].draw({...this.questions[i]}, i)
+        }
     }
 }
 

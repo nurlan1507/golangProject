@@ -10,6 +10,7 @@ class Question{
     draw(question,ind){
 
     }
+
 }
 
 class SingleAnswerQuestion extends Question{
