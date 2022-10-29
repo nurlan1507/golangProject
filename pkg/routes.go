@@ -1,13 +1,11 @@
 package pkg
 
 import (
-	"fmt"
 	"github.com/joho/godotenv"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
 	"os"
-	"reflect"
 	"testApp/pkg/handler"
 	"testApp/pkg/repository"
 )
@@ -35,13 +33,14 @@ func Routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/signUpTeacher", handlers.SignUpTeacher)
 	router.HandlerFunc(http.MethodPost, "/signUpTeacher", handlers.SignUpTeacherPost)
 	//homepage
-	fmt.Println(reflect.TypeOf(handlers.Home))
+	router.HandlerFunc(http.MethodGet, "/", handlers.AuthMiddleware(handlers.Home))
+
+	//test
+	router.HandlerFunc(http.MethodGet, "/createTest", handlers.CreateTest)
 
 	//admin route
 	router.HandlerFunc(http.MethodGet, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacher)))
 	router.HandlerFunc(http.MethodPost, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacherPost)))
-
-	router.HandlerFunc(http.MethodGet, "/", handlers.AuthMiddleware(handlers.Home))
 
 	return router
 }

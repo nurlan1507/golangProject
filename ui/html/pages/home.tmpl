@@ -4,11 +4,38 @@
 <div class="home-grid">
     <div class="home-grid-item">
         <div class="home-grid-item-content">
-            <h3>Мои Тесты</h3>
+            <h3>My tests</h3>
+            <img class="grid-image"  style="width:100px" src="/static/png/MyTestPng.png">
         </div>
-        <img src="/static/png/MyTestPng.png">
     </div>
-
+    <div class="home-grid-item">
+        <div class="home-grid-item-content">
+            <h3>Profile</h3>
+            <img class="grid-image"  style="width:100px" src="/static/png/MyTestPng.png">
+        </div>
+    </div>
+    {{if eq .AuthData.Role "Admin" }}
+    <div class="home-grid-item">
+        <div class="home-grid-item-content">
+            <h3>search tests</h3>
+            <img class="grid-image"  style="width:100px" src="/static/png/MyTestPng.png">
+        </div>
+    </div>
+    <div class="home-grid-item">
+        <div class="home-grid-item-content">
+            <h3>create tests</h3>
+            <img class="grid-image"  style="width:100px" src="/static/png/MyTestPng.png">
+        </div>
+    </div>
+    {{else}}
+    <div class="home-grid-item" style="grid-column-start: 0; grid-column-end: 2">
+        <div class="home-grid-item-content">
+            <h3>search tests</h3>
+            <img class="grid-image"  style="width:100px" src="/static/png/MyTestPng.png">
+        </div>
+    </div>
+    {{end}}
+</div>
 </div>
 {{end}}
 

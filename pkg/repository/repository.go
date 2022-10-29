@@ -14,10 +14,12 @@ type Authorization interface {
 	GetRefreshToken(userId int) (*models.RefreshToken, error)
 	DeletePendingUser(userId int) (*models.UserModel, error)
 }
-
 type IAdminRepository interface {
 	CreateTeacher(email string, username string) (*models.UserModel, error)
 	CreateTeacherInviteToken(teacherId int, token string) (*models.TeacherInvite, error)
+}
+type TestRepository interface {
+	CreateTest()
 }
 type Repository struct {
 	Authorization

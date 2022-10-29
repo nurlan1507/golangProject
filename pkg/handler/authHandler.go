@@ -161,26 +161,3 @@ func (h *Handler) SignUpTeacherPost(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, "/home", 303)
 }
-
-func (h *Handler) GetUserData(w http.ResponseWriter, r *http.Request) {
-	cookie, err := r.Cookie("AccessToken")
-	if err != nil {
-		http.Redirect(w, r, "/signUp", 303)
-		return
-	}
-
-	claims, err := h.TokenService.GetClaims(cookie.Value)
-	if err != nil {
-		http.Error(w, "Internal server Error", 500)
-		return
-	}
-	id, _ := strconv.Atoi(fmt.Sprint(claims["id"]))
-	userData := &models.UserModel{
-		Id:       id,
-		Email:    fmt.Sprint(claims["Email"]),
-		Username: fmt.Sprint(claims["Username"]),
-		Role:     fmt.Sprint(claims["Role"]),
-	}
-	json.Marshal(userData)
-
-}

@@ -1,0 +1,21 @@
+.home-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.home-grid{
+    padding: 100px;
+    width: 80%;
+    grid-row-gap: 20px;
+    grid-column-gap: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.home-grid-item{
+    background: #04AA6D;
+
+}
+.grid-image{
+    max-width: 100px;
+    max-height: 100px;
+}

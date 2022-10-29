@@ -1,0 +1,67 @@
+{{define "main" }}
+<div class="test-creator-div">
+    <form class="form-test-creator">
+        <div class="test-main-data-creator">
+            <div class="test-input-holder">
+                <label class="input-label"> Title </label>
+                <div>
+                    <input class="test-input-field" type ="text" placeholder="test name" name="title">
+                </div>
+            </div>
+            <div class="test-input-holder">
+                <label class="input-label"> Description</label>
+                <div>
+                    <textarea class="test-input-field test-input-textarea"  placeholder="test description" name="description"></textarea>
+                </div>
+            </div>
+            <div class="test-input-holder">
+                <label for="cars">Invite group</label>
+                <select name="cars" id="cars">
+                    <option value="volvo">Volvo</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                </select>
+            </div>
+            <div class="test-input-holder">
+                <label for="start">Start date:</label>
+                <input type="date" id="start" name="test-start"
+                       value="2022-01-01"
+                       min="2022-01-01" max="2030-12-31">
+            </div>
+        </div>
+        <div class="question-holder">
+            <div class="question">
+                <select class="question-types">
+                    <option value="1">One answer</option>
+                    <option value="2">MCQ</option>
+                    <option value="3">Boolean</option>
+                </select>
+                <div class="question-name" contenteditable="true">1 когда появился javascript</div>
+                <div class="question-answers">
+                    <div>
+                        <input type="radio" class="question-answers-item" name="answer1" value="wrong"><span>Diego Maradona</span>
+                    </div>
+                    <div>
+                        <input type="radio" class="question-answers-item"  name="answer2" value="correct"><span>Carlos Tevez</span>
+                    </div>
+                    <div>
+                        <input type="radio"  class="question-answers-item"  name="answer3" value="wrong"><span>Lionel Messi</span>
+                    </div>
+                    <div>
+                        <button type="button" class="add-answer-btn"></button>
+                    </div>
+                </div>
+                <button type="button" class="add-question-btn">add question</button>
+            </div>
+        </div>
+        <div class="generate-more-question">
+            <button class="plus">+</button>
+        </div>
+    </form>
+</div>
+
+<script>
+
+</script>
+{{end}}
