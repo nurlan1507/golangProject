@@ -3,6 +3,7 @@ package repository
 import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	"testApp/pkg/models"
+	"time"
 )
 
 type Authorization interface {
@@ -18,17 +19,22 @@ type IAdminRepository interface {
 	CreateTeacher(email string, username string) (*models.UserModel, error)
 	CreateTeacherInviteToken(teacherId int, token string) (*models.TeacherInvite, error)
 }
+
 type TestRepository interface {
-	CreateTest()
+	CreateTest(title string, description string, authorId int, startAt time.Time) (*models.TestModel, error)
+	AddQuestion(description string, questionType string, questionOrder int, testId int) (*models.QuestionModel, error)
 }
+
 type Repository struct {
 	Authorization
 	AdminRepository IAdminRepository
+	TestRepository
 }
 
 func NewRepository(db *pgxpool.Pool) *Repository {
 	return &Repository{
 		Authorization:   NewAuthRepo(db),
 		AdminRepository: NewAdminRepository(db),
+		TestRepository:  NewTestRepository(db),
 	}
 }

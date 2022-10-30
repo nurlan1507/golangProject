@@ -24,14 +24,14 @@ class SingleAnswerQuestion extends Question{
         for (let key in question.answers) {
             answers.push(
                 `<div style="display: flex">
-                <input type="radio" style="width: 20px; height:20px" name="question+${ind}" value="${key}">
+                <input type="radio" class="input-radio" style="width: 20px; height:20px" name="${ind}" value="${key}">
                 <div>${key} :<span contenteditable="true" id="${key}${ind}" class="question-answers-item" onchange=change(e.target)>
                 ${question.answers[key]}</span></div></div>`
             )
         }
         output = `<div class="question">
         <select class="question-types">
-            <option value="single">single</option>
+            <option value="single" selected>single</option>
             <option value="MCQ">MCQ</option>
             <option value="boolean">Boolean</option>
         </select>
@@ -59,7 +59,7 @@ class BooleanQuestion extends Question{
         for (let key in question.answers) {
             answers.push(
                 `<div style="display:flex;">
-                <input type="radio" style="width: 20px; height: 20px" name="question+${ind}" value="${question.answers[key]}">
+                <input type="radio" class="input-radio" style="width: 20px; height: 20px" name="${ind}" value="${key}">
                 <div>${key}: <span>${question.answers[key]}</span></div></div>`
             )
         }
@@ -92,7 +92,7 @@ class MCQQuestion extends Question{
         for (let key in question.answers) {
             answers.push(
                 `<div style="display: flex">
-                <input type="checkbox"  style="width: 20px; height:20px" name="question+${ind}" value="${key}">
+                <input type="checkbox" class="input-radio-MCQ"  style="width: 20px; height:20px" name="${ind}" value="${key}">
                 <div>${key} :<span contenteditable="true" id="${key}${ind}" class="question-answers-item">
                 ${question.answers[key]}</span></div></div>`
             )

@@ -35,25 +35,34 @@ function change(eTarget){
 }
 function changeTypeOfQuestion(ind,type){
     questions.questions[ind] =  dummyQuestion(type)
-
+    questions.observers.innerHTML = ''
+    questions.outputAll(document.querySelector('.question-holder'))
+}
+function changeCorrectAnswers(ind,key){
+    questions.questions[ind].correctAnswer = key
+}
+function changeMcqCorrectAnswers(ind,key){
+    let ex = false
+    console.log( questions.questions[ind].correctAnswer)
+    questions.questions[ind].correctAnswer.forEach((item,it)=>{
+        if (item === key){
+            questions.questions[ind].correctAnswer.splice(it,1)
+            ex = true
+        }
+    });
+    if (ex ===true){
+        return
+    }else{
+            questions.questions[ind].correctAnswer.push(key)
+        return;
+    }
 }
 
 let questions = new QuestionController([], document.querySelector('.question-holder'))
 document.getElementById('addNewQuestion').addEventListener("click", ()=>{
     console.log('click')
     questions.addAQuestion()
-    document.querySelectorAll('.question-answers-item').forEach((item,ind)=>{
-        item.addEventListener('input',(e)=>{
-            change(e.target)
-
-        })
-    })
-    document.querySelectorAll('.question-types').forEach((item,ind)=>{
-        item.addEventListener('change', (e)=>{
-            console.log(e.target.value)
-
-        })
-    })
+   assignListeners()
 })
 
 

@@ -25,6 +25,9 @@ type JWT interface {
 	GetRefreshToken(userId int) (*models.RefreshToken, error)
 	GetClaims(token string) (jwt.MapClaims, error)
 }
+type TestService interface {
+	CreateTest() *models.TestModel
+}
 
 type Admin interface {
 	InviteTeacher(email string, username string) (*models.TeacherInvite, error)
@@ -34,6 +37,7 @@ type Service struct {
 	UserService
 	JWT
 	AdminService Admin
+	TestService
 }
 
 func NewService(reps repository.Repository) *Service {
@@ -41,5 +45,6 @@ func NewService(reps repository.Repository) *Service {
 		UserService:  NewUserService(reps),
 		JWT:          NewJWTManager(reps),
 		AdminService: NewAdminService(reps),
+		TestService:  NewTestService(reps),
 	}
 }
