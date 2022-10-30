@@ -35,6 +35,7 @@ function change(eTarget){
 }
 function changeTypeOfQuestion(ind,type){
     questions.questions[ind] =  dummyQuestion(type)
+
 }
 
 let questions = new QuestionController([], document.querySelector('.question-holder'))
@@ -44,16 +45,18 @@ document.getElementById('addNewQuestion').addEventListener("click", ()=>{
     document.querySelectorAll('.question-answers-item').forEach((item,ind)=>{
         item.addEventListener('input',(e)=>{
             change(e.target)
+
+        })
+    })
+    document.querySelectorAll('.question-types').forEach((item,ind)=>{
+        item.addEventListener('change', (e)=>{
+            console.log(e.target.value)
+
         })
     })
 })
 
-// document.querySelectorAll('.question-types').forEach((item,ind)=>{
-//     item.addEventListener('change', (e)=>{
-//         console.log(e.target)
-//         changeTypeOfQuestion(ind,e.target.value)
-//     })
-// })
+
 
 
 //
