@@ -11,7 +11,6 @@ import (
 )
 
 func (h *Handler) AddTeacher(w http.ResponseWriter, r *http.Request) {
-
 	h.render(w, "adminPanel.tmpl", nil, 200)
 }
 

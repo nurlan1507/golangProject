@@ -26,7 +26,7 @@ class SingleAnswerQuestion extends Question{
                 `<div style="display: flex">
                 <input type="radio" class="input-radio" style="width: 20px; height:20px" name="${ind}" value="${key}">
                 <div>${key} :<span contenteditable="true" id="${key}${ind}" class="question-answers-item" onchange=change(e.target)>
-                ${question.answers[key]}</span></div></div>`
+                ${question.answers[key].value}</span></div></div>`
             )
         }
         output = `<div class="question">
@@ -60,7 +60,7 @@ class BooleanQuestion extends Question{
             answers.push(
                 `<div style="display:flex;">
                 <input type="radio" class="input-radio" style="width: 20px; height: 20px" name="${ind}" value="${key}">
-                <div>${key}: <span>${question.answers[key]}</span></div></div>`
+                <div>${key}: <span>${question.answers[key].value}</span></div></div>`
             )
         }
         output = `<div class="question">
@@ -94,7 +94,7 @@ class MCQQuestion extends Question{
                 `<div style="display: flex">
                 <input type="checkbox" class="input-radio-MCQ"  style="width: 20px; height:20px" name="${ind}" value="${key}">
                 <div>${key} :<span contenteditable="true" id="${key}${ind}" class="question-answers-item">
-                ${question.answers[key]}</span></div></div>`
+                ${question.answers[key].value}</span></div></div>`
             )
         }
         output =`<div class="question">

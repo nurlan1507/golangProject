@@ -57,11 +57,13 @@ function assignListeners(){
 function dummyQuestion(type){
     switch (type){
         case 'single':
-            return new SingleAnswerQuestion("dummy description", {A:1, B:2,C:3,D:4}, 'D')
+            return new SingleAnswerQuestion("dummy description",
+                {A:{value:1,correct:false}, B:{value:1,correct:true},C:{value:1,correct:false},D:{value:1,correct:false}}
+                , 'B')
         case 'MCQ':
-            return new MCQQuestion("dummy description", {A:1, B:2,C:3,D:4}, [])
+            return new MCQQuestion("dummy description", {A:{value:1,correct:false}, B:{value:1,correct:false},C:{value:1,correct:false},D:{value:1,correct:false}}, [])
         case 'boolean':
-            return new BooleanQuestion("dummy description", {A:true, B:false}, 'D')
+            return new BooleanQuestion("dummy description", {A:{value:true,correct:true}, B:{value:false,correct:false}}, 'D')
     }
 
 }

@@ -369,3 +369,123 @@ INFO: 	2022/10/29 19:37:24 key
 >>>>>>> a295acf3af93710cd83362047b3009034789094c
 INFO: 	2022/10/30 16:01:41 qwewqeqw- Nurlan1507!
 INFO: 	2022/10/30 16:01:42 key
+INFO: 	2022/11/02 12:37:17 username- Nurlan1507!
+INFO: 	2022/11/02 12:37:18 key
+INFO: 	2022/11/03 11:49:23 user2name- Nurlan1507!
+INFO: 	2022/11/03 11:49:24 key
+INFO: 	2022/11/03 12:08:41 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:08:48 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:08:53 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:10:21 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:10:32 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:11:36 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:11:38 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:12:02 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:13:01 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:14:45 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:14:46 key
+INFO: 	2022/11/03 12:36:24 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:40:25 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:40:26 key
+ERROR: 	2022/11/03 12:48:14 authHandler.go:33: invalid character 'o' looking for beginning of value
+ERROR: 	2022/11/03 12:50:28 authHandler.go:49: <nil>
+ERROR: 	2022/11/03 12:51:06 authHandler.go:49: <nil>
+ERROR: 	2022/11/03 12:52:03 authHandler.go:49: <nil>
+ERROR: 	2022/11/03 12:52:46 authHandler.go:50: <nil>
+ERROR: 	2022/11/03 12:54:10 authHandler.go:51: <nil>
+INFO: 	2022/11/03 12:54:43 user2name- Nurlan1507!
+INFO: 	2022/11/03 12:54:44 key
+ERROR: 	2022/11/03 12:56:00 authHandler.go:51: <nil>
+ERROR: 	2022/11/03 12:56:11 authHandler.go:51: <nil>
+ERROR: 	2022/11/03 12:57:15 authHandler.go:51: <nil>
+ERROR: 	2022/11/03 12:57:52 authHandler.go:51: <nil>
+ERROR: 	2022/11/03 12:58:58 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 12:59:27 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 12:59:46 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 12:59:53 authHandler.go:52: <nil>
+INFO: 	2022/11/03 13:00:26 asdwqwqw- h.Loggers.ErrorLogger.Println(err)1
+INFO: 	2022/11/03 13:00:27 key
+ERROR: 	2022/11/03 13:03:28 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 13:05:10 authHandler.go:52: <nil>
+INFO: 	2022/11/03 13:05:27 nurlan14072- Baitasnur1507!
+INFO: 	2022/11/03 13:05:28 key
+ERROR: 	2022/11/03 13:05:38 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 13:06:03 authHandler.go:52: <nil>
+INFO: 	2022/11/03 13:06:19 user2name- Nurlan1507!
+INFO: 	2022/11/03 13:06:20 key
+INFO: 	2022/11/03 13:06:36 nurlan14072- Baitasnur1507!
+INFO: 	2022/11/03 13:06:46 nurlan14072- Baitasnur1507!
+INFO: 	2022/11/03 13:06:47 key
+INFO: 	2022/11/03 13:08:06 nurlan14072- Baitasnur1507!
+INFO: 	2022/11/03 13:15:51 nurlan14072- Baitasnur1507!
+INFO: 	2022/11/03 13:15:59 nurlan14072- Baitasnur1507!
+INFO: 	2022/11/03 13:16:00 key
+INFO: 	2022/11/03 13:31:52 qweqwWW- Nurlan1570!
+INFO: 	2022/11/03 13:31:53 key
+ERROR: 	2022/11/03 13:33:19 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 13:33:45 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 13:34:02 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 13:36:48 authHandler.go:34: invalid character 'o' looking for beginning of value
+ERROR: 	2022/11/03 13:36:56 authHandler.go:34: invalid character 'o' looking for beginning of value
+ERROR: 	2022/11/03 13:38:29 authHandler.go:34: invalid character 'o' looking for beginning of value
+ERROR: 	2022/11/03 13:38:54 authHandler.go:34: invalid character 'o' looking for beginning of value
+ERROR: 	2022/11/03 13:39:06 authHandler.go:34: invalid character 'o' looking for beginning of value
+ERROR: 	2022/11/03 13:39:20 authHandler.go:34: invalid character 'o' looking for beginning of value
+ERROR: 	2022/11/03 13:39:23 authHandler.go:34: invalid character 'o' looking for beginning of value
+ERROR: 	2022/11/03 13:40:14 authHandler.go:34: invalid character 'o' looking for beginning of value
+INFO: 	2022/11/03 13:41:39 211369aa- nurlan1507A!
+INFO: 	2022/11/03 13:41:40 key
+INFO: 	2022/11/03 13:55:28 nurlan1407- Nurlan1507!
+INFO: 	2022/11/03 13:55:29 key
+INFO: 	2022/11/03 13:55:46 nurlan1407- Nurlan1507!
+INFO: 	2022/11/03 13:56:08 nurlan1407- Nurlan1507!
+INFO: 	2022/11/03 13:56:30 nurlan1407- Nurlan1507!
+INFO: 	2022/11/03 13:56:30 key
+INFO: 	2022/11/03 21:08:16 nurlan1407- nurlan1507!A
+INFO: 	2022/11/03 21:08:17 key
+INFO: 	2022/11/03 21:08:53 nurlan1407- nurlan1507!A
+INFO: 	2022/11/03 21:09:07 nurlan1407- nurlan1507!A
+INFO: 	2022/11/03 21:09:18 nurlan1407- nurlan1507!A
+INFO: 	2022/11/03 21:09:19 key
+INFO: 	2022/11/03 21:17:20 nurlan1407- nurlan1507!A
+ERROR: 	2022/11/03 21:17:21 authHandler.go:72: <nil>
+INFO: 	2022/11/03 21:17:26 nurlan1407- nurlan1507!A
+INFO: 	2022/11/03 21:17:26 key
+INFO: 	2022/11/03 21:18:59 nurlan1407- nurlan1507!A
+INFO: 	2022/11/03 21:19:00 key
+ERROR: 	2022/11/03 21:19:05 authHandler.go:54: <nil>
+ERROR: 	2022/11/03 21:19:10 authHandler.go:54: <nil>
+ERROR: 	2022/11/03 21:21:01 authHandler.go:54: <nil>
+ERROR: 	2022/11/03 21:21:53 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:22:19 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:24:01 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:24:55 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:41:18 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:41:53 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:42:53 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:44:36 authHandler.go:52: <nil>
+INFO: 	2022/11/03 21:44:53 nurlan1407- Nurlan1507!
+INFO: 	2022/11/03 21:44:54 key
+ERROR: 	2022/11/03 21:45:23 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:45:42 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:46:09 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:46:24 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:46:59 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:47:29 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:47:46 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:48:26 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:48:52 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:49:38 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:50:17 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:50:43 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:51:06 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:52:42 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:53:58 authHandler.go:52: <nil>
+ERROR: 	2022/11/03 21:57:54 authHandler.go:48: <nil>
+ERROR: 	2022/11/03 21:59:03 authHandler.go:48: <nil>
+ERROR: 	2022/11/03 21:59:34 authHandler.go:48: <nil>
+ERROR: 	2022/11/03 22:00:02 authHandler.go:48: <nil>
+ERROR: 	2022/11/03 22:02:26 authHandler.go:48: <nil>
+ERROR: 	2022/11/03 22:04:01 authHandler.go:48: <nil>
+ERROR: 	2022/11/03 22:04:24 authHandler.go:48: <nil>
+ERROR: 	2022/11/03 22:26:06 authHandler.go:48: <nil>

@@ -5,13 +5,21 @@ import (
 )
 
 type UserModel struct {
-	Id          int
-	Email       string
-	Username    string
-	Password    string
-	AccessToken string
-	Role        string
+	Id             int
+	Email          string `json:"email"`
+	Username       string `json:"username"`
+	Password       string `json:"password"`
+	AccessToken    string
+	Role           string
+	RepeatPassword string `json:"repeatPassword"`
 }
+type SignUpModel struct {
+	Email          string `json:"email"`
+	Username       string `json:"username"`
+	Password       string `json:"password"`
+	RepeatPassword string `json:"repeatPassword"`
+}
+
 type RefreshToken struct {
 	Token   string
 	Expires time.Time

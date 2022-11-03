@@ -25,10 +25,10 @@ func Routes() http.Handler {
 	router.Handler(http.MethodGet, "/static/*filepath", http.StripPrefix("/static", fileServer))
 
 	//auth
-	router.HandlerFunc(http.MethodGet, "/signUp", handlers.SignUp)
+	//router.HandlerFunc(http.MethodGet, "/signUp", handlers.SignUp)
 	router.HandlerFunc(http.MethodGet, "/signIn", handlers.SignIn)
 	router.HandlerFunc(http.MethodPost, "/signIn", handlers.SignInPost)
-	router.HandlerFunc(http.MethodPost, "/signUp", handlers.SignUpPost)
+	router.HandlerFunc(http.MethodPost, "/signUp", handlers.EnableCors(handlers.SignUpPost))
 	router.HandlerFunc(http.MethodGet, "/getUsers", handlers.GetUsers)
 	router.HandlerFunc(http.MethodGet, "/signUpTeacher", handlers.SignUpTeacher)
 	router.HandlerFunc(http.MethodPost, "/signUpTeacher", handlers.SignUpTeacherPost)
@@ -37,11 +37,15 @@ func Routes() http.Handler {
 
 	//test
 	router.HandlerFunc(http.MethodGet, "/createTest", handlers.CreateTest)
-
+	router.HandlerFunc(http.MethodPost, "/createTest", handlers.CreateTestPost)
 	//admin route
 	router.HandlerFunc(http.MethodGet, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacher)))
 	router.HandlerFunc(http.MethodPost, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacherPost)))
 
+	router.HandlerFunc(http.MethodGet, "/q", func(writer http.ResponseWriter, request *http.Request) {
+		//json.NewEncoder(writer).Encode(5)
+		writer.Write([]byte("2"))
+	})
 	return router
 }
 

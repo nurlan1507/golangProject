@@ -30,6 +30,7 @@ func (a *Auth) CreateUser(email string, username string, password string, role s
 		ok := errors.As(err, &pgErr)
 		if ok {
 			if pgErr.Code == "23505" {
+				fmt.Println(err)
 				return nil, helpers.ErrDuplicate
 			}
 		}

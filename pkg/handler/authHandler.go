@@ -20,35 +20,52 @@ type AuthForm struct {
 }
 
 func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	err := r.ParseForm()
+
 	if err != nil {
 		h.Loggers.ErrorLogger.Println(err)
 		log.Fatal(err)
 	}
+	var newUser = &models.SignUpModel{}
+	err = json.NewDecoder(r.Body).Decode(&newUser)
+	if err != nil {
+		h.Loggers.ErrorLogger.Println(err)
+		return
+	}
 	AuthForm := &AuthForm{
-		Email:     r.PostForm.Get("email"),
-		Username:  r.PostForm.Get("username"),
-		Password:  r.PostForm.Get("password"),
+		Email:     newUser.Email,
+		Username:  newUser.Username,
+		Password:  newUser.Password,
 		Validator: helpers.NewValidation(),
 	}
-
 	AuthForm.Validator.Check(helpers.IsValidEmail(AuthForm.Email), "email", "email is not valid")
 	AuthForm.Validator.Check(helpers.IsValidUsername(AuthForm.Username), "username", "username should not contain [.!?\\-] and be less than 5 symbols")
 	AuthForm.Validator.Check(helpers.IsValidPassword(AuthForm.Password), "password", "Password rules: at least 7 letters \n at least 1 number \n at least 1 upper case \n at least 1 special character")
-	AuthForm.Validator.Check(helpers.ArePasswordsEqual(AuthForm.Password, r.PostForm.Get("repeatPassword")), "repeatPassword", "passwords do not match")
+	AuthForm.Validator.Check(helpers.ArePasswordsEqual(AuthForm.Password, newUser.RepeatPassword), "repeatPassword", "passwords do not match")
 	if AuthForm.Validator.Valid() == false {
-		h.render(w, "signUp.tmpl", templateData.NewTemplateData(&models.UserModel{}, AuthForm), 400)
+		res, err := json.Marshal(AuthForm.Validator.Errors)
+		h.Loggers.ErrorLogger.Println(err)
+		w.WriteHeader(400)
+		w.Write(res)
 		return
 	}
 	user, err := h.UserService.SignUp(AuthForm.Email, AuthForm.Username, AuthForm.Password)
 	if err != nil {
+		res, err := json.Marshal(AuthForm.Validator.Errors)
 		if errors.Is(err, helpers.ErrDuplicate) {
 			AuthForm.Validator.Errors["duplicate"] = err.Error()
-			h.render(w, "signUp.tmpl", templateData.NewTemplateData(&models.UserModel{}, AuthForm), 400)
+			w.WriteHeader(400)
+			if err != nil {
+				return
+			}
+			w.Write(res)
 			return
 		}
 		h.Loggers.ErrorLogger.Println(err)
-		helpers.BadRequest(w, r, err)
+		w.WriteHeader(500)
+		//helpers.BadRequest(w, r, err)
+		w.Write(res)
 		return
 	}
 	cookie := &http.Cookie{
@@ -59,9 +76,12 @@ func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
 		Secure:   true,
 	}
 	http.SetCookie(w, cookie)
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	marshal, err := json.Marshal(&user)
+	if err != nil {
+		return
+	}
+	w.Write(marshal)
 	return
-	//json.NewEncoder(w).Encode(user)
 }
 
 func (h *Handler) GetUsers(w http.ResponseWriter, r *http.Request) {
@@ -104,7 +124,7 @@ func (h *Handler) SignInPost(w http.ResponseWriter, r *http.Request) {
 		Secure:   true,
 	}
 	http.SetCookie(w, cookie)
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	json.NewEncoder(w).Encode(res)
 	return
 }
 
@@ -150,6 +170,7 @@ func (h *Handler) SignUpTeacherPost(w http.ResponseWriter, r *http.Request) {
 	AuthForm.Validator.Check(helpers.IsValidPassword(AuthForm.Password), "password", "Password rules: at least 7 letters \n at least 1 number \n at least 1 upper case \n at least 1 special character")
 	AuthForm.Validator.Check(helpers.ArePasswordsEqual(AuthForm.Password, r.PostForm.Get("repeatPassword")), "repeatPassword", "passwords do not match")
 	if !AuthForm.Validator.Valid() {
+
 		h.render(w, "signUpTeacher.tmpl", templateData.NewTemplateData(nil, AuthForm), 200)
 		return
 	}
