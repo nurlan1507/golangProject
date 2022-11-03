@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"golang.org/x/crypto/bcrypt"
 	"testApp/pkg/helpers"
 	"testApp/pkg/models"
@@ -23,6 +24,12 @@ func (u *User) SignIn(email string, password string) (*models.UserModel, error) 
 	if err != nil {
 		return nil, err
 	}
+	refreshToken, err := u.JWT.NewRefreshToken(*user)
+	err = u.repo.UpdateRefreshToken(user.Id, refreshToken)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
 	accessToken, err := u.JWT.NewJWT(user, 1)
 	if err != nil {
 		return nil, err
@@ -42,6 +49,7 @@ func (u *User) SignIn(email string, password string) (*models.UserModel, error) 
 	//	return nil, err
 	//}
 	user.AccessToken = accessToken
+	user.RefreshToken = refreshToken
 	return user, nil
 }
 
@@ -68,6 +76,7 @@ func (u *User) SignUp(email string, username string, password string) (*models.U
 		return nil, err
 	}
 	newUser.AccessToken = jwt
+	newUser.RefreshToken = refreshToken
 	return newUser, nil
 }
 

@@ -10,6 +10,7 @@ type UserModel struct {
 	Username       string `json:"username"`
 	Password       string `json:"password"`
 	AccessToken    string
+	RefreshToken   string
 	Role           string
 	RepeatPassword string `json:"repeatPassword"`
 }

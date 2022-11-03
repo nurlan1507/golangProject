@@ -24,13 +24,6 @@ func (h *Handler) AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 		_, e := h.TokenService.VerifyToken(accessToken.Value)
-		//userID, _ :=strconv.Atoi(fmt.Sprint(claims["Id"]))
-		//AuthData :=&models.UserModel{
-		//	Id:userID,
-		//	Email: fmt.Sprint(claims["Email"]),
-		//	Username: fmt.Sprint(claims["Username"]),
-		//	Role :fmt.Sprint(claims["Role"]),
-		//}
 		if e != nil {
 			if errors.Is(e.Err, helpers.ExpiredToken) {
 				userId, _ := strconv.Atoi(fmt.Sprint(e.Payload["Id"]))

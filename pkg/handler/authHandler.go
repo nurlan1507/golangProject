@@ -68,14 +68,22 @@ func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
 		w.Write(res)
 		return
 	}
-	cookie := &http.Cookie{
+	AccessTokenCookie := &http.Cookie{
 		Name:     "AccessToken",
 		Value:    user.AccessToken,
 		MaxAge:   300,
 		HttpOnly: true,
 		Secure:   true,
 	}
-	http.SetCookie(w, cookie)
+	RefreshTokenCookie := &http.Cookie{
+		Name:     "RefreshToken",
+		Value:    user.RefreshToken,
+		MaxAge:   2592000,
+		HttpOnly: true,
+		Secure:   true,
+	}
+	http.SetCookie(w, AccessTokenCookie)
+	http.SetCookie(w, RefreshTokenCookie)
 	marshal, err := json.Marshal(&user)
 	if err != nil {
 		return
@@ -115,9 +123,6 @@ func (h *Handler) SignInPost(w http.ResponseWriter, r *http.Request) {
 		w.Write(res)
 		return
 	}
-	fmt.Printf("%+v", authForm)
-	data, _ := json.Marshal(authForm)
-	w.Write(data)
 	result, err := h.UserService.SignIn(authForm.Email, authForm.Password)
 	if err != nil {
 		w.WriteHeader(400)
@@ -143,6 +148,14 @@ func (h *Handler) SignInPost(w http.ResponseWriter, r *http.Request) {
 		HttpOnly: true,
 		Secure:   true,
 	}
+	RefreshTokenCookie := &http.Cookie{
+		Name:     "RefreshToken",
+		Value:    result.RefreshToken,
+		MaxAge:   2592000,
+		HttpOnly: true,
+		Secure:   true,
+	}
+	http.SetCookie(w, RefreshTokenCookie)
 	http.SetCookie(w, cookie)
 	response, _ := json.Marshal(result)
 	w.WriteHeader(200)
@@ -204,3 +217,26 @@ func (h *Handler) SignUpTeacherPost(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, "/home", 303)
 }
+
+//func (h *Handler) GetNewAccessToken(w http.ResponseWriter, r *http.Request) {
+//	refreshToken,err:= r.Cookie("RefreshToken")
+//	if err!=nil{
+//		w.WriteHeader(401)
+//		return
+//	}
+//	claims,err := h.TokenService.GetClaims(refreshToken.Value)
+//	if err!=nil{
+//		w.WriteHeader(401)
+//		return
+//	}
+//	token, err := h.TokenService.RefreshAccessToken(claims)
+//	if err != nil {
+//		return
+//	}
+//	newCookie := &http.Cookie{
+//		Name:"AccessToken",
+//		Value: token,
+//		MaxAge: 300,
+//
+//	}
+//}
