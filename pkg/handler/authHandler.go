@@ -13,9 +13,9 @@ import (
 )
 
 type AuthForm struct {
-	Email     string
-	Username  string
-	Password  string
+	Email     string `json:"email"`
+	Username  string `json:"username"`
+	Password  string `json:"password"`
 	Validator *helpers.Validation
 }
 
@@ -100,31 +100,53 @@ func (h *Handler) SignUp(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) SignInPost(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
-	AuthForm := &AuthForm{Email: r.PostForm.Get("email"), Password: r.PostForm.Get("password"), Validator: helpers.NewValidation()}
-	data := templateData.NewTemplateData(nil, AuthForm)
-	res, err := h.UserService.SignIn(r.PostForm.Get("email"), r.PostForm.Get("password"))
 	if err != nil {
-		fmt.Println(err)
-		if errors.Is(err, helpers.NoSuchUser) {
-			AuthForm.Validator.Errors["NotFound"] = err.Error()
-		}
-		if errors.Is(err, helpers.PasswordIncorrect) {
-			AuthForm.Validator.Errors["PasswordNotMatch"] = err.Error()
-		}
-		data.Form = AuthForm
-		h.render(w, "signIn.tmpl", data, http.StatusBadRequest)
 		return
 	}
-	data.AuthData = res
+	authForm := &AuthForm{}
+	json.NewDecoder(r.Body).Decode(&authForm)
+	authForm.Validator = helpers.NewValidation()
+	//validation
+	authForm.Validator.Check(helpers.IsFulfilled(authForm.Email), "email", "email is empty")
+	authForm.Validator.Check(helpers.IsFulfilled(authForm.Password), "password", "field password is empty")
+	if authForm.Validator.Valid() == false {
+		res, _ := json.Marshal(authForm.Validator.Errors)
+		w.WriteHeader(400)
+		w.Write(res)
+		return
+	}
+	fmt.Printf("%+v", authForm)
+	data, _ := json.Marshal(authForm)
+	w.Write(data)
+	result, err := h.UserService.SignIn(authForm.Email, authForm.Password)
+	if err != nil {
+		w.WriteHeader(400)
+		if errors.Is(err, helpers.NoSuchUser) {
+			authForm.Validator.Errors["email"] = err.Error()
+			res, _ := json.Marshal(authForm.Validator.Errors)
+			w.Write(res)
+			return
+		}
+		if errors.Is(err, helpers.PasswordIncorrect) {
+			authForm.Validator.Errors["password"] = err.Error()
+			res, _ := json.Marshal(authForm.Validator.Errors)
+			w.Write(res)
+			return
+		}
+		w.WriteHeader(500)
+		return
+	}
 	cookie := &http.Cookie{
 		Name:     "AccessToken",
-		Value:    res.AccessToken,
+		Value:    result.AccessToken,
 		MaxAge:   300,
 		HttpOnly: true,
 		Secure:   true,
 	}
 	http.SetCookie(w, cookie)
-	json.NewEncoder(w).Encode(res)
+	response, _ := json.Marshal(result)
+	w.WriteHeader(200)
+	w.Write(response)
 	return
 }
 

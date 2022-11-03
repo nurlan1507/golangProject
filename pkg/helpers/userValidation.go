@@ -60,3 +60,11 @@ func ArePasswordsEqual(pass1 string, pass2 string) bool {
 	}
 	return true
 }
+
+func IsFulfilled(value string) bool {
+	if len(value) == 0 {
+		return false
+	}
+	return true
+
+}
