@@ -46,6 +46,9 @@ func Routes() http.Handler {
 		//json.NewEncoder(writer).Encode(5)
 		writer.Write([]byte("2"))
 	})
+
+	//refreshAccessToken
+	router.HandlerFunc(http.MethodGet, "/getNewAccessToken", handlers.GetNewAccessToken)
 	return router
 }
 

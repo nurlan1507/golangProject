@@ -218,25 +218,28 @@ func (h *Handler) SignUpTeacherPost(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/home", 303)
 }
 
-//func (h *Handler) GetNewAccessToken(w http.ResponseWriter, r *http.Request) {
-//	refreshToken,err:= r.Cookie("RefreshToken")
-//	if err!=nil{
-//		w.WriteHeader(401)
-//		return
-//	}
-//	claims,err := h.TokenService.GetClaims(refreshToken.Value)
-//	if err!=nil{
-//		w.WriteHeader(401)
-//		return
-//	}
-//	token, err := h.TokenService.RefreshAccessToken(claims)
-//	if err != nil {
-//		return
-//	}
-//	newCookie := &http.Cookie{
-//		Name:"AccessToken",
-//		Value: token,
-//		MaxAge: 300,
-//
-//	}
-//}
+func (h *Handler) GetNewAccessToken(w http.ResponseWriter, r *http.Request) {
+	refreshToken, err := r.Cookie("RefreshToken")
+	if err != nil {
+		w.WriteHeader(401)
+		return
+	}
+	claims, err := h.TokenService.GetClaims(refreshToken.Value)
+	if err != nil {
+		w.WriteHeader(401)
+		return
+	}
+	token, err := h.TokenService.RefreshAccessToken(claims)
+	if err != nil {
+		w.WriteHeader(500)
+		return
+	}
+	newCookie := &http.Cookie{
+		Name:   "AccessToken",
+		Value:  token,
+		MaxAge: 300,
+	}
+	http.SetCookie(w, newCookie)
+	res, _ := json.Marshal(&newCookie)
+	w.Write(res)
+}
