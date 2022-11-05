@@ -3,9 +3,7 @@ This is the backend part of my website testApp, Frontend : https://github.com/nu
 
 
 
-
-
-
+```
 create table pending_users(
     teacher_id serial primary key ,
     email varchar(40),
@@ -64,3 +62,5 @@ create table answer(
 alter table answer add constraint answer_question_fk foreign key (question_id) references question(question_id);
 
 alter table question add constraint  question_test_id_fk foreign key(test_id) references test(id);
+
+```
