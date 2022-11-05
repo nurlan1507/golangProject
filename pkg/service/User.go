@@ -34,20 +34,6 @@ func (u *User) SignIn(email string, password string) (*models.UserModel, error) 
 	if err != nil {
 		return nil, err
 	}
-	//_, err = u.JWT.GetRefreshToken(user.Id)
-	//if err != nil {
-	//	if errors.Is(err, helpers.ExpiredRefreshToken) {
-	//		refreshToken, err := u.JWT.NewRefreshToken(*user)
-	//		if err != nil {
-	//			return nil, err
-	//		}
-	//		err = u.repo.UpdateRefreshToken(user.Id, refreshToken)
-	//		if err != nil {
-	//			return nil, err
-	//		}
-	//	}
-	//	return nil, err
-	//}
 	user.AccessToken = accessToken
 	user.RefreshToken = refreshToken
 	return user, nil

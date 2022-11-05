@@ -3,8 +3,8 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
+	"testApp/pkg/models"
 )
 
 type q struct {
@@ -12,21 +12,37 @@ type q struct {
 }
 
 func (h *Handler) CreateTest(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		h.Loggers.ErrorLogger.Println(err)
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	newTest := &models.TestModel{}
+	err = json.NewDecoder(r.Body).Decode(&newTest)
+	if err != nil {
+		fmt.Println(err)
+		w.WriteHeader(400)
+		return
+	}
+	fmt.Printf("%+v", newTest)
+	result, err := h.TestService.CreateTest(newTest)
+	if err != nil {
+		w.WriteHeader(400)
+		h.Loggers.ErrorLogger.Println(err)
+	}
 
-	h.render(w, "createTest.tmpl", nil, 200)
-}
-
-func (h *Handler) CreateTestPost(w http.ResponseWriter, r *http.Request) {
-	defer r.Body.Close()
-	buf, err := ioutil.ReadAll(r.Body)
+	mars, err := json.Marshal(result)
 	if err != nil {
 		return
 	}
-	var k q
-	json.Unmarshal(buf, &k)
-	fmt.Println(k.Questions)
-	//fmt.Printf("Body : %s\n ", buf)
-	w.Header().Set("Content-type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(k)
+	_, err = w.Write(mars)
+	if err != nil {
+		w.WriteHeader(500)
+		return
+	}
+}
+
+func (h *Handler) CreateTestPost(w http.ResponseWriter, r *http.Request) {
+
 }

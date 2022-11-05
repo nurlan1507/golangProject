@@ -7,28 +7,45 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	"testApp/pkg/helpers"
 	"testApp/pkg/models"
-	"time"
 )
 
 type testRepository struct {
 	Db *pgxpool.Pool
 }
 
-func (t *testRepository) CreateTest(title string, description string, authorId int, startAt time.Time) (*models.TestModel, error) {
-	stmt := `INSERT INTO test (title, description, author_id, create_at, start_at, expires_at) 
-    VALUES ($1,$2,$3,$4,$5,$6) RETURNING  id, title,description, author_id,created_at, start_at, expires_at`
-	createdAt := time.Now().Format("2006-11-11")
-	//startAt = startAt.Format("2006-11-11")
-	newTest := &models.TestModel{}
-	err := t.Db.QueryRow(context.Background(), stmt, title, description, authorId, createdAt, startAt, startAt).
-		Scan(&newTest.Id, &newTest.Title, &newTest.AuthorId, &newTest.CreatedAt, &newTest.StartAt, &newTest.ExpiresAt)
+func (t *testRepository) FindStudents(groupId string) ([]string, error) {
+	stmt := `SELECT email FROM users WHERE group_name LIKE $1`
+	query, err := t.Db.Query(context.Background(), stmt, groupId)
 	if err != nil {
-		if errors.Is(err, pgx.ErrNoRows) {
+		if errors.Is(err, helpers.ErrNoRecord) {
 			return nil, helpers.ErrNoRecord
 		}
 		return nil, err
 	}
-	return newTest, nil
+	var emails []string
+	for query.Next() {
+		var email string
+		err = query.Scan(&email)
+		if err != nil {
+			return nil, err
+		}
+		emails = append(emails, email)
+	}
+	return emails, nil
+}
+
+func (t *testRepository) CreateTest(newTest *models.TestModel) (*models.TestModel, error) {
+	test := &models.TestModel{}
+	stmt := `INSERT INTO test(title,description,author_id,created_at,start_at,expires_at) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`
+	err := t.Db.QueryRow(context.Background(), stmt, newTest.Title, newTest.Description, newTest.AuthorId, newTest.CreatedAt, newTest.StartAt, newTest.StartAt).
+		Scan(&test.Id, &test.Title, &test.Description, &test.AuthorId, &test.CreatedAt, &test.StartAt, &test.ExpiresAt)
+	if err != nil {
+		if errors.Is(err, helpers.ErrNoRecord) {
+			return nil, helpers.ErrNoRecord
+		}
+		return nil, err
+	}
+	return test, nil
 }
 
 func (t *testRepository) AddQuestion(description string, questionType string, questionOrder int, testId int) (*models.QuestionModel, error) {

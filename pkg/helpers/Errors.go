@@ -11,3 +11,5 @@ var NotAuthorized = errors.New("you are not authorized")
 var TokenError = errors.New("server Error")
 var ExpiredToken = errors.New("token is expired")
 var ExpiredRefreshToken = errors.New("RefreshToken is expired")
+
+var EmailError = errors.New("smtp error")

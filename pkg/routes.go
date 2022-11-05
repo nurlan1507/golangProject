@@ -36,8 +36,7 @@ func Routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/", handlers.AuthMiddleware(handlers.Home))
 
 	//test
-	router.HandlerFunc(http.MethodGet, "/createTest", handlers.CreateTest)
-	router.HandlerFunc(http.MethodPost, "/createTest", handlers.CreateTestPost)
+	router.HandlerFunc(http.MethodPost, "/createTest", handlers.CreateTest)
 	//admin route
 	router.HandlerFunc(http.MethodGet, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacher)))
 	router.HandlerFunc(http.MethodPost, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacherPost)))
@@ -49,6 +48,7 @@ func Routes() http.Handler {
 
 	//refreshAccessToken
 	router.HandlerFunc(http.MethodGet, "/getNewAccessToken", handlers.GetNewAccessToken)
+
 	return router
 }
 

@@ -5,33 +5,35 @@ import (
 )
 
 type TestModel struct {
-	Id           int
-	Title        string
-	AuthorId     int
-	CreatedAt    time.Time
-	StartAt      time.Time
-	ExpiresAt    time.Time
-	Questions    []QuestionModel
-	Participants []UserModel
+	Id          int       `json:"Id"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	SubjectId   int       `json:"subjectId"`
+	AuthorId    int       `json:"authorId"`
+	GroupId     string    `json:"groupId"`
+	CreatedAt   time.Time `json:"create_at"`
+	StartAt     time.Time `json:"start_at"`
+	ExpiresAt   time.Time `json:"expires_at"`
 }
 type QuestionModel struct {
-	QuestionId   int
-	Description  string
-	Type         string
-	Order        int
-	TestId       int
-	CorrectValue string //Ответ на вопрос, важен только в случае типа вопроса с инпутом
+	QuestionId   int    `json:"questionId"`
+	Description  string `json:"description"`
+	Type         string `json:"type"`
+	Order        int    `json:"order"`
+	TestId       int    `json:"testId"`
+	CorrectValue string `json:"correctValue"` //Ответ на вопрос, важен только в случае типа вопроса с инпутом
 }
 type AnswerModel struct {
-	AnswerId   int
-	Value      string
-	Correct    bool
-	QuestionId int
+	AnswerId   int    `json:"answerId"`
+	Value      string `json:"value"`
+	Correct    bool   `json:"correct"`
+	QuestionId int    `json:"questionId"`
 }
 
 type UserAnswers struct {
-	UserAnswerId int
-	UserId       int
-	AnswerId     int
-	Value        string //Ответ на вопрос, важен только в случае типа вопроса с инпутом
+	UserAnswerId int    `json:"userAnswerId"`
+	UserId       int    `json:"userId"`
+	AnswerId     int    `json:"answerId"`
+	Value        string `json:"value"`
+	//Ответ на вопрос, важен только в случае типа вопроса с инпутом
 }

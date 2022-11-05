@@ -14,6 +14,7 @@ type Handler struct {
 	UserService   service.UserService
 	TokenService  service.JWT
 	AdminService  service.Admin
+	TestService   service.TestService
 	TemplateCache map[string]*template.Template
 	Loggers       *helpers.Loggers
 }
@@ -35,6 +36,7 @@ func InitilalizeHandler(repos *repository.Repository) (*Handler, error) {
 		Loggers:       helpers.InitLoggers(),
 		TokenService:  services.JWT,
 		AdminService:  adminServices,
+		TestService:   services.TestService,
 	}, nil
 }
 

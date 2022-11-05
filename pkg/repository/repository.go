@@ -3,7 +3,6 @@ package repository
 import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	"testApp/pkg/models"
-	"time"
 )
 
 type Authorization interface {
@@ -21,8 +20,9 @@ type IAdminRepository interface {
 }
 
 type TestRepository interface {
-	CreateTest(title string, description string, authorId int, startAt time.Time) (*models.TestModel, error)
+	CreateTest(model *models.TestModel) (*models.TestModel, error)
 	AddQuestion(description string, questionType string, questionOrder int, testId int) (*models.QuestionModel, error)
+	FindStudents(groupId string) ([]string, error)
 }
 
 type Repository struct {

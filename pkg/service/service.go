@@ -26,7 +26,7 @@ type JWT interface {
 	GetClaims(token string) (jwt.MapClaims, error)
 }
 type TestService interface {
-	CreateTest() *models.TestModel
+	CreateTest(model *models.TestModel) (*models.TestModel, error)
 }
 
 type Admin interface {

@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"net/smtp"
+	"testApp/pkg/helpers"
 )
 
 type loginAuth struct {
@@ -21,6 +22,20 @@ func SendMessage(message []byte, to []string) error {
 	err := smtp.SendMail(host+":587", auth, from, to, message)
 	if err != nil {
 		return err
+	}
+	return nil
+}
+
+func sendEmailToParticipants(message []byte, to []string) error {
+	from := "211369@astanait.edu.kz"
+	host := "smtp.office365.com"
+	auth := LoginAuth(from, "Baitasnur1507")
+	if len(to) == 0 {
+		return nil
+	}
+	err := smtp.SendMail(host+":587", auth, from, to, message)
+	if err != nil {
+		return helpers.EmailError
 	}
 	return nil
 }
