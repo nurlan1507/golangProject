@@ -42,6 +42,10 @@ func (t *testService) CreateTest(newTest *models.TestModel) (*models.TestModel, 
 	return createdTest, nil
 }
 
+func (t *testService) AddQuestions([]*models.TestModel) ([]models.TestModel, error) {
+
+	return nil, nil
+}
 func NewTestService(repo repository.Repository) *testService {
 	return &testService{
 		Loggers:    helpers.InitLoggers(),
