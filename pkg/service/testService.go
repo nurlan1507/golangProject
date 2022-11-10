@@ -2,6 +2,7 @@ package service
 
 import (
 	"bytes"
+	"fmt"
 	"html/template"
 	"testApp/pkg/helpers"
 	"testApp/pkg/models"
@@ -44,8 +45,24 @@ func (t *testService) CreateTest(newTest *models.TestModel) (*models.TestModel, 
 	return createdTest, nil
 }
 
-func (t *testService) AddQuestions([]*models.TestModel) ([]models.TestModel, error) {
-
+func (t *testService) AddQuestions(questions []*models.QuestionModel) ([]models.TestModel, error) {
+	for i, v := range questions {
+		fmt.Println(questions[i].Answers)
+		t.Validation.Check()
+		ind := i + 1
+		question, err := t.repo.AddQuestion(v, ind)
+		if err != nil {
+			return nil, err
+		}
+		_, err = t.repo.AddAnswer(question.QuestionId, questions[i].Answers)
+		if err != nil {
+			return nil, err
+		}
+		if err != nil {
+			t.Loggers.ErrorLogger.Println(err)
+			return nil, err
+		}
+	}
 	return nil, nil
 }
 func NewTestService(repo repository.Repository) *testService {

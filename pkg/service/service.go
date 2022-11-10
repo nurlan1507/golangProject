@@ -27,7 +27,7 @@ type JWT interface {
 }
 type TestService interface {
 	CreateTest(model *models.TestModel) (*models.TestModel, error)
-	AddQuestions(model []*models.TestModel) ([]models.TestModel, error)
+	AddQuestions(model []*models.QuestionModel) ([]models.TestModel, error)
 }
 
 type Admin interface {

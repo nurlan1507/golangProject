@@ -3,6 +3,7 @@ package helpers
 import "errors"
 
 var ErrNoRecord = errors.New("model: no matching record found")
+var ConstraintError = errors.New("Constraint error")
 var ErrDuplicate = errors.New("user with email already exists")
 var PasswordIncorrect = errors.New("password incorrect")
 var NoSuchUser = errors.New("no such user found")

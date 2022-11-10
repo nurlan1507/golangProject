@@ -67,7 +67,3 @@ func (h *Handler) CreateTest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
-
-func (h *Handler) CreateTestPost(w http.ResponseWriter, r *http.Request) {
-
-}

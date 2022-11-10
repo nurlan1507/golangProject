@@ -7,8 +7,8 @@ type QuestionModel struct {
 	Order        int                    `json:"order"`
 	TestId       int                    `json:"testId"`
 	Answers      map[string]AnswerModel `json:"answers"`
-	Score        float32                `json:"point"`
-	CorrectValue string                 `json:"correctValue"` //Ответ на вопрос, важен только в случае типа вопроса с инпутом
+	Point        int                    `json:"point"`
+	CorrectValue string                 `json:"correctAnswer"` //Ответ на вопрос, важен только в случае типа вопроса с инпутом
 }
 
 type AnswerModel struct {

@@ -13,9 +13,14 @@ func (h *Handler) AddQuestions(w http.ResponseWriter, r *http.Request) {
 		h.Loggers.ErrorLogger.Println(err)
 		return
 	}
-	var a []*models.QuestionModel
-	json.NewDecoder(r.Body).Decode(&a)
-	marhsal, err := json.Marshal(a)
+	var questions []*models.QuestionModel
+	json.NewDecoder(r.Body).Decode(&questions)
+	_, err = h.TestService.AddQuestions(questions)
+	if err != nil {
+		h.Loggers.ErrorLogger.Println(err)
+	}
+	//time to validate
+	marhsal, err := json.Marshal(questions)
 	w.Write(marhsal)
 	return
 }

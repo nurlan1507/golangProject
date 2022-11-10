@@ -663,3 +663,56 @@ ERROR: 	2022/11/10 17:48:46 authHandler.go:226: http: named cookie not present
 ERROR: 	2022/11/10 17:49:52 authHandler.go:226: http: named cookie not present
 ERROR: 	2022/11/10 17:52:34 authHandler.go:226: http: named cookie not present
 ERROR: 	2022/11/10 17:53:46 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/10 23:54:03 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/10 23:59:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:04:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:09:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:14:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:19:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:24:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:29:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:34:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:39:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:44:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:49:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:54:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:57:12 questionHandlers.go:20: ОШИБКА: столбец "correctanswer" в таблице "question" не существует (SQLSTATE 42703)
+ERROR: 	2022/11/11 00:58:22 testService.go:52: ОШИБКА: неверное значение для перечисления question_type: "Boolean" (SQLSTATE 22P02)
+ERROR: 	2022/11/11 00:58:22 questionHandlers.go:20: ОШИБКА: неверное значение для перечисления question_type: "Boolean" (SQLSTATE 22P02)
+ERROR: 	2022/11/11 00:59:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 00:59:46 testService.go:52: ОШИБКА: неверное значение для перечисления question_type: "Boolean" (SQLSTATE 22P02)
+ERROR: 	2022/11/11 00:59:46 questionHandlers.go:20: ОШИБКА: неверное значение для перечисления question_type: "Boolean" (SQLSTATE 22P02)
+ERROR: 	2022/11/11 01:04:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 01:09:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 01:12:26 testService.go:52: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 01:12:26 questionHandlers.go:20: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 01:13:37 testService.go:52: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 01:13:37 questionHandlers.go:20: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 01:13:58 testService.go:52: can't scan into dest[5]: cannot assign 1 into *float32
+ERROR: 	2022/11/11 01:13:58 questionHandlers.go:20: can't scan into dest[5]: cannot assign 1 into *float32
+ERROR: 	2022/11/11 01:14:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 01:16:42 testService.go:52: ОШИБКА: столбец "score" в таблице "question" не существует (SQLSTATE 42703)
+ERROR: 	2022/11/11 01:16:42 questionHandlers.go:20: ОШИБКА: столбец "score" в таблице "question" не существует (SQLSTATE 42703)
+ERROR: 	2022/11/11 01:17:11 testService.go:52: ОШИБКА: столбец "score" в таблице "question" не существует (SQLSTATE 42703)
+ERROR: 	2022/11/11 01:17:11 questionHandlers.go:20: ОШИБКА: столбец "score" в таблице "question" не существует (SQLSTATE 42703)
+ERROR: 	2022/11/11 01:17:32 testService.go:52: can't scan into dest[5]: cannot assign 1 into *float32
+ERROR: 	2022/11/11 01:17:32 questionHandlers.go:20: can't scan into dest[5]: cannot assign 1 into *float32
+ERROR: 	2022/11/11 01:19:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 01:24:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 01:29:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 01:34:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 01:39:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 01:44:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 01:49:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 01:54:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 01:59:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 02:04:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 02:09:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 02:14:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 02:19:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 02:24:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 02:29:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 02:34:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 02:39:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 02:44:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 02:55:10 questionHandlers.go:20: can't scan into dest[2]: unable to assign to bool
