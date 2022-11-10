@@ -68,16 +68,6 @@ func (h *Handler) CreateTest(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (h *Handler) AddQuestions(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
-	if err != nil {
-		h.Loggers.ErrorLogger.Println(err)
-		return
-	}
-
-	return
-}
-
 func (h *Handler) CreateTestPost(w http.ResponseWriter, r *http.Request) {
 
 }
