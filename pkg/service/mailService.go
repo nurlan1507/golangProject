@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"fmt"
 	"net/smtp"
 	"testApp/pkg/helpers"
 )
@@ -27,15 +28,15 @@ func SendMessage(message []byte, to []string) error {
 }
 
 func sendEmailToParticipants(message []byte, to []string) error {
+	fmt.Println(to)
 	from := "211369@astanait.edu.kz"
 	host := "smtp.office365.com"
-	auth := LoginAuth(from, "Baitasnur1507")
-	if len(to) == 0 {
-		return nil
-	}
-	err := smtp.SendMail(host+":587", auth, from, to, message)
-	if err != nil {
-		return helpers.EmailError
+	auth := LoginAuth(from, "Baitasnur1507!")
+	if len(to) != 0 {
+		err := smtp.SendMail(host+":587", auth, from, to, message)
+		if err != nil {
+			return helpers.EmailError
+		}
 	}
 	return nil
 }

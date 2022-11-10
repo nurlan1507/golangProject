@@ -26,17 +26,15 @@ func Routes() http.Handler {
 
 	//auth
 	//router.HandlerFunc(http.MethodGet, "/signUp", handlers.SignUp)
-	router.HandlerFunc(http.MethodGet, "/signIn", handlers.SignIn)
 	router.HandlerFunc(http.MethodPost, "/signIn", handlers.EnableCors(handlers.SignInPost))
 	router.HandlerFunc(http.MethodPost, "/signUp", handlers.EnableCors(handlers.SignUpPost))
 	router.HandlerFunc(http.MethodGet, "/getUsers", handlers.GetUsers)
-	router.HandlerFunc(http.MethodGet, "/signUpTeacher", handlers.SignUpTeacher)
-	router.HandlerFunc(http.MethodPost, "/signUpTeacher", handlers.SignUpTeacherPost)
+	router.HandlerFunc(http.MethodPost, "/signUpTeacher", handlers.EnableCors(handlers.SignUpTeacherPost))
 	//homepage
 	router.HandlerFunc(http.MethodGet, "/", handlers.AuthMiddleware(handlers.Home))
 
 	//test
-	router.HandlerFunc(http.MethodPost, "/createTest", handlers.CreateTest)
+	router.HandlerFunc(http.MethodPost, "/createTest", handlers.EnableCors(handlers.CreateTest))
 	//admin route
 	router.HandlerFunc(http.MethodGet, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacher)))
 	router.HandlerFunc(http.MethodPost, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacherPost)))
@@ -47,7 +45,7 @@ func Routes() http.Handler {
 	})
 
 	//refreshAccessToken
-	router.HandlerFunc(http.MethodGet, "/getNewAccessToken", handlers.GetNewAccessToken)
+	router.HandlerFunc(http.MethodGet, "/getNewAccessToken", handlers.EnableCors(handlers.GetNewAccessToken))
 
 	return router
 }

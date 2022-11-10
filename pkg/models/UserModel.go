@@ -5,13 +5,13 @@ import (
 )
 
 type UserModel struct {
-	Id             int
+	Id             int    `json:"id"`
 	Email          string `json:"email"`
 	Username       string `json:"username"`
 	Password       string `json:"password"`
 	AccessToken    string
 	RefreshToken   string
-	Role           string
+	Role           string `json:"role"`
 	RepeatPassword string `json:"repeatPassword"`
 }
 type SignUpModel struct {

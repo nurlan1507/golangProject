@@ -10,9 +10,9 @@ type TestModel struct {
 	Description string    `json:"description"`
 	SubjectId   int       `json:"subjectId"`
 	AuthorId    int       `json:"authorId"`
-	GroupId     string    `json:"groupId"`
+	GroupId     string    `json:"group"`
 	CreatedAt   time.Time `json:"create_at"`
-	StartAt     time.Time `json:"start_at"`
+	StartAt     time.Time `json:"st"`
 	ExpiresAt   time.Time `json:"expires_at"`
 }
 type QuestionModel struct {
@@ -23,6 +23,7 @@ type QuestionModel struct {
 	TestId       int    `json:"testId"`
 	CorrectValue string `json:"correctValue"` //Ответ на вопрос, важен только в случае типа вопроса с инпутом
 }
+
 type AnswerModel struct {
 	AnswerId   int    `json:"answerId"`
 	Value      string `json:"value"`

@@ -158,6 +158,7 @@ func (h *Handler) SignInPost(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, RefreshTokenCookie)
 	http.SetCookie(w, cookie)
 	response, _ := json.Marshal(result)
+	w.Header().Add("accessT", result.AccessToken)
 	w.WriteHeader(200)
 	w.Write(response)
 	return
@@ -222,15 +223,19 @@ func (h *Handler) GetNewAccessToken(w http.ResponseWriter, r *http.Request) {
 	refreshToken, err := r.Cookie("RefreshToken")
 	if err != nil {
 		w.WriteHeader(401)
+		h.Loggers.ErrorLogger.Println(err)
 		return
 	}
 	claims, err := h.TokenService.GetClaims(refreshToken.Value)
+	fmt.Println(claims)
 	if err != nil {
+		h.Loggers.ErrorLogger.Println(err)
 		w.WriteHeader(401)
 		return
 	}
 	token, err := h.TokenService.RefreshAccessToken(claims)
 	if err != nil {
+		h.Loggers.ErrorLogger.Println(err)
 		w.WriteHeader(500)
 		return
 	}

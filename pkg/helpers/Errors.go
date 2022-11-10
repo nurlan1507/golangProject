@@ -13,3 +13,4 @@ var ExpiredToken = errors.New("token is expired")
 var ExpiredRefreshToken = errors.New("RefreshToken is expired")
 
 var EmailError = errors.New("smtp error")
+var ValidationError = errors.New("validation error")

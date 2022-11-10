@@ -8,6 +8,10 @@ import (
 	"testApp/pkg/helpers"
 )
 
+func EnableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+}
+
 func (h *Handler) EnableCors(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -19,27 +23,31 @@ func (h *Handler) EnableCors(next http.HandlerFunc) http.HandlerFunc {
 func (h *Handler) AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		accessToken, err := r.Cookie("AccessToken")
+		if accessToken.Value != r.Header.Get("accessToken") {
+			w.WriteHeader(401)
+			return
+		}
 		if err != nil {
-			http.Redirect(w, r, "/signUp", 303)
+			w.WriteHeader(401)
 			return
 		}
 		_, e := h.TokenService.VerifyToken(accessToken.Value)
 		if e != nil {
 			if errors.Is(e.Err, helpers.ExpiredToken) {
 				userId, _ := strconv.Atoi(fmt.Sprint(e.Payload["Id"]))
-
 				fmt.Println(userId)
 				_, err := h.TokenService.GetRefreshToken(userId)
 				if err != nil {
 					if errors.Is(err, helpers.ExpiredRefreshToken) {
-						http.Redirect(w, r, "/signUp", 400)
+						w.WriteHeader(401)
 						return
 					}
 				}
 				//
 				token, err := h.TokenService.RefreshAccessToken(e.Payload)
 				if err != nil {
-					http.Error(w, "internal server error", 500)
+					w.WriteHeader(401)
+					return
 				}
 				newCookie := &http.Cookie{
 					Name:     "AccessToken",
@@ -49,7 +57,7 @@ func (h *Handler) AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 				}
 				http.SetCookie(w, newCookie)
 			} else {
-				http.Redirect(w, r, "/signUp", 303)
+				w.WriteHeader(401)
 				return
 			}
 		}

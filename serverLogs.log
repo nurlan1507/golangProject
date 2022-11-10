@@ -577,3 +577,72 @@ INFO: 	2022/11/05 05:45:39 key
 ERROR: 	2022/11/06 05:33:50 testHandler.go:30: cannot convert 5 to Text
 ERROR: 	2022/11/06 05:36:24 testHandler.go:32: cannot convert 5 to Text
 ERROR: 	2022/11/06 05:39:16 testHandler.go:32: smtp error
+INFO: 	2022/11/06 21:35:46 Kotakbas- Kotakbas1!
+INFO: 	2022/11/06 21:35:47 key
+ERROR: 	2022/11/06 21:42:42 authRepository.go:68: no rows in result set
+INFO: 	2022/11/06 22:18:43 nnnwww- Nurlan1507!
+INFO: 	2022/11/06 22:18:44 key
+INFO: 	2022/11/06 22:41:51 nurlan1507- Nurlan1507!
+INFO: 	2022/11/06 22:41:52 key
+ERROR: 	2022/11/06 22:59:32 authHandler.go:48: <nil>
+ERROR: 	2022/11/06 23:00:24 authHandler.go:48: <nil>
+ERROR: 	2022/11/06 23:00:29 authHandler.go:48: <nil>
+ERROR: 	2022/11/06 23:00:37 authHandler.go:48: <nil>
+ERROR: 	2022/11/06 23:01:20 authHandler.go:48: <nil>
+ERROR: 	2022/11/06 23:19:04 authHandler.go:225: http: named cookie not present
+ERROR: 	2022/11/06 23:19:28 authHandler.go:225: http: named cookie not present
+ERROR: 	2022/11/06 23:21:44 authHandler.go:225: http: named cookie not present
+ERROR: 	2022/11/07 03:13:52 authHandler.go:225: http: named cookie not present
+ERROR: 	2022/11/07 03:19:43 authHandler.go:225: http: named cookie not present
+ERROR: 	2022/11/07 03:24:43 authHandler.go:225: http: named cookie not present
+INFO: 	2022/11/07 03:25:15 key
+ERROR: 	2022/11/07 03:25:41 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 03:25:58 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 03:26:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 03:26:07 authHandler.go:226: http: named cookie not present
+INFO: 	2022/11/07 03:26:19 key
+INFO: 	2022/11/07 03:26:59 key
+ERROR: 	2022/11/07 03:33:33 testHandler.go:41: <nil>
+ERROR: 	2022/11/07 03:35:10 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 03:35:59 testHandler.go:41: <nil>
+ERROR: 	2022/11/07 03:36:24 testHandler.go:41: <nil>
+ERROR: 	2022/11/07 03:36:34 testHandler.go:41: <nil>
+ERROR: 	2022/11/07 03:36:44 testHandler.go:41: <nil>
+ERROR: 	2022/11/07 03:37:09 testHandler.go:41: <nil>
+ERROR: 	2022/11/07 03:37:30 testHandler.go:41: <nil>
+ERROR: 	2022/11/07 03:46:07 testHandler.go:27: parsing time "1684902600000" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "1684902600000" as "\""
+ERROR: 	2022/11/07 03:47:00 testHandler.go:27: parsing time "1684902600000" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "1684902600000" as "\""
+ERROR: 	2022/11/07 03:54:26 testHandler.go:27: parsing time "1684902600000" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "1684902600000" as "\""
+ERROR: 	2022/11/07 03:54:43 testHandler.go:27: parsing time "1684902600000" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "1684902600000" as "\""
+ERROR: 	2022/11/07 03:55:29 testHandler.go:27: parsing time "1684902600000" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "1684902600000" as "\""
+ERROR: 	2022/11/07 03:55:42 testHandler.go:27: parsing time "\"2222-05-24T10:30\"" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "\"" as ":"
+ERROR: 	2022/11/07 04:00:34 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 04:05:34 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 04:10:34 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 04:13:50 testHandler.go:27: parsing time "\"2222-05-24T10:30\"" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "\"" as ":"
+ERROR: 	2022/11/07 04:16:03 testHandler.go:27: parsing time "7964713800000" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "7964713800000" as "\""
+ERROR: 	2022/11/07 04:20:29 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 04:22:50 testHandler.go:28: parsing time "7964713800000" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "7964713800000" as "\""
+ERROR: 	2022/11/07 04:23:40 testHandler.go:28: parsing time "7964713800000" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "7964713800000" as "\""
+ERROR: 	2022/11/07 04:25:29 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 04:27:26 testHandler.go:53: smtp error
+ERROR: 	2022/11/07 04:27:26 testHandler.go:55: smtp error
+ERROR: 	2022/11/07 04:28:24 testHandler.go:53: smtp error
+ERROR: 	2022/11/07 04:28:24 testHandler.go:55: smtp error
+ERROR: 	2022/11/07 04:32:02 testHandler.go:28: parsing time "7964713800000" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "7964713800000" as "\""
+ERROR: 	2022/11/07 04:37:55 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 04:42:55 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 04:47:55 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 04:52:55 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 04:57:55 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 05:25:01 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 05:26:33 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 13:16:39 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 13:16:54 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 13:17:16 authHandler.go:226: http: named cookie not present
+INFO: 	2022/11/07 13:17:35 nurlan1407- nurlan1507!A
+INFO: 	2022/11/07 13:17:36 key
+ERROR: 	2022/11/07 13:19:43 authHandler.go:48: <nil>
+ERROR: 	2022/11/07 13:23:51 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 13:24:39 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/07 13:27:52 authHandler.go:226: http: named cookie not present

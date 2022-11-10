@@ -36,9 +36,9 @@ func (t *testRepository) FindStudents(groupId string) ([]string, error) {
 
 func (t *testRepository) CreateTest(newTest *models.TestModel) (*models.TestModel, error) {
 	test := &models.TestModel{}
-	stmt := `INSERT INTO test(title,description,author_id,created_at,start_at,expires_at) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *`
-	err := t.Db.QueryRow(context.Background(), stmt, newTest.Title, newTest.Description, newTest.AuthorId, newTest.CreatedAt, newTest.StartAt, newTest.StartAt).
-		Scan(&test.Id, &test.Title, &test.Description, &test.AuthorId, &test.CreatedAt, &test.StartAt, &test.ExpiresAt)
+	stmt := `INSERT INTO test(title,description,author_id,created_at,start_at,expires_at,group_name) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`
+	err := t.Db.QueryRow(context.Background(), stmt, newTest.Title, newTest.Description, newTest.AuthorId, newTest.CreatedAt, newTest.StartAt, newTest.StartAt, newTest.GroupId).
+		Scan(&test.Id, &test.Title, &test.Description, &test.AuthorId, &test.CreatedAt, &test.StartAt, &test.ExpiresAt, &test.GroupId)
 	if err != nil {
 		if errors.Is(err, helpers.ErrNoRecord) {
 			return nil, helpers.ErrNoRecord

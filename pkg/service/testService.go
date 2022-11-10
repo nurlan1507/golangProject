@@ -2,7 +2,6 @@ package service
 
 import (
 	"bytes"
-	"errors"
 	"html/template"
 	"testApp/pkg/helpers"
 	"testApp/pkg/models"
@@ -16,15 +15,7 @@ type testService struct {
 }
 
 func (t *testService) CreateTest(newTest *models.TestModel) (*models.TestModel, error) {
-	validation := helpers.NewValidation()
-	validation.Check(helpers.NotEmpty(newTest.Title), "title", "title must not be empty")
-	validation.Check(helpers.NotEmpty(newTest.Description), "Description", "Description must not be empty")
-	validation.Check(helpers.NotEmptyTime(newTest.ExpiresAt), "Expires", "Expires must not be empty")
 
-	if !validation.Valid() {
-		t.Validation = validation
-		return nil, errors.New("Bad dates of test")
-	}
 	createdTest, err := t.repo.CreateTest(newTest)
 
 	if err != nil {
