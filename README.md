@@ -64,3 +64,5 @@ alter table answer add constraint answer_question_fk foreign key (question_id) r
 alter table question add constraint  question_test_id_fk foreign key(test_id) references test(id);
 
 ```
+
+alter table question add column correctAnswer varchar(40);
