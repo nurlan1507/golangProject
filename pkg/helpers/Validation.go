@@ -19,6 +19,14 @@ func (v *Validation) Check(ok bool, field string, message string) {
 	return
 }
 
+func (v *Validation) CheckQuestions(ok bool, field string, message string) bool {
+	if !ok {
+		v.Errors[field] = message
+		return false
+	}
+	return true
+}
+
 // IsValid if map is empty then user passed the validation
 func (v *Validation) Valid() bool {
 	if len(v.Errors) == 0 {

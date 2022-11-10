@@ -28,10 +28,15 @@ func QuestionWithoutAnswers(question *models.QuestionModel) bool {
 	if len(question.Answers) == 0 {
 		return false
 	}
-	return true
+	for _, element := range question.Answers {
+		if element.Correct == true {
+			return true
+		}
+	}
+	return false
 }
 func NoDescription(question *models.QuestionModel) bool {
-	if len(strings.Trim(question.Description, "")) == 0 {
+	if len(strings.Trim(question.Description, "")) == 0 || question.Description == "" {
 		return false
 	}
 	return true

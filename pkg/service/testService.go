@@ -48,7 +48,11 @@ func (t *testService) CreateTest(newTest *models.TestModel) (*models.TestModel, 
 func (t *testService) AddQuestions(questions []*models.QuestionModel) ([]models.TestModel, error) {
 	for i, v := range questions {
 		fmt.Println(questions[i].Answers)
-		t.Validation.Check()
+		d := t.Validation.CheckQuestions(helpers.NoDescription(questions[i]), fmt.Sprintf("question--description-%v", i), "the description is empty")
+		a := t.Validation.CheckQuestions(helpers.QuestionWithoutAnswers(questions[i]), fmt.Sprintf("question-answers-%v", i), "please select a correct answer to this question")
+		if a == false || d == false {
+			continue
+		}
 		ind := i + 1
 		question, err := t.repo.AddQuestion(v, ind)
 		if err != nil {
@@ -64,6 +68,10 @@ func (t *testService) AddQuestions(questions []*models.QuestionModel) ([]models.
 		}
 	}
 	return nil, nil
+}
+
+func (t *testService) GetValidationErrorMap() map[string]string {
+	return t.Validation.Errors
 }
 func NewTestService(repo repository.Repository) *testService {
 	return &testService{

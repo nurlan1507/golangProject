@@ -16,10 +16,18 @@ func (h *Handler) AddQuestions(w http.ResponseWriter, r *http.Request) {
 	var questions []*models.QuestionModel
 	json.NewDecoder(r.Body).Decode(&questions)
 	_, err = h.TestService.AddQuestions(questions)
-	if err != nil {
-		h.Loggers.ErrorLogger.Println(err)
-	}
 	//time to validate
+	if len(h.TestService.GetValidationErrorMap()) != 0 {
+		w.WriteHeader(400)
+		marshalValidationErrorMap, err := json.Marshal(h.TestService.GetValidationErrorMap())
+		if err != nil {
+			w.WriteHeader(500)
+			return
+		}
+		w.Write(marshalValidationErrorMap)
+		return
+	}
+
 	marhsal, err := json.Marshal(questions)
 	w.Write(marhsal)
 	return
