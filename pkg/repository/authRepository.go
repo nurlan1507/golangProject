@@ -18,10 +18,10 @@ type Auth struct {
 	loggers helpers.Loggers
 }
 
-func (a *Auth) CreateUser(email string, username string, password string, role string) (*models.UserModel, error) {
-	stmt := `INSERT INTO users(email,username, password,role ) VALUES ($1, $2, $3,$4) RETURNING id, email,username,password,'student'`
+func (a *Auth) CreateUser(email string, username string, password string, role string, group_id int) (*models.UserModel, error) {
+	stmt := `INSERT INTO users(email,username, password,role,group_id ) VALUES ($1, $2, $3,$4,$5) RETURNING id, email,username,password,'student'`
 	newUser := &models.UserModel{}
-	err := a.Db.QueryRow(context.Background(), stmt, email, username, password, role).Scan(&newUser.Id, &newUser.Email, &newUser.Username, &newUser.Password, &newUser.Role)
+	err := a.Db.QueryRow(context.Background(), stmt, email, username, password, role, group_id).Scan(&newUser.Id, &newUser.Email, &newUser.Username, &newUser.Password, &newUser.Role)
 	var pgErr *pgconn.PgError
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {

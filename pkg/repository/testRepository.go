@@ -28,6 +28,7 @@ func (t *testRepository) FindStudents(groupId int) ([]string, error) {
 	for query.Next() {
 		var email string
 		err = query.Scan(&email)
+		fmt.Println(email)
 		if err != nil {
 			return nil, err
 		}

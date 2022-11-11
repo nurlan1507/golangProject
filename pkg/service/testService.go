@@ -31,7 +31,7 @@ func (t *testService) CreateTest(newTest *models.TestModel) (*models.TestModel, 
 	//sending email to participants
 	ts, err := template.ParseFiles("./ui/html/mailTemplates/invitationStudents.html")
 	buff := new(bytes.Buffer)
-	err = ts.Execute(buff, createdTest)
+	err = ts.Execute(buff, nil)
 	if err != nil {
 		t.Loggers.ErrorLogger.Println(err)
 		return nil, helpers.EmailError

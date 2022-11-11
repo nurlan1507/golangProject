@@ -45,7 +45,7 @@ func (u *User) SignUp(email string, username string, password string, groupId in
 	if err != nil {
 		return nil, err
 	}
-	newUser, err := u.repo.CreateUser(email, username, string(hashedPassword), "student")
+	newUser, err := u.repo.CreateUser(email, username, string(hashedPassword), "student", groupId)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +102,7 @@ func (u *User) SignUpTeacher(id int, password string) (*models.UserModel, error)
 	if err != nil {
 		return nil, err
 	}
-	newUser, err := u.repo.CreateUser(userData.Email, userData.Username, string(hashedPass), "Teacher")
+	newUser, err := u.repo.CreateUser(userData.Email, userData.Username, string(hashedPass), "Teacher", 0)
 	if err != nil {
 		return nil, err
 	}
