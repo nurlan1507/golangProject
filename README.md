@@ -3,7 +3,7 @@ This is the backend part of my website testApp, Frontend : https://github.com/nu
 
 
 
-```
+```postgresql
 create table pending_users(
     teacher_id serial primary key ,
     email varchar(40),

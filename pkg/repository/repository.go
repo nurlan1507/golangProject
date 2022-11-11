@@ -25,6 +25,7 @@ type TestRepository interface {
 	AddQuestion(question *models.QuestionModel, order int, testId int) (*models.QuestionModel, error)
 	AddAnswer(questionId int, answers map[string]*models.AnswerModel) ([]models.AnswerModel, error)
 	GetTest(testId int) (*models.TestModel, error)
+	GetMyTests(userId int) ([]*models.TestModel, error)
 	FindStudents(groupId int) ([]string, error)
 }
 

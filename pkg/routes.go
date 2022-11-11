@@ -31,7 +31,7 @@ func Routes() http.Handler {
 	router.HandlerFunc(http.MethodGet, "/getUsers", handlers.GetUsers)
 	router.HandlerFunc(http.MethodPost, "/signUpTeacher", handlers.EnableCors(handlers.SignUpTeacherPost))
 	//homepage
-	router.HandlerFunc(http.MethodGet, "/", handlers.AuthMiddleware(handlers.Home))
+	router.HandlerFunc(http.MethodGet, "/getTests", handlers.Home)
 
 	//test
 	router.HandlerFunc(http.MethodPost, "/createTest", handlers.EnableCors(handlers.CreateTest))
@@ -39,11 +39,6 @@ func Routes() http.Handler {
 	//admin route
 	router.HandlerFunc(http.MethodGet, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacher)))
 	router.HandlerFunc(http.MethodPost, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacherPost)))
-
-	router.HandlerFunc(http.MethodGet, "/q", func(writer http.ResponseWriter, request *http.Request) {
-		//json.NewEncoder(writer).Encode(5)
-		writer.Write([]byte("2"))
-	})
 
 	//refreshAccessToken
 	router.HandlerFunc(http.MethodGet, "/getNewAccessToken", handlers.EnableCors(handlers.GetNewAccessToken))

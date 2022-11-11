@@ -2,7 +2,9 @@ package service
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
+	"github.com/jackc/pgconn"
 	"html/template"
 	"testApp/pkg/helpers"
 	"testApp/pkg/models"
@@ -85,7 +87,18 @@ func (t *testService) GetTest(testId int) (*models.TestModel, error) {
 	}
 	return test, nil
 }
+func (t *testService) GetTests(userId int) ([]*models.TestModel, error) {
+	tests, err := t.repo.GetMyTests(userId)
+	if err != nil {
+		var pgErr *pgconn.PgError
+		if errors.As(err, &pgErr) {
 
+			return nil, helpers.DbError
+		}
+		return nil, err
+	}
+	return tests, nil
+}
 func (t *testService) GetValidationErrorMap() map[string]string {
 	return t.Validation.Errors
 }

@@ -161,7 +161,7 @@ func (h *Handler) SignInPost(w http.ResponseWriter, r *http.Request) {
 	http.SetCookie(w, RefreshTokenCookie)
 	http.SetCookie(w, cookie)
 	response, _ := json.Marshal(result)
-	w.Header().Add("accessT", result.AccessToken)
+	w.Header().Add("accessToken", cookie.Value)
 	w.WriteHeader(200)
 	w.Write(response)
 	return

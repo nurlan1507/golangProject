@@ -23,10 +23,6 @@ func (h *Handler) EnableCors(next http.HandlerFunc) http.HandlerFunc {
 func (h *Handler) AuthMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		accessToken, err := r.Cookie("AccessToken")
-		if accessToken.Value != r.Header.Get("accessToken") {
-			w.WriteHeader(401)
-			return
-		}
 		if err != nil {
 			w.WriteHeader(401)
 			return

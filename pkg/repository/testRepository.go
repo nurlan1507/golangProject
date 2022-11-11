@@ -116,6 +116,28 @@ func (t *testRepository) GetTest(testId int) (*models.TestModel, error) {
 	return nil, nil
 }
 
+func (t *testRepository) GetMyTests(userId int) ([]*models.TestModel, error) {
+	stmt := `select * from test t where t.group_id = any(select group_id from (select u.group_id from users u where u.id=$1) as ugi )`
+	result, err := t.Db.Query(context.Background(), stmt, userId)
+	if err != nil {
+		return nil, err
+	}
+	var ResArr []*models.TestModel
+	for result.Next() {
+		test := &models.TestModel{}
+		err := result.Scan(&test.Id, &test.Title, &test.Description, &test.AuthorId, &test.GroupId)
+		if err != nil {
+			if errors.Is(err, pgx.ErrNoRows) {
+				return nil, helpers.ErrNoRecord
+			}
+			return nil, err
+		}
+		ResArr = append(ResArr, test)
+	}
+
+	return ResArr, nil
+}
+
 func NewTestRepository(db *pgxpool.Pool) *testRepository {
 	return &testRepository{
 		Db: db,

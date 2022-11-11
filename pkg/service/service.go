@@ -30,6 +30,7 @@ type TestService interface {
 	AddQuestions(model []*models.QuestionModel, testId int) ([]models.TestModel, error)
 	GetValidationErrorMap() map[string]string
 	GetTest(testId int) (*models.TestModel, error)
+	GetTests(userId int) ([]*models.TestModel, error)
 }
 
 type Admin interface {

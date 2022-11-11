@@ -1,32 +1,36 @@
 package handler
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"strconv"
-	"testApp/pkg/models"
-	"testApp/pkg/templateData"
+	"testApp/pkg/helpers"
 )
 
-func (h *Handler) HOME(AuthDada models.UserModel) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		h.render(w, "home.tmpl", nil, 200)
-	}
-}
-
 func (h *Handler) Home(w http.ResponseWriter, r *http.Request) {
-	cookie, err := r.Cookie("AccessToken")
+	w.Header().Set("Content-Type", "application/json")
+	userId, _ := strconv.Atoi(r.URL.Query().Get("userId"))
+	fmt.Println(userId)
+	tests, err := h.TestService.GetTests(userId)
 	if err != nil {
+		if errors.Is(err, helpers.DbError) {
+			w.WriteHeader(500)
+			h.Loggers.ErrorLogger.Println(err)
+			return
+		}
+		h.Loggers.ErrorLogger.Println(err)
+		w.WriteHeader(404)
+		w.Write([]byte("Notfound"))
 		return
 	}
-	claims, err := h.TokenService.GetClaims(cookie.Value)
-	userID, _ := strconv.Atoi(fmt.Sprint(claims["Id"]))
-	AuthData := &models.UserModel{
-		Id:       userID,
-		Email:    fmt.Sprint(claims["Email"]),
-		Username: fmt.Sprint(claims["Username"]),
-		Role:     fmt.Sprint(claims["Role"]),
+	marshalTests, err := json.Marshal(tests)
+	if err != nil {
+		h.Loggers.ErrorLogger.Println(err)
+		w.WriteHeader(500)
+		return
 	}
-	fmt.Printf("%+v", AuthData)
-	h.render(w, "home.tmpl", templateData.NewTemplateData(AuthData, nil), 200)
+	w.Write(marshalTests)
+	return
 }
