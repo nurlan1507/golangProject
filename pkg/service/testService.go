@@ -45,21 +45,23 @@ func (t *testService) CreateTest(newTest *models.TestModel) (*models.TestModel, 
 	return createdTest, nil
 }
 
-func (t *testService) AddQuestions(questions []*models.QuestionModel) ([]models.TestModel, error) {
+func (t *testService) AddQuestions(questions []*models.QuestionModel, testId int) ([]models.TestModel, error) {
 	for i, v := range questions {
 		fmt.Println(questions[i].Answers)
-		d := t.Validation.CheckQuestions(helpers.NoDescription(questions[i]), fmt.Sprintf("question--description-%v", i), "the description is empty")
+		d := t.Validation.CheckQuestions(helpers.NoDescription(questions[i]), fmt.Sprintf("question-description-%v", i), "the description is empty")
 		a := t.Validation.CheckQuestions(helpers.QuestionWithoutAnswers(questions[i]), fmt.Sprintf("question-answers-%v", i), "please select a correct answer to this question")
 		if a == false || d == false {
 			continue
 		}
 		ind := i + 1
-		question, err := t.repo.AddQuestion(v, ind)
+		question, err := t.repo.AddQuestion(v, ind, testId)
 		if err != nil {
+			t.Loggers.ErrorLogger.Println(err)
 			return nil, err
 		}
 		_, err = t.repo.AddAnswer(question.QuestionId, questions[i].Answers)
 		if err != nil {
+			t.Loggers.ErrorLogger.Println(err)
 			return nil, err
 		}
 		if err != nil {

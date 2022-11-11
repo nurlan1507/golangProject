@@ -58,7 +58,11 @@ create table answer(
     correct bool,
     question_id int not null
 );
-
+alter table question
+    alter column point TYPE int
+alter table question
+    alter column question_type TYPE varchar(20)
+    
 alter table answer add constraint answer_question_fk foreign key (question_id) references question(question_id);
 
 alter table question add constraint  question_test_id_fk foreign key(test_id) references test(id);

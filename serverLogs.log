@@ -716,3 +716,104 @@ ERROR: 	2022/11/11 02:34:04 authHandler.go:226: http: named cookie not present
 ERROR: 	2022/11/11 02:39:04 authHandler.go:226: http: named cookie not present
 ERROR: 	2022/11/11 02:44:04 authHandler.go:226: http: named cookie not present
 ERROR: 	2022/11/11 02:55:10 questionHandlers.go:20: can't scan into dest[2]: unable to assign to bool
+ERROR: 	2022/11/11 05:58:26 questionHandlers.go:22: json: cannot unmarshal object into Go value of type []*models.QuestionModel
+ERROR: 	2022/11/11 05:58:55 questionHandlers.go:39: <nil>
+ERROR: 	2022/11/11 05:59:35 questionHandlers.go:22: json: cannot unmarshal object into Go value of type []*models.QuestionModel
+ERROR: 	2022/11/11 06:00:23 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 06:00:28 questionHandlers.go:22: json: cannot unmarshal object into Go value of type []*models.QuestionModel
+ERROR: 	2022/11/11 06:00:55 questionHandlers.go:22: json: cannot unmarshal object into Go value of type []*models.QuestionModel
+ERROR: 	2022/11/11 06:01:11 questionHandlers.go:22: json: cannot unmarshal object into Go value of type []*models.QuestionModel
+ERROR: 	2022/11/11 06:05:44 questionHandlers.go:22: json: cannot unmarshal object into Go value of type []*models.QuestionModel
+ERROR: 	2022/11/11 06:06:40 questionHandlers.go:22: json: cannot unmarshal object into Go value of type []*models.QuestionModel
+ERROR: 	2022/11/11 06:08:13 questionHandlers.go:22: json: cannot unmarshal object into Go value of type []*models.QuestionModel
+ERROR: 	2022/11/11 06:08:22 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 06:09:16 questionHandlers.go:22: json: cannot unmarshal object into Go value of type []*models.QuestionModel
+ERROR: 	2022/11/11 06:10:22 questionHandlers.go:24: json: cannot unmarshal bool into Go struct field AnswerModel.answers.value of type string
+ERROR: 	2022/11/11 06:11:22 questionHandlers.go:24: json: cannot unmarshal bool into Go struct field AnswerModel.answers.value of type string
+ERROR: 	2022/11/11 06:13:23 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 06:14:23 questionHandlers.go:41: <nil>
+ERROR: 	2022/11/11 06:14:30 questionHandlers.go:41: <nil>
+ERROR: 	2022/11/11 06:14:54 testService.go:59: ОШИБКА: значение не умещается в тип character varying(10) (SQLSTATE 22001)
+ERROR: 	2022/11/11 06:15:44 testService.go:59: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 06:15:55 testService.go:59: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 06:20:28 questionHandlers.go:41: <nil>
+ERROR: 	2022/11/11 06:20:35 testService.go:59: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 06:20:40 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 06:20:42 testService.go:59: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 06:20:51 questionHandlers.go:24: json: cannot unmarshal bool into Go struct field AnswerModel.answers.value of type string
+ERROR: 	2022/11/11 06:23:48 questionHandlers.go:24: json: cannot unmarshal bool into Go struct field AnswerModel.answers.value of type string
+ERROR: 	2022/11/11 06:24:15 questionHandlers.go:24: json: cannot unmarshal bool into Go struct field AnswerModel.answers.value of type string
+ERROR: 	2022/11/11 06:25:26 questionHandlers.go:24: json: cannot unmarshal bool into Go struct field AnswerModel.answers.value of type string
+ERROR: 	2022/11/11 06:25:54 questionHandlers.go:41: <nil>
+ERROR: 	2022/11/11 06:25:59 testService.go:59: ОШИБКА: INSERT или UPDATE в таблице "question" нарушает ограничение внешнего ключа "question_test_id_fk" (SQLSTATE 23503)
+ERROR: 	2022/11/11 06:26:36 questionHandlers.go:41: <nil>
+ERROR: 	2022/11/11 06:26:47 questionHandlers.go:41: <nil>
+ERROR: 	2022/11/11 06:27:04 questionHandlers.go:41: <nil>
+ERROR: 	2022/11/11 06:29:17 testService.go:59: ОШИБКА: INSERT или UPDATE в таблице "question" нарушает ограничение внешнего ключа "question_test_id_fk" (SQLSTATE 23503)
+ERROR: 	2022/11/11 08:15:52 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 08:16:37 testService.go:59: ОШИБКА: INSERT или UPDATE в таблице "question" нарушает ограничение внешнего ключа "question_test_id_fk" (SQLSTATE 23503)
+ERROR: 	2022/11/11 08:17:11 testService.go:59: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 08:17:43 testService.go:59: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 08:18:10 testService.go:59: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 08:22:08 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 08:23:35 questionHandlers.go:23: EOF
+ERROR: 	2022/11/11 08:27:08 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 08:27:41 questionHandlers.go:39: <nil>
+ERROR: 	2022/11/11 08:28:09 testService.go:59: ОШИБКА: значение не умещается в тип character varying(10) (SQLSTATE 22001)
+ERROR: 	2022/11/11 08:31:43 questionHandlers.go:39: <nil>
+ERROR: 	2022/11/11 08:31:52 questionHandlers.go:39: <nil>
+ERROR: 	2022/11/11 08:31:58 questionHandlers.go:39: <nil>
+ERROR: 	2022/11/11 08:32:07 testService.go:59: ОШИБКА: INSERT или UPDATE в таблице "question" нарушает ограничение внешнего ключа "question_test_id_fk" (SQLSTATE 23503)
+ERROR: 	2022/11/11 08:32:08 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 08:33:37 testService.go:59: ОШИБКА: значение не умещается в тип character varying(10) (SQLSTATE 22001)
+ERROR: 	2022/11/11 08:33:44 testService.go:59: ОШИБКА: INSERT или UPDATE в таблице "question" нарушает ограничение внешнего ключа "question_test_id_fk" (SQLSTATE 23503)
+ERROR: 	2022/11/11 08:36:27 testService.go:59: ОШИБКА: INSERT или UPDATE в таблице "question" нарушает ограничение внешнего ключа "question_test_id_fk" (SQLSTATE 23503)
+ERROR: 	2022/11/11 08:37:08 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 08:38:42 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 08:42:08 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 08:43:42 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 08:51:00 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 08:55:08 questionHandlers.go:27: json: cannot unmarshal string into Go struct field AddQuestionForm.testId of type int
+ERROR: 	2022/11/11 08:59:57 questionHandlers.go:28: json: cannot unmarshal string into Go struct field AddQuestionForm.questions of type []*models.QuestionModel
+ERROR: 	2022/11/11 09:00:00 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 09:00:34 questionHandlers.go:28: json: cannot unmarshal array into Go value of type handler.AddQuestionForm
+ERROR: 	2022/11/11 09:01:23 testService.go:59: number of field descriptions must equal number of destinations, got 8 and 6
+ERROR: 	2022/11/11 09:02:16 testService.go:59: number of field descriptions must equal number of destinations, got 8 and 6
+ERROR: 	2022/11/11 09:05:41 testService.go:59: ОШИБКА: значение не умещается в тип character varying(10) (SQLSTATE 22001)
+ERROR: 	2022/11/11 09:06:54 testService.go:59: ОШИБКА: значение не умещается в тип character varying(10) (SQLSTATE 22001)
+ERROR: 	2022/11/11 09:07:08 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 09:08:47 questionHandlers.go:47: <nil>
+ERROR: 	2022/11/11 09:10:36 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 09:15:59 testService.go:59: ОШИБКА: значение не умещается в тип character varying(10) (SQLSTATE 22001)
+ERROR: 	2022/11/11 09:18:33 testService.go:59: ОШИБКА: значение не умещается в тип character varying(10) (SQLSTATE 22001)
+ERROR: 	2022/11/11 09:25:18 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 09:35:40 testService.go:59: number of field descriptions must equal number of destinations, got 8 and 6
+ERROR: 	2022/11/11 09:38:19 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 09:39:18 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 09:41:03 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 09:41:27 testService.go:59: ОШИБКА: значение не умещается в тип character varying(10) (SQLSTATE 22001)
+ERROR: 	2022/11/11 09:41:52 testService.go:59: ОШИБКА: значение не умещается в тип character varying(10) (SQLSTATE 22001)
+ERROR: 	2022/11/11 09:44:16 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 09:46:46 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 09:48:26 testService.go:59: ОШИБКА: значение не умещается в тип character varying(10) (SQLSTATE 22001)
+ERROR: 	2022/11/11 09:49:16 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 09:50:13 testService.go:59: ОШИБКА: в кешированном плане не должен изменяться тип результата (SQLSTATE 0A000)
+ERROR: 	2022/11/11 09:52:32 testService.go:59: ОШИБКА: новая строка в отношении "question" нарушает ограничение-проверку "question_score_check" (SQLSTATE 23514)
+ERROR: 	2022/11/11 09:52:52 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 09:53:36 questionHandlers.go:29: json: cannot unmarshal string into Go struct field QuestionModel.questions.point of type int
+ERROR: 	2022/11/11 09:54:16 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 09:56:05 testService.go:59: number of field descriptions must equal number of destinations, got 8 and 6
+ERROR: 	2022/11/11 09:57:53 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 09:59:16 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 10:01:32 authHandler.go:48: <nil>
+ERROR: 	2022/11/11 10:04:16 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 10:07:30 testService.go:59: number of field descriptions must equal number of destinations, got 8 and 6
+ERROR: 	2022/11/11 10:08:30 testService.go:59: can't scan into dest[0]: unable to assign to *int
+ERROR: 	2022/11/11 10:09:16 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 10:10:54 testService.go:59: can't scan into dest[0]: unable to assign to *int
+ERROR: 	2022/11/11 10:11:56 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 10:12:09 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 10:14:16 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 10:19:16 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 10:19:29 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 10:23:04 authHandler.go:226: http: named cookie not present

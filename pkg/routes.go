@@ -35,7 +35,7 @@ func Routes() http.Handler {
 
 	//test
 	router.HandlerFunc(http.MethodPost, "/createTest", handlers.EnableCors(handlers.CreateTest))
-	router.HandlerFunc(http.MethodPost, "/addQuestions", handlers.AddQuestions)
+	router.HandlerFunc(http.MethodPost, "/addQuestions", handlers.EnableCors(handlers.AddQuestions))
 	//admin route
 	router.HandlerFunc(http.MethodGet, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacher)))
 	router.HandlerFunc(http.MethodPost, "/addTeacher", handlers.AuthMiddleware(handlers.IsAdmin(handlers.AddTeacherPost)))

@@ -50,12 +50,12 @@ func (t *testRepository) CreateTest(newTest *models.TestModel) (*models.TestMode
 	return test, nil
 }
 
-func (t *testRepository) AddQuestion(question *models.QuestionModel, order int) (*models.QuestionModel, error) {
+func (t *testRepository) AddQuestion(question *models.QuestionModel, order int, testId int) (*models.QuestionModel, error) {
 	stmt := `INSERT INTO question(description,question_type, question_order, correct_answer, test_id, point) VALUES($1,$2,$3,$4,$5,$6) 
-	RETURNING question_id,description,question_type,question_order,correct_answer,point`
+	RETURNING question_id,description,question_type, question_order, correct_answer`
 	newQuestion := &models.QuestionModel{}
-	err := t.Db.QueryRow(context.Background(), stmt, question.Description, question.Type, order, question.CorrectValue, question.TestId, question.Point).
-		Scan(&newQuestion.QuestionId, &newQuestion.Description, &newQuestion.Type, &newQuestion.Order, &newQuestion.CorrectValue, &newQuestion.Point)
+	err := t.Db.QueryRow(context.Background(), stmt, question.Description, question.Type, order, question.CorrectValue, testId, question.Point).
+		Scan(&newQuestion.QuestionId, &newQuestion.Description, &newQuestion.Type, &newQuestion.Order, &newQuestion.CorrectValue)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
 			return nil, helpers.ErrNoRecord
@@ -68,7 +68,7 @@ func (t *testRepository) AddQuestion(question *models.QuestionModel, order int) 
 	return newQuestion, nil
 }
 
-func (t *testRepository) AddAnswer(questionId int, answers map[string]models.AnswerModel) ([]models.AnswerModel, error) {
+func (t *testRepository) AddAnswer(questionId int, answers map[string]*models.AnswerModel) ([]models.AnswerModel, error) {
 	var addedAnswers = make([]models.AnswerModel, 0, 4)
 	for key, _ := range answers {
 		fmt.Print(key)

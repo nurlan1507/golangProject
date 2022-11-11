@@ -21,8 +21,8 @@ type IAdminRepository interface {
 
 type TestRepository interface {
 	CreateTest(model *models.TestModel) (*models.TestModel, error)
-	AddQuestion(question *models.QuestionModel, order int) (*models.QuestionModel, error)
-	AddAnswer(questionId int, answers map[string]models.AnswerModel) ([]models.AnswerModel, error)
+	AddQuestion(question *models.QuestionModel, order int, testId int) (*models.QuestionModel, error)
+	AddAnswer(questionId int, answers map[string]*models.AnswerModel) ([]models.AnswerModel, error)
 	FindStudents(groupId string) ([]string, error)
 }
 

@@ -25,9 +25,6 @@ func TimeIsValid(value time.Time) bool {
 }
 
 func QuestionWithoutAnswers(question *models.QuestionModel) bool {
-	if len(question.Answers) == 0 {
-		return false
-	}
 	for _, element := range question.Answers {
 		if element.Correct == true {
 			return true

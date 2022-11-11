@@ -1,14 +1,14 @@
 package models
 
 type QuestionModel struct {
-	QuestionId   int                    `json:"questionId"`
-	Description  string                 `json:"description"`
-	Type         string                 `json:"type"`
-	Order        int                    `json:"order"`
-	TestId       int                    `json:"testId"`
-	Answers      map[string]AnswerModel `json:"answers"`
-	Point        int                    `json:"point"`
-	CorrectValue string                 `json:"correctAnswer"` //Ответ на вопрос, важен только в случае типа вопроса с инпутом
+	QuestionId   int                     `json:"questionId"`
+	Description  string                  `json:"description"`
+	Type         string                  `json:"type"`
+	Order        int                     `json:"order"`
+	TestId       int                     `json:"testId"`
+	Answers      map[string]*AnswerModel `json:"answers"`
+	Point        interface{}             `json:"point"`
+	CorrectValue string                  `json:"correctAnswer"` //Ответ на вопрос, важен только в случае типа вопроса с инпутом
 }
 
 type AnswerModel struct {
