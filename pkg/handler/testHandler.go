@@ -36,7 +36,7 @@ func (h *Handler) CreateTest(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(newTest.StartAt.UTC())
 	testForm.Validation.Check(helpers.NotEmpty(newTest.Title), "title", "title can not be empty")
 	testForm.Validation.Check(helpers.NotEmpty(newTest.Description), "description", "description can not be empty")
-	testForm.Validation.Check(helpers.NotEmpty(newTest.GroupId), "group", "invited group can not be empty")
+	//testForm.Validation.Check(helpers.NotEmpty(newTest.GroupId), "group", "invited group can not be empty")
 	testForm.Validation.Check(helpers.NotEmptyTime(newTest.StartAt), "startAt", "start date can not be empty")
 	testForm.Validation.Check(helpers.TimeIsValid(newTest.StartAt), "startAt", "start date can not be equal or less then current time")
 	if !testForm.Validation.Valid() {
@@ -52,7 +52,6 @@ func (h *Handler) CreateTest(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		h.Loggers.ErrorLogger.Println(err)
 		w.WriteHeader(400)
-		h.Loggers.ErrorLogger.Println(err)
 	}
 
 	mars, err := json.Marshal(result)

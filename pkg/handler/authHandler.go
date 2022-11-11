@@ -16,6 +16,7 @@ type AuthForm struct {
 	Email     string `json:"email"`
 	Username  string `json:"username"`
 	Password  string `json:"password"`
+	GroupId   int    `json:"groupId"`
 	Validator *helpers.Validation
 }
 
@@ -33,10 +34,12 @@ func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
 		h.Loggers.ErrorLogger.Println(err)
 		return
 	}
+
 	AuthForm := &AuthForm{
 		Email:     newUser.Email,
 		Username:  newUser.Username,
 		Password:  newUser.Password,
+		GroupId:   newUser.GroupId,
 		Validator: helpers.NewValidation(),
 	}
 	AuthForm.Validator.Check(helpers.IsValidEmail(AuthForm.Email), "email", "email is not valid")
@@ -50,7 +53,7 @@ func (h *Handler) SignUpPost(w http.ResponseWriter, r *http.Request) {
 		w.Write(res)
 		return
 	}
-	user, err := h.UserService.SignUp(AuthForm.Email, AuthForm.Username, AuthForm.Password)
+	user, err := h.UserService.SignUp(AuthForm.Email, AuthForm.Username, AuthForm.Password, AuthForm.GroupId)
 	if err != nil {
 		res, err := json.Marshal(AuthForm.Validator.Errors)
 		if errors.Is(err, helpers.ErrDuplicate) {
@@ -221,6 +224,7 @@ func (h *Handler) SignUpTeacherPost(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) GetNewAccessToken(w http.ResponseWriter, r *http.Request) {
 	refreshToken, err := r.Cookie("RefreshToken")
+
 	if err != nil {
 		w.WriteHeader(401)
 		h.Loggers.ErrorLogger.Println(err)

@@ -2,18 +2,17 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 	"testApp/pkg/models"
 )
 
 type AddQuestionForm struct {
-	TestId    string                  `json:"testId"`
 	Questions []*models.QuestionModel `json:"questions"`
 }
 
 func (h *Handler) AddQuestions(w http.ResponseWriter, r *http.Request) {
+	testId, _ := strconv.Atoi(r.URL.Query().Get("testId"))
 	w.Header().Set("Content-Type", "application/json")
 	Form := &AddQuestionForm{}
 	err := r.ParseForm()
@@ -25,20 +24,19 @@ func (h *Handler) AddQuestions(w http.ResponseWriter, r *http.Request) {
 	err = json.NewDecoder(r.Body).Decode(&Form)
 	if err != nil {
 		w.WriteHeader(400)
-		fmt.Println(err)
 		h.Loggers.ErrorLogger.Println(err)
 		return
 	}
-	id, _ := strconv.Atoi(Form.TestId)
-	_, err = h.TestService.AddQuestions(Form.Questions, id)
+	_, err = h.TestService.AddQuestions(Form.Questions, testId)
 	//time to validate
 	if err != nil {
 
 		return
 	}
 
-	if len(h.TestService.GetValidationErrorMap()) != 0 {
-		marshalValidationErrorMap, err := json.Marshal(h.TestService.GetValidationErrorMap())
+	var errors = h.TestService.GetValidationErrorMap()
+	if len(errors) != 0 {
+		marshalValidationErrorMap, err := json.Marshal(&errors)
 		if err != nil {
 			h.Loggers.ErrorLogger.Println(err)
 			w.WriteHeader(500)
@@ -53,9 +51,17 @@ func (h *Handler) AddQuestions(w http.ResponseWriter, r *http.Request) {
 	marhsal, err := json.Marshal(&Form)
 	if err != nil {
 		w.WriteHeader(400)
-		w.Write([]byte(err.Error()))
+		_, err := w.Write([]byte(err.Error()))
+		if err != nil {
+			h.Loggers.ErrorLogger.Println(err)
+			return
+		}
 	}
-	w.WriteHeader(400)
 	w.Write(marhsal)
 	return
+}
+
+func (h *Handler) GetMyTests(w http.ResponseWriter, r *http.Request) {
+	//id, _ := strconv.Atoi(r.URL.Query().Get("userId"))
+
 }

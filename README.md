@@ -67,6 +67,21 @@ alter table answer add constraint answer_question_fk foreign key (question_id) r
 
 alter table question add constraint  question_test_id_fk foreign key(test_id) references test(id);
 
+alter table users drop column group_name;
+alter table users add column group_id int;
+create table groups(
+    id serial primary key ,
+    name varchar(20)
+);
+insert into groups(id,name)values(1,'SE2101');
+insert into groups(id,name)values(2,'SE2103');
+insert into groups(id,name)values(3,'SE2103');
+create table groups_students(
+                                student_id int not null ,
+                                group_id int not null ,
+                                foreign key (student_id) references users(id),
+                                foreign key (group_id) references groups(id)
+);
 ```
 
 alter table question add column correctAnswer varchar(40);

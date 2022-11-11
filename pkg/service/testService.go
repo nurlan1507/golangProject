@@ -16,9 +16,7 @@ type testService struct {
 }
 
 func (t *testService) CreateTest(newTest *models.TestModel) (*models.TestModel, error) {
-
 	createdTest, err := t.repo.CreateTest(newTest)
-
 	if err != nil {
 		t.Loggers.ErrorLogger.Println(err)
 		return nil, err
@@ -26,6 +24,7 @@ func (t *testService) CreateTest(newTest *models.TestModel) (*models.TestModel, 
 	//рассылка ученикам
 	emails, err := t.repo.FindStudents(createdTest.GroupId)
 	if err != nil {
+		t.Loggers.ErrorLogger.Println(err)
 		return nil, err
 	}
 	//sending email to participants
@@ -33,6 +32,7 @@ func (t *testService) CreateTest(newTest *models.TestModel) (*models.TestModel, 
 	buff := new(bytes.Buffer)
 	err = ts.Execute(buff, createdTest)
 	if err != nil {
+		t.Loggers.ErrorLogger.Println(err)
 		return nil, helpers.EmailError
 	}
 	subject := "Invitation\n"
@@ -46,8 +46,12 @@ func (t *testService) CreateTest(newTest *models.TestModel) (*models.TestModel, 
 }
 
 func (t *testService) AddQuestions(questions []*models.QuestionModel, testId int) ([]models.TestModel, error) {
+
 	for i, v := range questions {
-		fmt.Println(questions[i].Answers)
+		fmt.Printf("%+v", v)
+		fmt.Println(" ")
+
+		fmt.Println(" ")
 		d := t.Validation.CheckQuestions(helpers.NoDescription(questions[i]), fmt.Sprintf("question-description-%v", i), "the description is empty")
 		a := t.Validation.CheckQuestions(helpers.QuestionWithoutAnswers(questions[i]), fmt.Sprintf("question-answers-%v", i), "please select a correct answer to this question")
 		if a == false || d == false {
@@ -70,6 +74,15 @@ func (t *testService) AddQuestions(questions []*models.QuestionModel, testId int
 		}
 	}
 	return nil, nil
+}
+
+func (t *testService) GetTest(testId int) (*models.TestModel, error) {
+	test, err := t.repo.GetTest(testId)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	return test, nil
 }
 
 func (t *testService) GetValidationErrorMap() map[string]string {

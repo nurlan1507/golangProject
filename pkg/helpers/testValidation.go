@@ -26,6 +26,7 @@ func TimeIsValid(value time.Time) bool {
 
 func QuestionWithoutAnswers(question *models.QuestionModel) bool {
 	for _, element := range question.Answers {
+		fmt.Printf("%+v", element.Correct)
 		if element.Correct == true {
 			return true
 		}

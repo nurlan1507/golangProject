@@ -15,8 +15,8 @@ type testRepository struct {
 	Db *pgxpool.Pool
 }
 
-func (t *testRepository) FindStudents(groupId string) ([]string, error) {
-	stmt := `SELECT email FROM users WHERE group_name LIKE $1`
+func (t *testRepository) FindStudents(groupId int) ([]string, error) {
+	stmt := `SELECT email FROM users WHERE group_id LIKE $1`
 	query, err := t.Db.Query(context.Background(), stmt, groupId)
 	if err != nil {
 		if errors.Is(err, helpers.ErrNoRecord) {
@@ -37,8 +37,9 @@ func (t *testRepository) FindStudents(groupId string) ([]string, error) {
 }
 
 func (t *testRepository) CreateTest(newTest *models.TestModel) (*models.TestModel, error) {
+	fmt.Println(newTest)
 	test := &models.TestModel{}
-	stmt := `INSERT INTO test(title,description,author_id,created_at,start_at,expires_at,group_name) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`
+	stmt := `INSERT INTO test(title,description,author_id,created_at,start_at,expires_at,group_id) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING * `
 	err := t.Db.QueryRow(context.Background(), stmt, newTest.Title, newTest.Description, newTest.AuthorId, newTest.CreatedAt, newTest.StartAt, newTest.StartAt, newTest.GroupId).
 		Scan(&test.Id, &test.Title, &test.Description, &test.AuthorId, &test.CreatedAt, &test.StartAt, &test.ExpiresAt, &test.GroupId)
 	if err != nil {
@@ -71,7 +72,6 @@ func (t *testRepository) AddQuestion(question *models.QuestionModel, order int, 
 func (t *testRepository) AddAnswer(questionId int, answers map[string]*models.AnswerModel) ([]models.AnswerModel, error) {
 	var addedAnswers = make([]models.AnswerModel, 0, 4)
 	for key, _ := range answers {
-		fmt.Print(key)
 		stmt := `INSERT INTO answer(value,correct,question_id) values($1,$2,$3) RETURNING answer_id, value,correct,question_id `
 		answer := &models.AnswerModel{}
 		err := t.Db.QueryRow(context.Background(), stmt, answers[key].Value, answers[key].Correct, questionId).
@@ -82,26 +82,39 @@ func (t *testRepository) AddAnswer(questionId int, answers map[string]*models.An
 			}
 			var pgErr *pgconn.PgError
 			if errors.As(err, &pgErr) {
-				fmt.Println(pgErr.ColumnName, pgErr.Detail)
 				return nil, pgErr
 			}
-			fmt.Println(err)
 			return nil, err
 		}
-		fmt.Printf("%+v", answer)
 		addedAnswers = append(addedAnswers, *answer)
 	}
 	fmt.Println(answers)
 	return addedAnswers, nil
 }
 
-//func (t *testRepository) AddAnswer(value string, correct bool, questionId int) (*models.AnswerModel,error){
-//	stmt := `INSERT INTO answer(value,correct,question_id) VALUES`
-//}
+//	func (t *testRepository) AddAnswer(value string, correct bool, questionId int) (*models.AnswerModel,error){
+//		stmt := `INSERT INTO answer(value,correct,question_id) VALUES`
+//	}
 //
-//func (t *testRepository) DeleteQuestion() {
+// func (t *testRepository) DeleteQuestion() {
 //
-//}
+// }
+func (t *testRepository) GetTest(testId int) (*models.TestModel, error) {
+	stmt := `SELECT * FROM test t WHERE t.id like $1`
+	newTest := &models.TestModel{}
+	err := t.Db.QueryRow(context.Background(), stmt, testId).Scan(&newTest.Id, &newTest.Title, &newTest.Description, &newTest.AuthorId, &newTest.CreatedAt, &newTest.StartAt, &newTest.ExpiresAt, newTest.GroupId)
+	var pgErr *pgconn.PgError
+	if err != nil {
+		if errors.As(err, &pgErr) {
+			return nil, helpers.ErrNoRecord
+		}
+		if errors.Is(err, pgx.ErrNoRows) {
+			return nil, helpers.ErrNoRecord
+		}
+		return nil, err
+	}
+	return nil, nil
+}
 
 func NewTestRepository(db *pgxpool.Pool) *testRepository {
 	return &testRepository{

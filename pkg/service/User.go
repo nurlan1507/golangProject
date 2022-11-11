@@ -39,7 +39,7 @@ func (u *User) SignIn(email string, password string) (*models.UserModel, error) 
 	return user, nil
 }
 
-func (u *User) SignUp(email string, username string, password string) (*models.UserModel, error) {
+func (u *User) SignUp(email string, username string, password string, groupId int) (*models.UserModel, error) {
 	u.loggers.InfoLogger.Println(username + "- " + password)
 	hashedPassword, err := u.HashPassword(password)
 	if err != nil {
@@ -47,6 +47,11 @@ func (u *User) SignUp(email string, username string, password string) (*models.U
 	}
 	newUser, err := u.repo.CreateUser(email, username, string(hashedPassword), "student")
 	if err != nil {
+		return nil, err
+	}
+	err = u.repo.AddToGroup(newUser.Id, groupId)
+	if err != nil {
+		u.loggers.ErrorLogger.Println(err)
 		return nil, err
 	}
 	jwt, err := u.JWT.NewJWT(newUser, 1)

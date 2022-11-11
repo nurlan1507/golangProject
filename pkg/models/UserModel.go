@@ -19,6 +19,7 @@ type SignUpModel struct {
 	Username       string `json:"username"`
 	Password       string `json:"password"`
 	RepeatPassword string `json:"repeatPassword"`
+	GroupId        int    `json:"groupId"`
 }
 
 type RefreshToken struct {

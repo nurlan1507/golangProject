@@ -19,7 +19,7 @@ type Auth struct {
 }
 
 func (a *Auth) CreateUser(email string, username string, password string, role string) (*models.UserModel, error) {
-	stmt := `INSERT INTO users(email,username, password,role) VALUES ($1, $2, $3,$4) RETURNING id, email,username,password,'student'`
+	stmt := `INSERT INTO users(email,username, password,role ) VALUES ($1, $2, $3,$4) RETURNING id, email,username,password,'student'`
 	newUser := &models.UserModel{}
 	err := a.Db.QueryRow(context.Background(), stmt, email, username, password, role).Scan(&newUser.Id, &newUser.Email, &newUser.Username, &newUser.Password, &newUser.Role)
 	var pgErr *pgconn.PgError
@@ -132,7 +132,15 @@ func (a *Auth) DeletePendingUser(userId int) (*models.UserModel, error) {
 	}
 	return newUser, nil
 }
-
+func (a *Auth) AddToGroup(userId int, groupId int) error {
+	stmt := `INSERT INTO groups_students (student_id,group_id) 	VALUES ($1,$2)`
+	res, err := a.Db.Exec(context.Background(), stmt, userId, groupId)
+	if err != nil {
+		return err
+	}
+	res.Insert()
+	return nil
+}
 func NewAuthRepo(db *pgxpool.Pool) *Auth {
 	return &Auth{Db: db, loggers: *helpers.InitLoggers()}
 }

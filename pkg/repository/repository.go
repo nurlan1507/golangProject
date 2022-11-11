@@ -13,6 +13,7 @@ type Authorization interface {
 	CreateRefreshToken(userId int, refreshToken string) error
 	GetRefreshToken(userId int) (*models.RefreshToken, error)
 	DeletePendingUser(userId int) (*models.UserModel, error)
+	AddToGroup(userId int, groupId int) error
 }
 type IAdminRepository interface {
 	CreateTeacher(email string, username string) (*models.UserModel, error)
@@ -23,7 +24,8 @@ type TestRepository interface {
 	CreateTest(model *models.TestModel) (*models.TestModel, error)
 	AddQuestion(question *models.QuestionModel, order int, testId int) (*models.QuestionModel, error)
 	AddAnswer(questionId int, answers map[string]*models.AnswerModel) ([]models.AnswerModel, error)
-	FindStudents(groupId string) ([]string, error)
+	GetTest(testId int) (*models.TestModel, error)
+	FindStudents(groupId int) ([]string, error)
 }
 
 type Repository struct {

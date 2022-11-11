@@ -9,7 +9,7 @@ import (
 
 type UserService interface {
 	SignIn(email string, password string) (*models.UserModel, error)
-	SignUp(email string, username string, password string) (*models.UserModel, error)
+	SignUp(email string, username string, password string, groupId int) (*models.UserModel, error)
 	HashPassword(password string) ([]byte, error)
 	CheckPassword(password string, hashedPassword string) (bool, error)
 	GetUsers() []models.UserModel
@@ -29,6 +29,7 @@ type TestService interface {
 	CreateTest(model *models.TestModel) (*models.TestModel, error)
 	AddQuestions(model []*models.QuestionModel, testId int) ([]models.TestModel, error)
 	GetValidationErrorMap() map[string]string
+	GetTest(testId int) (*models.TestModel, error)
 }
 
 type Admin interface {
