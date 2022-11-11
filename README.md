@@ -82,6 +82,10 @@ create table groups_students(
                                 foreign key (student_id) references users(id),
                                 foreign key (group_id) references groups(id)
 );
+alter table test drop column created_at;
+
+alter table test drop column expires_at;
+alter table test drop column start_at;
 ```
 
 alter table question add column correctAnswer varchar(40);

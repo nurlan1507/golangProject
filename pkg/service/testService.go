@@ -23,6 +23,7 @@ func (t *testService) CreateTest(newTest *models.TestModel) (*models.TestModel, 
 	}
 	//рассылка ученикам
 	emails, err := t.repo.FindStudents(createdTest.GroupId)
+	fmt.Println(emails)
 	if err != nil {
 		t.Loggers.ErrorLogger.Println(err)
 		return nil, err

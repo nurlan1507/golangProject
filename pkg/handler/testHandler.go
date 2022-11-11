@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"testApp/pkg/helpers"
 	"testApp/pkg/models"
-	"time"
 )
 
 type testForm struct {
@@ -22,7 +21,6 @@ func (h *Handler) CreateTest(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	newTest := &models.TestModel{}
 	err = json.NewDecoder(r.Body).Decode(&newTest)
-	newTest.StartAt = time.Now().Add(time.Hour * 1)
 	testForm := &testForm{Validation: helpers.NewValidation()}
 	if err != nil {
 		h.Loggers.ErrorLogger.Println(err)
@@ -32,13 +30,13 @@ func (h *Handler) CreateTest(w http.ResponseWriter, r *http.Request) {
 		w.Write(resp)
 		return
 	}
+	//newTest.StartAt = time.Now().Add(time.Hour * 3)
 	//validation
-	fmt.Println(newTest.StartAt.UTC())
 	testForm.Validation.Check(helpers.NotEmpty(newTest.Title), "title", "title can not be empty")
 	testForm.Validation.Check(helpers.NotEmpty(newTest.Description), "description", "description can not be empty")
 	//testForm.Validation.Check(helpers.NotEmpty(newTest.GroupId), "group", "invited group can not be empty")
-	testForm.Validation.Check(helpers.NotEmptyTime(newTest.StartAt), "startAt", "start date can not be empty")
-	testForm.Validation.Check(helpers.TimeIsValid(newTest.StartAt), "startAt", "start date can not be equal or less then current time")
+	//testForm.Validation.Check(helpers.NotEmptyTime(newTest.StartAt), "startAt", "start date can not be empty")
+	//testForm.Validation.Check(helpers.TimeIsValid(newTest.StartAt), "startAt", "start date can not be equal or less then current time")
 	if !testForm.Validation.Valid() {
 		w.WriteHeader(400)
 		fmt.Println(testForm.Validation.Errors)

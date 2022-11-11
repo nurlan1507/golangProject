@@ -16,7 +16,7 @@ type testRepository struct {
 }
 
 func (t *testRepository) FindStudents(groupId int) ([]string, error) {
-	stmt := `SELECT email FROM users WHERE group_id LIKE $1`
+	stmt := `SELECT email FROM users WHERE group_id = $1`
 	query, err := t.Db.Query(context.Background(), stmt, groupId)
 	if err != nil {
 		if errors.Is(err, helpers.ErrNoRecord) {
@@ -37,13 +37,12 @@ func (t *testRepository) FindStudents(groupId int) ([]string, error) {
 }
 
 func (t *testRepository) CreateTest(newTest *models.TestModel) (*models.TestModel, error) {
-	fmt.Println(newTest)
 	test := &models.TestModel{}
-	stmt := `INSERT INTO test(title,description,author_id,created_at,start_at,expires_at,group_id) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING * `
-	err := t.Db.QueryRow(context.Background(), stmt, newTest.Title, newTest.Description, newTest.AuthorId, newTest.CreatedAt, newTest.StartAt, newTest.StartAt, newTest.GroupId).
-		Scan(&test.Id, &test.Title, &test.Description, &test.AuthorId, &test.CreatedAt, &test.StartAt, &test.ExpiresAt, &test.GroupId)
+	stmt := `INSERT INTO test(title,description,author_id,group_id) VALUES ($1,$2,$3,$4) RETURNING * `
+	err := t.Db.QueryRow(context.Background(), stmt, newTest.Title, newTest.Description, newTest.AuthorId, newTest.GroupId).
+		Scan(&test.Id, &test.Title, &test.Description, &test.AuthorId, &test.GroupId)
 	if err != nil {
-		if errors.Is(err, helpers.ErrNoRecord) {
+		if errors.Is(err, pgx.ErrNoRows) {
 			return nil, helpers.ErrNoRecord
 		}
 		return nil, err
@@ -102,7 +101,7 @@ func (t *testRepository) AddAnswer(questionId int, answers map[string]*models.An
 func (t *testRepository) GetTest(testId int) (*models.TestModel, error) {
 	stmt := `SELECT * FROM test t WHERE t.id like $1`
 	newTest := &models.TestModel{}
-	err := t.Db.QueryRow(context.Background(), stmt, testId).Scan(&newTest.Id, &newTest.Title, &newTest.Description, &newTest.AuthorId, &newTest.CreatedAt, &newTest.StartAt, &newTest.ExpiresAt, newTest.GroupId)
+	err := t.Db.QueryRow(context.Background(), stmt, testId).Scan(&newTest.Id, &newTest.Title, &newTest.Description, &newTest.AuthorId, newTest.GroupId)
 	var pgErr *pgconn.PgError
 	if err != nil {
 		if errors.As(err, &pgErr) {

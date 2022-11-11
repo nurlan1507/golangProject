@@ -817,3 +817,153 @@ ERROR: 	2022/11/11 10:14:16 authHandler.go:226: http: named cookie not present
 ERROR: 	2022/11/11 10:19:16 authHandler.go:226: http: named cookie not present
 ERROR: 	2022/11/11 10:19:29 questionHandlers.go:48: <nil>
 ERROR: 	2022/11/11 10:23:04 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 15:32:24 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 15:34:50 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 15:37:24 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 15:39:33 questionHandlers.go:49: <nil>
+ERROR: 	2022/11/11 15:39:47 questionHandlers.go:49: <nil>
+ERROR: 	2022/11/11 15:42:12 questionHandlers.go:49: <nil>
+ERROR: 	2022/11/11 15:42:24 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 15:44:05 questionHandlers.go:49: <nil>
+ERROR: 	2022/11/11 15:45:36 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 15:45:36 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 15:51:47 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 15:56:47 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 16:01:47 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 16:06:47 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 16:11:47 authHandler.go:226: http: named cookie not present
+ERROR: 	2022/11/11 16:34:49 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 16:52:43 authHandler.go:227: http: named cookie not present
+ERROR: 	2022/11/11 16:53:07 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 16:53:10 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 16:54:44 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 16:57:56 authHandler.go:227: http: named cookie not present
+ERROR: 	2022/11/11 17:01:45 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 17:01:57 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 17:02:26 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 17:02:35 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 17:03:10 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 18:34:47 authHandler.go:51: <nil>
+ERROR: 	2022/11/11 18:34:54 authHandler.go:51: <nil>
+ERROR: 	2022/11/11 18:35:10 authHandler.go:34: json: cannot unmarshal number into Go struct field SignUpModel.groupId of type string
+ERROR: 	2022/11/11 18:35:10 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:36:25 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:36:40 authHandler.go:34: json: cannot unmarshal number into Go struct field SignUpModel.groupId of type string
+ERROR: 	2022/11/11 18:36:41 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:37:57 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:39:15 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:39:31 authHandler.go:34: json: cannot unmarshal number into Go struct field SignUpModel.groupId of type string
+ERROR: 	2022/11/11 18:39:31 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:39:58 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:39:58 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:40:12 authHandler.go:34: json: cannot unmarshal number into Go struct field SignUpModel.groupId of type string
+ERROR: 	2022/11/11 18:40:12 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:40:31 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:40:31 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:40:42 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:40:46 authHandler.go:34: json: cannot unmarshal number into Go struct field SignUpModel.groupId of type string
+ERROR: 	2022/11/11 18:41:53 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 18:42:04 authHandler.go:34: json: cannot unmarshal number into Go struct field SignUpModel.groupId of type string
+INFO: 	2022/11/11 18:43:41 211369- Nurlan1507!
+INFO: 	2022/11/11 18:43:42 key
+ERROR: 	2022/11/11 18:54:16 authHandler.go:230: http: named cookie not present
+INFO: 	2022/11/11 19:15:55 Nurlan2- Nurlan1507!
+INFO: 	2022/11/11 19:15:56 key
+ERROR: 	2022/11/11 19:16:27 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:16:33 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:16:37 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:16:41 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:16:46 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:16:55 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:17:05 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:17:17 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:17:20 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:23:19 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:23:24 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:23:28 authRepository.go:68: no rows in result set
+ERROR: 	2022/11/11 19:23:35 authRepository.go:68: no rows in result set
+ERROR: 	2022/11/11 19:23:46 authRepository.go:68: no rows in result set
+ERROR: 	2022/11/11 19:24:14 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:24:15 authHandler.go:230: http: named cookie not present
+INFO: 	2022/11/11 19:24:33 key
+ERROR: 	2022/11/11 19:25:13 testHandler.go:53: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:25:13 testHandler.go:55: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:29:28 testService.go:23: ОШИБКА: ошибка синтаксиса в конце (SQLSTATE 42601)
+ERROR: 	2022/11/11 19:29:28 testHandler.go:53: ОШИБКА: ошибка синтаксиса в конце (SQLSTATE 42601)
+ERROR: 	2022/11/11 19:29:28 testHandler.go:55: ОШИБКА: ошибка синтаксиса в конце (SQLSTATE 42601)
+ERROR: 	2022/11/11 19:32:10 testService.go:23: ОШИБКА: ошибка синтаксиса в конце (SQLSTATE 42601)
+ERROR: 	2022/11/11 19:32:10 testHandler.go:53: ОШИБКА: ошибка синтаксиса в конце (SQLSTATE 42601)
+ERROR: 	2022/11/11 19:34:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:35:49 testService.go:23: ОШИБКА: ошибка синтаксиса в конце (SQLSTATE 42601)
+ERROR: 	2022/11/11 19:35:49 testHandler.go:53: ОШИБКА: ошибка синтаксиса в конце (SQLSTATE 42601)
+ERROR: 	2022/11/11 19:39:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:42:06 testService.go:23: ОШИБКА: ошибка синтаксиса в конце (SQLSTATE 42601)
+ERROR: 	2022/11/11 19:42:06 testHandler.go:53: ОШИБКА: ошибка синтаксиса в конце (SQLSTATE 42601)
+ERROR: 	2022/11/11 19:44:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:46:38 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:46:38 testHandler.go:53: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:46:58 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:47:26 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:47:26 testHandler.go:53: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:47:38 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:47:38 testHandler.go:53: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:47:41 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:47:41 testHandler.go:53: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:47:59 testHandler.go:28: json: cannot unmarshal string into Go struct field TestModel.groupId of type int
+ERROR: 	2022/11/11 19:48:25 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:48:25 testHandler.go:53: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:49:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:50:34 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 19:50:43 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 19:52:15 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 19:53:28 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 19:53:36 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 19:54:06 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 19:54:32 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:54:32 testHandler.go:53: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 19:54:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 19:55:42 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 19:55:48 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 19:56:13 questionHandlers.go:48: <nil>
+ERROR: 	2022/11/11 19:58:55 questionHandlers.go:46: <nil>
+ERROR: 	2022/11/11 19:59:04 questionHandlers.go:46: <nil>
+ERROR: 	2022/11/11 19:59:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:00:28 questionHandlers.go:46: <nil>
+ERROR: 	2022/11/11 20:12:56 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:12:56 testHandler.go:53: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:14:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:16:33 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:16:33 testHandler.go:54: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:17:47 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:19:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:22:19 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:22:19 testHandler.go:52: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:22:46 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:24:33 testHandler.go:26: parsing time "1668176673307" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "1668176673307" as "\""
+ERROR: 	2022/11/11 20:24:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:25:05 testHandler.go:26: parsing time "1668176705231" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "1668176705231" as "\""
+ERROR: 	2022/11/11 20:27:47 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:29:29 testHandler.go:26: parsing time "1022214120000" as "\"2006-01-02T15:04:05Z07:00\"": cannot parse "1022214120000" as "\""
+ERROR: 	2022/11/11 20:29:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:32:47 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:32:57 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:32:57 testHandler.go:52: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:34:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:35:44 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:35:44 testHandler.go:52: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:37:12 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:37:12 testHandler.go:52: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:37:47 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:39:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:41:32 testService.go:21: ОШИБКА: столбец "created_at" в таблице "test" не существует (SQLSTATE 42703)
+ERROR: 	2022/11/11 20:41:32 testHandler.go:51: ОШИБКА: столбец "created_at" в таблице "test" не существует (SQLSTATE 42703)
+ERROR: 	2022/11/11 20:43:08 testService.go:27: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:43:08 testHandler.go:51: ОШИБКА: оператор не существует: integer ~~ unknown (SQLSTATE 42883)
+ERROR: 	2022/11/11 20:44:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:46:23 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:48:27 testService.go:35: template: invitationStudents.html:6:119: executing "invitationStudents.html" at <.StartAt>: can't evaluate field StartAt in type *models.TestModel
+ERROR: 	2022/11/11 20:48:27 testHandler.go:51: smtp error
+ERROR: 	2022/11/11 20:49:49 authHandler.go:230: http: named cookie not present
+ERROR: 	2022/11/11 20:49:56 testService.go:36: template: invitationStudents.html:6:119: executing "invitationStudents.html" at <.StartAt>: can't evaluate field StartAt in type *models.TestModel
+ERROR: 	2022/11/11 20:49:56 testHandler.go:51: smtp error
+ERROR: 	2022/11/11 20:51:23 authHandler.go:230: http: named cookie not present
